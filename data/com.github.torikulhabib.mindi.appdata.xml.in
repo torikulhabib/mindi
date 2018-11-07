@@ -1,15 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Copyright 2018 torikulhabib <torik.habib@gmail.com> -->
 <component type="desktop">
-  <id>com.github.torikulhabib.mindi.desktop</id>
+  <id>com.github.torikulhabib.mindi</id>
   <metadata_license>CC0-1.0</metadata_license>
-  <project_group>torikulhabib</project_group>
   <project_license>GPL-3.0+</project_license>
-  <name></name>
-  <summary></summary>
-  <description></description>
+  <name>Mindi</name>
+  <summary>A simple Audio converter</summary>
+  <description>
+    <p>
+    Option to quickly convert video to audio:
+    </p>
+    <p>
+    Features:
+    </p>
+    <ul>
+    <li>Use from context menu: right click on video, and select "Convert to Audio.</li>
+    <li>Use from Applications select video.</li>
+    </ul>
+  </description>
+  <screenshots>
+    <screenshot type="default">
+      <image>https://raw.githubusercontent.com/torikulhabib/mindi/master/Screenshot.png</image>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/torikulhabib/mindi/master/Screenshot1.png</image>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/torikulhabib/mindi/master/Screenshot2.png</image>
+    </screenshot>
+  </screenshots>
   <releases>
-    <release version="1.0.1" date="2018-12-07"/>
+    <release version="1.0.2" date="2018-12-07"/>
+      <description>
+        <ul>
+        <li>first release</li>
+        </ul>
+      </description>
   </releases>
   <provides>
     <binary>com.github.torikulhabib.mindi</binary>
@@ -44,12 +70,8 @@
     <content_attribute id="money-gambling">none</content_attribute>
   </content_rating>
   <developer_name>torikulhabib</developer_name>
-  <url type="homepage"></url>
+  <url type="homepage">https://github.com/torikulhabib/mindi</url>
   <url type="bugtracker">https://github.com/torikulhabib/mindi/issues</url>
   <url type="help">https://github.com/torikulhabib/mindi/issues</url>
-  <update_contact>torik.habib_AT_gmail.com</update_contact>
-  <screenshots>
-    <screenshot type="default">
-    </screenshot>
-  </screenshots>
+  <update_contact>torik.habib@gmail.com</update_contact>
 </component>
