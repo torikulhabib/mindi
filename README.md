@@ -6,6 +6,7 @@ Features:
 - Use from Applications select video.
 ![screenshot](Screenshot.png)
 ![screenshot 1](Screenshot1.png)
+![screenshot 1](Screenshot2.png)
 
 ## Building, Testing, and Installation
 
