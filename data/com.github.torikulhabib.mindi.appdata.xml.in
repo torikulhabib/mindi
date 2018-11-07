@@ -7,12 +7,8 @@
   <name>Mindi</name>
   <summary>A simple Audio converter</summary>
   <description>
-    <p>
-    Option to quickly convert video to audio:
-    </p>
-    <p>
-    Features:
-    </p>
+    <p>Option to quickly convert video to audio:</p>
+    <p>Features:</p>
     <ul>
     <li>Use from context menu: right click on video, and select "Convert to Audio.</li>
     <li>Use from Applications select video.</li>
@@ -30,12 +26,13 @@
     </screenshot>
   </screenshots>
   <releases>
-    <release version="1.0.2" date="2018-12-07"/>
+    <release version="1.0.3" date="2018-12-07"/>
       <description>
         <ul>
         <li>first release</li>
         </ul>
       </description>
+    </release>
   </releases>
   <provides>
     <binary>com.github.torikulhabib.mindi</binary>
