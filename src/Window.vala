@@ -90,6 +90,13 @@ namespace Mindi {
         }
 
         void build_ui () {
+            button_press_event.connect ((e) => {
+                if (e.button == Gdk.BUTTON_PRIMARY) {
+                    begin_move_drag ((int) e.button, (int) e.x_root, (int) e.y_root, e.time);
+                    return true;
+                }
+                return false;
+            });
             content = new Gtk.Grid ();
             content.margin = 32;
             content.column_spacing = 32;
