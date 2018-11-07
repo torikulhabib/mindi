@@ -1,6 +1,8 @@
 # project name and programming language
 project('com.github.torikulhabib.mindi', 'vala', 'c', version: '0.1.0')
 
+gnome = import('gnome')
+
 message ('project name and programming language')
 
 # Adds project arguments
