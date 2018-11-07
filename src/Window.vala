@@ -210,13 +210,14 @@ namespace Mindi {
             select_format = new Gtk.Button.with_label (_ ("Select"));
             select_format.valign = Gtk.Align.END;
             select_format.vexpand = true;
+            select_format.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
             select_format.clicked.connect (
                 () => {
                     format_popover.visible = !format_popover.visible;
                 });
             format_container.attach (select_format, 0, 3, 1, 1);
 
-            format_name = new Gtk.Label (("<i>%s</i>").printf (_ ("Select Audio")));
+            format_name = new Gtk.Label (("<i>%s</i>").printf (_ ("")));
             format_name.use_markup = true;
             format_container.attach (format_name, 0, 2, 1, 1);
 
@@ -267,7 +268,7 @@ namespace Mindi {
             convert_start = new Gtk.Button.with_label (_ ("Convert"));
             convert_start.valign = Gtk.Align.END;
             convert_start.vexpand = true;
-            convert_start.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
+            convert_start.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
             convert_start.clicked.connect (convert_video);
             convert_container.attach (convert_start, 0, 3);
 
