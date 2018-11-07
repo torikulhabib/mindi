@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Mindi
+Comment= Convert Video to audio
+Exec=@EXEC_NAME@ %U
+Icon=@EXEC_NAME@
+Terminal=false
+Categories=Utility;
+Keywords=Develop

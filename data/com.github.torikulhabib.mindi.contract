@@ -1,0 +1,6 @@
+[Contractor Entry]
+Name=Convert to audio
+Comment=Convert Video to audio
+GenericName=com.github.torikulhabib.mindi
+Exec=com.github.torikulhabib.mindi %U
+MimeType=video/mpeg;video/mp4;video/webm;video/flv;audio/mp3;audio/wav;audio/m4a;

@@ -1,0 +1,15 @@
+Source: com.github.torikulhabib.mindi
+Section: x11
+Priority: extra
+Maintainer: torikhabib <torik.habib@gmail.com>
+Build-Depends: meson (>= 0.43),
+               debhelper (>= 9),
+               libgtk-3-dev,
+               valac (>= 0.16),
+               libgranite-dev,
+Standards-Version: 4.14
+
+Package: com.github.torikulhabib.mindi
+Architecture: any
+Depends: ffmpeg, ${misc:Depends}, ${shlibs:Depends} 
+Description: Simple audio converter
