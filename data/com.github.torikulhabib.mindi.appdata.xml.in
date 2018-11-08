@@ -19,7 +19,7 @@
     <binary>com.github.torikulhabib.mindi</binary>
   </provides>
   ​<releases>
-    <release version="1.0.3" date="2018-11-07">
+    <release version="1.0.4" date="2018-11-07">
       <description>
         <p>Hello Juno!</p>
       </description>
@@ -68,8 +68,7 @@
   <developer_name>torikulhabib</developer_name>
   <url type="homepage">https://github.com/torikulhabib/mindi</url>
   <url type="bugtracker">https://github.com/torikulhabib/mindi/issues</url>
-  <url type="translate">https://github.com/torikulhabib/mindi</url>
-  <update_contact>torik.habib@gmail.com</update_contact>
+  <url type="translate">https://github.com/torikulhabib/mindi/tree/master/po</url>
   <custom>
     <value key="x-appcenter-color-primary">#525</value>
     <value key="x-appcenter-color-primary-text">##d1ff82</value>
