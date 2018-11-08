@@ -1,0 +1,6 @@
+data/com.github.torikulhabib.mindi.appdata.xml.in
+data/com.github.torikulhabib.mindi.desktop.in
+src/Application.vala
+src/Window.vala
+src/Widgets/Audio.vala
+src/Widgets/Converter.vala

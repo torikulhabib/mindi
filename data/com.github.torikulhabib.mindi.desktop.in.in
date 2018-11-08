@@ -1,9 +1,9 @@
 [Desktop Entry]
 Type=Application
 Name=Mindi
-Comment= Convert Video to audio
+GenericName=Converter to audio
+Comment=A simple Audio converter
 Exec=@EXEC_NAME@ %U
 Icon=@EXEC_NAME@
 Terminal=false
 Categories=Utility;
-Keywords=Develop
