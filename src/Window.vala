@@ -140,7 +140,7 @@ namespace Mindi {
             video_container.attach (open_video, 0, 3, 1, 1);
 
             video_name = new Gtk.Label ("");
-            video_name.max_width_chars = 35;
+            video_name.max_width_chars = 25;
             video_name.use_markup = true;
             video_name.wrap = true;
             set_video_label ("");
