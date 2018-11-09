@@ -19,7 +19,7 @@
     <binary>com.github.torikulhabib.mindi</binary>
   </provides>
   ​<releases>
-    <release version="1.0.4" date="2018-11-07">
+    <release version="1.0.5" date="2018-11-07">
       <description>
         <p>Hello Juno!</p>
       </description>
