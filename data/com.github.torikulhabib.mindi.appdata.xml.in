@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Copyright 2018 torikulhabib <torik.habib@gmail.com> -->
+<!-- Copyright 2018 torikul habib <torik.habib@gmail.com> -->
 <component type="desktop">
   <id>com.github.torikulhabib.mindi</id>
   <metadata_license>CC0</metadata_license>
@@ -7,11 +7,14 @@
   <name>Mindi</name>
   <summary>A simple Audio converter</summary>
   <description>
-    <p>Option to quickly convert video to audio.</p>
+    <p>Option to quickly convert to audio.</p>
     <p>Features:</p>
     <ul>
-      <li>Use from context menu: right click on video, and select Convert to Audio.</li>
+      <li>Use from context menu: right click on video or audio file, and select Convert to Audio.</li>
       <li>Use from Applications select video.</li>
+      <li>Dark and light.</li>
+      <li>New style.</li>
+      <li>Convert to MP3, M4A, OGG, WAV, WMA, FLAC, Etc.</li>
     </ul>
     <p></p>
   </description>
@@ -19,6 +22,17 @@
     <binary>com.github.torikulhabib.mindi</binary>
   </provides>
   ​<releases>
+    <release version="1.2.1" date="2018-11-20">
+      <description>
+        <p>Fix and add feature</p>
+        <ul>
+          <li>Save last audio selected.</li>
+          <li>Remove unfinished file.</li>
+          <li>Cancel option.</li>
+          <li>Add file audio.</li>
+        </ul>
+      </description>
+    </release>
     <release version="1.0.5" date="2018-11-07">
       <description>
         <p>Hello Juno!</p>
@@ -65,7 +79,7 @@
     <content_attribute id="money-purchasing">none</content_attribute>
     <content_attribute id="money-gambling">none</content_attribute>
   </content_rating>
-  <developer_name>torikulhabib</developer_name>
+  <developer_name>torikul habib</developer_name>
   <url type="homepage">https://github.com/torikulhabib/mindi</url>
   <url type="bugtracker">https://github.com/torikulhabib/mindi/issues</url>
   <url type="translate">https://github.com/torikulhabib/mindi/tree/master/po</url>

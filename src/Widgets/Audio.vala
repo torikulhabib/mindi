@@ -21,14 +21,31 @@
 
 namespace Mindi {
     public enum Formataudios {
-        MP3,
-        M4A,
-        OGG,
-        WMA,
-        WAV;
+        AAC = 0,
+        AC3 = 1,
+        AIFF = 2,
+        FLAC = 3,
+        MMF = 4,
+        MP3 = 5,
+        M4A = 6,
+        OGG = 7,
+        WMA = 8,
+        WAV = 9;
 
         public string get_name () {
             switch (this) {
+                case AC3:
+                    return "AC3";
+
+                case AIFF:
+                    return "AIFF";
+
+                case FLAC:
+                    return "FLAC";
+
+                case MMF:
+                    return "MMF";
+
                 case MP3:
                     return "MP3";
 
@@ -45,12 +62,12 @@ namespace Mindi {
                     return "WAV";
 
                 default:
-                    assert_not_reached ();
+                    return "AAC";
             }
         }
 
         public static Formataudios [] get_all () {
-            return { MP3, M4A, OGG, WMA, WAV };
+            return { AAC, AC3, AIFF, FLAC, MMF, MP3, M4A, OGG, WMA, WAV };
         }
     }
 

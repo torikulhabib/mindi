@@ -51,7 +51,11 @@ namespace Mindi {
         }
 
         protected override void activate () {
-            window = new Window ();
+        if (get_windows ().length () > 0) {
+            get_windows ().data.present ();
+            return;
+        }
+            window = new Window (this);
             window.set_application(this);
             window.show_all ();
         }

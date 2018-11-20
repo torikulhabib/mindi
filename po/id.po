@@ -8,91 +8,144 @@ msgstr ""
 "Project-Id-Version: com.github.torikulhabib.mindi\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-10-06 23:58-0600\n"
-"PO-Revision-Date: 2018-11-08 18:28+0700\n"
+"PO-Revision-Date: 2018-11-20 18:55+0700\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.6\n"
+"X-Generator: Poedit 2.2\n"
 "Last-Translator: \n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "Language: id\n"
 
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:7
-#: data/com.github.torikulhabib.mindi.desktop.in:3 src/Window.vala:77
+#: data/com.github.torikulhabib.mindi.desktop.in.in:3 src/Window.vala:77
 msgid "Mindi"
 msgstr "Mindi"
 
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:8
-#: data/com.github.torikulhabib.mindi.desktop.in:5
+#: data/com.github.torikulhabib.mindi.desktop.in.in:5
 msgid "A simple Audio converter"
 msgstr "Konverter Audio sederhana"
 
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:10
-msgid "Option to quickly convert video to audio:"
-msgstr "Pilihan untuk mengonversi video menjadi audio dengan cepat:"
+msgid "Option to quickly convert video to audio."
+msgstr "Pilihan untuk mengonversi video menjadi audio dengan cepat."
 
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:13
 msgid "Use from context menu: right click on video, and select Convert to Audio."
 msgstr "Gunakan dari menu konteks: klik kanan pada video, dan pilih Konversi ke Audio."
 
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:14
-msgid "Use from Applications select video"
-msgstr "Buka dari Aplikasi pilih video"
+msgid "Use from Applications select video."
+msgstr "Buka dari Aplikasi pilih video."
 
-#: data/com.github.torikulhabib.mindi.desktop.in:4
+#: data/com.github.torikulhabib.mindi.appdata.xml.in:15
+msgid "Dark and light."
+msgstr "Gelap dan terang."
+
+#: data/com.github.torikulhabib.mindi.appdata.xml.in:16
+msgid "New Style."
+msgstr "Gaya baru."
+
+#: data/com.github.torikulhabib.mindi.appdata.xml.in:17
+msgid "Convert to MP3, M4A, OGG, WAV, WMA, FLAC, Etc."
+msgstr "Mengkonversi ke MP3, M4A, OGG, WAV, WMA, FLAC, dll."
+
+#: data/com.github.torikulhabib.mindi.desktop.in.in:4
 msgid "Converter to audio"
-msgstr "Konverter ke audio"
+msgstr "Konversi ke suara"
 
-#: src/Window.vala:37
+#: src/Widgets/Dialog.vala:41
+msgid "No"
+msgstr "Tidak"
+
+#: src/Widgets/Dialog.vala:42
+msgid "Yes"
+msgstr "Ya"
+
+#: src/Window.vala:51
 msgid "Change"
-msgstr "Ganti"
+msgstr "Ubah"
 
-#: src/Window.vala:40 src/Window.vala:161 src/Window.vala:164
+#: src/Window.vala:54 src/Window.vala:223 src/Window.vala:226
 msgid "Open"
 msgstr "Buka"
 
-#: src/Window.vala:130
+#: src/Window.vala:89
+msgid "Light background"
+msgstr "Latar belakag terang"
+
+#: src/Window.vala:90
+msgid "Dark background"
+msgstr "Latar belakang hitam"
+
+#: src/Window.vala:190
 msgid "Video"
 msgstr "Video"
 
-#: src/Window.vala:138
+#: src/Window.vala:198
 msgid "Select Video"
 msgstr "Pilih Video"
 
-#: src/Window.vala:155
+#: src/Window.vala:217
 msgid "Choose a video file…"
-msgstr "Pilih berkas Video…"
+msgstr "Pilih sebuah video…"
 
-#: src/Window.vala:167
+#: src/Window.vala:225 src/Window.vala:336
+msgid "Cancel"
+msgstr "Batal"
+
+#: src/Window.vala:225
+msgid "All files"
+msgstr "Semua berkas"
+
+#: src/Window.vala:232
 msgid "Video files"
 msgstr "Berkas video"
 
-#: src/Window.vala:173
+#: src/Window.vala:238
 msgid "Audio files"
-msgstr "Berkas suara"
+msgstr "Berkas Suara"
 
-#: src/Window.vala:195
+#: src/Window.vala:261
 msgid "Audio"
 msgstr "Suara"
 
-#: src/Window.vala:210
+#: src/Window.vala:274
 msgid "Select"
 msgstr "Pilih"
 
-#: src/Window.vala:257 src/Window.vala:267
+#: src/Window.vala:322
 msgid "Convert"
-msgstr "Ubah"
+msgstr "Konversi"
 
-#: src/Window.vala:283
+#: src/Window.vala:378
 msgid "No Video file choosen…"
-msgstr "Tidak ada file dipilih…"
+msgstr "Tidak ada berkas terpilih…"
 
-#: src/Window.vala:158
+#: src/Window.vala:380
+msgid "Ready!"
+msgstr "Siap!"
+
+#: src/Window.vala:419
 #, c-format
 msgid "%s was convert into %s"
-msgstr "%s Sudah berubah menjadi %s"
+msgstr "%s sudah terkonversi %s"
 
-#: src/Window.vala:328
+#: src/Window.vala:421
+#, c-format
+msgid "Error while = convert %s into %s"
+msgstr "Bermasalah selama = mengubah %s menjadi %s"
+
+#: src/Window.vala:433 src/Window.vala:132 src/Window.vala:444
 msgid "Finished"
 msgstr "Selesai"
+
+#: src/Window.vala:435 src/Window.vala:461
+msgid "Error"
+msgstr "Masalah"
+
+#: src/Window.vala:446 src/Window.vala:463
+msgid "Automatic Close"
+msgstr "Otomatis tutup"

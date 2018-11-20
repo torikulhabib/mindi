@@ -50,6 +50,38 @@ foreach i : icon_sizes
         rename: meson.project_name() + '.svg'
     )
 endforeach
+
+icon_sizes = ['48']
+
+foreach i : icon_sizes
+    install_data(
+        join_paths('data/icons', i, meson.project_name() + '.aiff.svg'),
+        join_paths('data/icons', i, meson.project_name() + '.mmf.svg'),
+        join_paths('data/icons', i, meson.project_name() + '.aac.svg'),
+        join_paths('data/icons', i, meson.project_name() + '.ac3.svg'),
+        join_paths('data/icons', i, meson.project_name() + '.flac.svg'),
+        join_paths('data/icons', i, meson.project_name() + '.m4a.svg'),
+        join_paths('data/icons', i, meson.project_name() + '.mp3.svg'),
+        join_paths('data/icons', i, meson.project_name() + '.wav.svg'),
+        join_paths('data/icons', i, meson.project_name() + '.wma.svg'),
+        join_paths('data/icons', i, meson.project_name() + '.ogg.svg'),
+        install_dir: join_paths(get_option('datadir'), 'icons', 'hicolor', i + 'x' + i, 'mimetypes')
+    )
+    install_data(
+        join_paths('data/icons', i, meson.project_name() + '.aiff.svg'),
+        join_paths('data/icons', i, meson.project_name() + '.mmf.svg'),
+        join_paths('data/icons', i, meson.project_name() + '.aac.svg'),
+        join_paths('data/icons', i, meson.project_name() + '.ac3.svg'),
+        join_paths('data/icons', i, meson.project_name() + '.flac.svg'),
+        join_paths('data/icons', i, meson.project_name() + '.m4a.svg'),
+        join_paths('data/icons', i, meson.project_name() + '.mp3.svg'),
+        join_paths('data/icons', i, meson.project_name() + '.wav.svg'),
+        join_paths('data/icons', i, meson.project_name() + '.wma.svg'),
+        join_paths('data/icons', i, meson.project_name() + '.ogg.svg'),
+        install_dir: join_paths(get_option('datadir'), 'icons', 'hicolor', i + 'x' + i + '@2', 'mimetypes')
+    )
+endforeach
+
 install_data(
     join_paths('data',  meson.project_name() + '.gschema.xml'),
     install_dir: join_paths(get_option('datadir'), 'glib-2.0', 'schemas')
@@ -100,7 +132,9 @@ message ('Adds files to build')
 code_files = files(
     'src/Application.vala',
     'src/Window.vala',
+    'src/Settings.vala',
     'src/Widgets/Audio.vala',
+    'src/Widgets/Dialog.vala',
     'src/Objects/Converter.vala'
 )
 

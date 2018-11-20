@@ -20,9 +20,7 @@
 */
 
 namespace Mindi {
-
     public class ObjectConverter : GLib.Object {
-
         static ObjectConverter _instance = null;
         public static ObjectConverter instance {
             get {
@@ -47,12 +45,49 @@ namespace Mindi {
         public bool is_running {get;set;}
         public signal void begin ();
         public signal void finished (bool success);
-        Pid child_pid;
+
+        public async void cancel_now () {
+               string[] spawn_args = {"killall","ffmpeg"};
+               string[] spawn_env = Environ.get ();
+
+               try {
+                        Process.spawn_sync (
+                        "/",
+                        spawn_args,
+                        spawn_env,
+                        SpawnFlags.SEARCH_PATH,
+                        null,
+                        null,
+                        null,
+                        null);
+                } catch (GLib.SpawnError e) {
+                    stdout.printf ("GLibSpawnError: %s\n", e.message);
+                }
+        }
+
         public async void converter_now (File video, Mindi.Formataudios formataudio) {
             begin ();
+            Pid child_pid;
             string[] spawn_args;
+		    string[] spawn_env = Environ.get ();
             string filevideo = video.get_path ();
             switch (formataudio) {
+                case Mindi.Formataudios.AC3:
+                var ac3_path = GLib.Path.build_filename (filevideo +".ac3");
+                    spawn_args = {"ffmpeg", "-y", "-i", filevideo, "-f", "ac3", "-acodec", "ac3", "-b:a", "192k", "-ar", "48000", "-ac", "2", ac3_path};
+                    break;
+                case Mindi.Formataudios.AIFF:
+                var aiff_path = GLib.Path.build_filename (filevideo +".aif");
+                    spawn_args = {"ffmpeg", "-y", "-i", filevideo, aiff_path};
+                    break;
+                case Mindi.Formataudios.FLAC:
+                var flac_path = GLib.Path.build_filename (filevideo +".flac");
+                    spawn_args = {"ffmpeg", "-y", "-i", filevideo, "-c:a", "flac", flac_path};
+                    break;
+                case Mindi.Formataudios.MMF:
+                var mmf_path = GLib.Path.build_filename (filevideo +".mmf");
+                    spawn_args = {"ffmpeg", "-y", "-i", filevideo, mmf_path};
+                    break;
                 case Mindi.Formataudios.MP3:
                 var mp3_path = GLib.Path.build_filename (filevideo +".mp3");
                     spawn_args = {"ffmpeg", "-y", "-i", filevideo, "-acodec", "libmp3lame", "-b:a", "160k", "-ac", "2", "-ar", "44100", mp3_path};
@@ -75,26 +110,92 @@ namespace Mindi {
                     break;
 
                 default:
-                    assert_not_reached ();
+                    var aac_path = GLib.Path.build_filename (filevideo +".aac");
+                    spawn_args = {"ffmpeg", "-y", "-i", filevideo, "-strict", "experimental", "-c:a", "aac", "-b:a", "128k", aac_path};
+                    break;
             }
 
             try {
                     Process.spawn_async_with_pipes (
                     "/",
                     spawn_args,
-                    null,
+                    spawn_env,
                     SpawnFlags.SEARCH_PATH | SpawnFlags.DO_NOT_REAP_CHILD,
                     null,
-                    out child_pid,
-                    null);
+			        out child_pid,
+			        null,
+			        null,
+			        null);
             } catch (GLib.SpawnError e) {
                 stdout.printf ("GLibSpawnError: %s\n", e.message);
             }
 
             ChildWatch.add (child_pid, (pid, status) => {
-                        Process.close_pid (pid);
-                        finished (status == 0);
-                    });
+                    Process.close_pid (pid);
+                    finished (status == 0);
+            });
+        }
+
+        public async void remove_failed (File video, Mindi.Formataudios formataudio) {
+            string[] spawn_args;
+		    string[] spawn_env = Environ.get ();
+            string filevideo = video.get_path ();
+            switch (formataudio) {
+                case Mindi.Formataudios.AC3:
+                var ac3_path = GLib.Path.build_filename (filevideo +".ac3");
+                    spawn_args = {"rm", "-rf", ac3_path};
+                    break;
+                case Mindi.Formataudios.AIFF:
+                var aiff_path = GLib.Path.build_filename (filevideo +".aif");
+                    spawn_args = {"rm", "-rf", aiff_path};
+                    break;
+                case Mindi.Formataudios.FLAC:
+                var flac_path = GLib.Path.build_filename (filevideo +".flac");
+                    spawn_args = {"rm", "-rf", flac_path};
+                    break;
+                case Mindi.Formataudios.MMF:
+                var mmf_path = GLib.Path.build_filename (filevideo +".mmf");
+                    spawn_args = {"rm", "-rf", mmf_path};
+                    break;
+                case Mindi.Formataudios.MP3:
+                var mp3_path = GLib.Path.build_filename (filevideo +".mp3");
+                    spawn_args = {"rm", "-rf", mp3_path};
+                    break;
+                case Mindi.Formataudios.M4A:
+                var m4a_path = GLib.Path.build_filename (filevideo + ".m4a");
+                    spawn_args = {"rm", "-rf", m4a_path};
+                    break;
+                case Mindi.Formataudios.OGG:
+                var ogg_path = GLib.Path.build_filename (filevideo + ".ogg");
+                    spawn_args = {"rm", "-rf", ogg_path};
+                    break;
+                case Mindi.Formataudios.WMA:
+                var wma_path = GLib.Path.build_filename (filevideo + ".wma");
+                    spawn_args = {"rm", "-rf", wma_path};
+                    break;
+                case Mindi.Formataudios.WAV:
+                var wav_path = GLib.Path.build_filename (filevideo + ".wav");
+                    spawn_args = {"rm", "-rf", wav_path};
+                    break;
+                default:
+                    var aac_path = GLib.Path.build_filename (filevideo +".aac");
+                    spawn_args = {"rm", "-rf", aac_path};
+                    break;
+            }
+
+                try {
+                        Process.spawn_sync (
+                        "/",
+                        spawn_args,
+                        spawn_env,
+                        SpawnFlags.SEARCH_PATH,
+                        null,
+                        null,
+                        null,
+                        null);
+                } catch (GLib.SpawnError e) {
+                    stdout.printf ("GLibSpawnError: %s\n", e.message);
+                }
         }
     }
 }

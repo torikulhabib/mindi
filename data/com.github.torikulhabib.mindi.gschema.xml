@@ -1,10 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist>
+	<enum id="com.github.torikulhabib.nino.format-audios">
+		<value nick="AAC" value="0" />
+		<value nick="AC3" value="1" />
+		<value nick="AIFF" value="2" />
+		<value nick="FLAC" value="3" />
+		<value nick="MMF" value="4" />
+		<value nick="MP3" value="5" />
+		<value nick="M4A" value="6" />
+		<value nick="OGG" value="7" />
+		<value nick="WMA" value="8" />
+		<value nick="WAV" value="9" />
+	</enum>
   <schema id="com.github.torikulhabib.mindi" path="/com/github/torikulhabib/mindi/">
     <key name="prefer-dark-style" type="b">
       <default>false</default>
       <summary>If the dark Gtk stylesheet should be used</summary>
       <description>If the dark Gtk stylesheet should be used</description>
     </key> 
+    <key name="auto-close" type="b">
+      <default>false</default>
+      <summary>Automatic close should be used</summary>
+      <description>Automatic close should be used</description>
+    </key> 
+		<key name="format-audios" enum="com.github.torikulhabib.nino.format-audios">
+			<default>"AAC"</default>
+			<summary>Format audio.</summary>
+			<description>Format audio.</description>
+		</key>
   </schema>
 </schemalist>
