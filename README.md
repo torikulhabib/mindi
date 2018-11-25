@@ -1,6 +1,6 @@
-# A simple Audio converter designed for elementary OS
+# A simple Video to Audio converter designed for elementary OS
 
-Quickly convert video to audio
+Quickly convert video to audio  
 Features:
 - Use from context menu: right click on video, and select "Convert to Audio".
 - Use from Applications select video.
