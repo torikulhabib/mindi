@@ -133,8 +133,11 @@ code_files = files(
     'src/Application.vala',
     'src/Window.vala',
     'src/Settings.vala',
+    'src/Utils/StringUtil.vala',
+    'src/Utils/TimeUtil.vala',
     'src/Widgets/Audio.vala',
     'src/Widgets/Dialog.vala',
+    'src/Widgets/MessageDialog.vala',
     'src/Objects/Converter.vala'
 )
 

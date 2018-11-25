@@ -60,12 +60,19 @@ namespace Mindi {
             main_grid.attach (header, 0, 0, 1, 1);
             main_grid.attach (warning, 0, 1, 1, 1);
 
-            get_action_area ().margin = 6;
+            get_content_area ().margin = 6;
 
             var content = this.get_content_area () as Gtk.Box;
             content.margin = 6;
             content.margin_top = 0;
             content.add (main_grid);
+            button_press_event.connect ((e) => {
+                if (e.button == Gdk.BUTTON_PRIMARY) {
+                    begin_move_drag ((int) e.button, (int) e.x_root, (int) e.y_root, e.time);
+                    return true;
+                }
+                return false;
+            });
         }
     }
 }

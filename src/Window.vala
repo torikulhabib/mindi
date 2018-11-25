@@ -1,9 +1,8 @@
 using Gtk;
-
 namespace Mindi {
-
     public class Window : Gtk.ApplicationWindow {
         private Dialog dialog = null;
+        private ObjectConverter? converter;
         private Grid content;
         private Button open_video;
         private Image video_logo;
@@ -18,7 +17,6 @@ namespace Mindi {
         private Grid format_container;
 
         private Image convert_logo;
-        private Spinner convert;
         private Grid convert_container;
         private Label convert_label;
         private Button convert_start;
@@ -26,10 +24,11 @@ namespace Mindi {
 
         private Revealer convert_revealer;
         private Revealer cancel_revealer;
+        private Revealer progressbar_revealer;
 
         Notification desktop_notification;
 
-        public GLib.Icon image_icon { 
+        private GLib.Icon image_icon { 
             owned get {
                 return format_logo.gicon;
             }
@@ -73,15 +72,13 @@ namespace Mindi {
 
         }
 
-        Mindi.ObjectConverter converter;
-
         public  Window (Gtk.Application application) {
                 Object (application: application,
                         icon_name: "com.github.torikulhabib.mindi",
                         resizable: false,
                         hexpand: true
                 );
-            }
+        }
 
         construct {
             var gtk_settings = Gtk.Settings.get_default ();
@@ -145,6 +142,7 @@ namespace Mindi {
                 }
                 return false;
             });
+
             if (selected_formataudio == null) {
                 switch (MindiApp.settings.get_enum ("format-audios")) {
                     case 1:
@@ -192,27 +190,31 @@ namespace Mindi {
             title.hexpand = true;
             video_container.attach (title, 0, 0, 1, 1);
 
-            video_logo = new Gtk.Image.from_icon_name ("applications-multimedia", Gtk.IconSize.DIALOG);
+            video_logo = new Image.from_icon_name ("applications-multimedia", Gtk.IconSize.DIALOG);
             video_container.attach (video_logo, 0, 1, 1, 1);
+            video_name = new Gtk.Label ("");
+            video_name.max_width_chars = 16;
+            video_name.use_markup = true;
+            video_name.ellipsize = Pango.EllipsizeMode.END;
+            video_name.halign = Gtk.Align.CENTER;
+            video_name.wrap = true;
+            set_video_label ("");
+            video_container.attach (video_name, 0, 2, 1, 1);
 
             open_video = new Gtk.Button.with_label (_ ("Select Video"));
             open_video.clicked.connect (select_video);
             video_container.attach (open_video, 0, 3, 1, 1);
 
-            video_name = new Gtk.Label ("");
-            video_name.max_width_chars = 16;
-            video_name.use_markup = true;
-            video_name.ellipsize = Pango.EllipsizeMode.MIDDLE;
-            video_name.halign = Gtk.Align.CENTER;
-            video_name.wrap = true;
-            set_video_label ("");
-            video_container.attach (video_name, 0, 2, 1, 1);
             content.attach (video_container, 0, 0, 1, 1);
         }
 
         private void set_video_label (string text) {
             if (text != "") {
                 this.video_name.label = text;
+            Timeout.add_seconds (1, () => {
+                convert_revealer.set_reveal_child (true);
+                return false;
+            });
             } else {
                 this.video_name.label = ("<i>%s</i>").printf (_ ("Choose a video file…"));
             }
@@ -271,6 +273,10 @@ namespace Mindi {
             format_logo = new Gtk.Image ();
             format_container.attach (format_logo, 0, 1, 1, 1);
 
+            format_name = new Gtk.Label (("<i>%s</i>").printf (_ ("")));
+            format_name.use_markup = true;
+            format_container.attach (format_name, 0, 2, 1, 1);
+
             select_format = new Gtk.Button.with_label (_ ("Select"));
             select_format.valign = Gtk.Align.END;
             select_format.vexpand = true;
@@ -279,10 +285,6 @@ namespace Mindi {
                     format_popover.visible = !format_popover.visible;
                 });
             format_container.attach (select_format, 0, 3, 1, 1);
-
-            format_name = new Gtk.Label (("<i>%s</i>").printf (_ ("")));
-            format_name.use_markup = true;
-            format_container.attach (format_name, 0, 2, 1, 1);
 
             format_popover = new Gtk.Popover (select_format);
             format_popover.position = Gtk.PositionType.TOP;
@@ -309,6 +311,7 @@ namespace Mindi {
             format_popover.visible = false;
         }
 
+
         private void build_convert_area () {
             convert_container = new Gtk.Grid ();
             convert_container.row_spacing = 10;
@@ -316,29 +319,33 @@ namespace Mindi {
             convert_container.width_request = 16;
             convert_container.column_homogeneous = true;
 
-            convert = new Gtk.Spinner ();
-            convert_container.attach (convert, 0, 0, 2, 1);
+            progressbar_revealer = new Gtk.Revealer ();
+            progressbar_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
+            progressbar_revealer.valign = Gtk.Align.CENTER;
+            convert_container.attach (progressbar_revealer, 0, 0, 2, 1);
 
             convert_start = new Gtk.Button.with_label (_ ("Convert"));
             convert_start.vexpand = true;
             convert_start.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
             convert_start.clicked.connect (convert_video);
 
+            convert_label = new Gtk.Label ("");
+            convert_label.use_markup = true;
+            convert_label.vexpand = true;
+            set_convert_label ();
+            convert_container.attach (convert_label, 0, 0, 2, 1);
+
             convert_revealer = new Gtk.Revealer ();
+            convert_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
             convert_revealer.add (convert_start);
             convert_revealer.valign = Gtk.Align.CENTER;
-            convert_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
-            convert_start.clicked.connect (hide_action);
             convert_container.attach (convert_revealer, 0, 3, 2,1);
-
-            convert_revealer.set_reveal_child (true);
 
             convert_cancel = new Gtk.Button.with_label (_ ("Cancel"));
             convert_cancel.vexpand = true;
             convert_cancel.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
             convert_cancel.clicked.connect (() => {
             if (dialog == null) {
-                debug ("Prefs button pressed.");
                 dialog = new Dialog (this);
                 dialog.show_all ();
                 dialog.dialog_cancel_convert.connect ( () => {
@@ -353,24 +360,10 @@ namespace Mindi {
             cancel_revealer = new Gtk.Revealer ();
             cancel_revealer.add (convert_cancel);
             cancel_revealer.valign = Gtk.Align.CENTER;
-            cancel_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
+            cancel_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
             convert_container.attach (cancel_revealer, 0, 3, 2,1);
-            cancel_revealer.set_reveal_child (false);
 
-            convert_label = new Gtk.Label ("");
-            convert_label.use_markup = true;
-            convert_label.vexpand = true;
-            set_convert_label ();
-            convert_container.attach (convert_label, 0, 0, 2, 1);
             content.attach (convert_container, 0, 1, 2, 1);
-        }
-
-        public void hide_action () {
-            Timeout.add_seconds (1, () => {
-            cancel_revealer.set_reveal_child (true);
-                return false;
-            });
-            convert_revealer.set_reveal_child (false);
         }
 
         private void set_convert_label () {
@@ -390,18 +383,31 @@ namespace Mindi {
             format_logo.sensitive = false;
             convert_start.sensitive = false;
             convert_logo.sensitive = false;
-            convert_label.opacity = 0;
-            convert.active = true;
+
+            convert_revealer.visible = false;
+            convert_revealer.set_reveal_child (false);
+            cancel_revealer.set_reveal_child (true);
+            progressbar_revealer.add (converter);
+
+            Timeout.add_seconds (1, () => {
+            progressbar_revealer.set_reveal_child (true);
+            convert_label.visible = false;
+                return false;
+            });
         }
 
         private void on_converter_finished (bool success) {
             converter.finished.disconnect (on_converter_finished);
+            progressbar_revealer.remove (converter);
+
             Timeout.add_seconds (1, () => {
             convert_revealer.set_reveal_child (true);
+            convert_revealer.visible = true;
+            cancel_revealer.set_reveal_child (false);
+            progressbar_revealer.set_reveal_child (false);
+            convert_label.visible = true;
                 return false;
             });
-
-            cancel_revealer.set_reveal_child (false);
 
             open_video.sensitive = true;
             video_name.sensitive = true;
@@ -411,14 +417,12 @@ namespace Mindi {
             format_name.sensitive = true;
             convert_logo.sensitive = true;
             convert_start.sensitive = true;
-            convert.active = false;
-            convert_label.opacity = 1;
 
             string message;
             if (success) {
-                message = _("%s was convert into %s").printf (selected_video.get_basename (), selected_formataudio.formataudio.get_name ());
+                message = _("%s was converted into %s").printf (selected_video.get_basename (), selected_formataudio.formataudio.get_name ());
             } else {
-                message = _("Error while = convert %s into %s").printf (selected_video.get_basename (), selected_formataudio.formataudio.get_name ());
+                message = _("Error while convert %s into %s").printf (selected_video.get_basename (), selected_formataudio.formataudio.get_name ());
             }
 
             if (is_active) {
@@ -440,13 +444,13 @@ namespace Mindi {
             }
         }
 
-    private void create_dialog_finish (string text) {
-            var message_dialog = new Granite.MessageDialog.with_image_from_icon_name ("Finished",text,"com.github.torikulhabib.mindi",
+        private void create_dialog_finish (string text) {
+            var message_dialog = new Mindi.MessageDialog.with_image_from_icon_name ("Finished",text,"com.github.torikulhabib.mindi",
  Gtk.ButtonsType.CLOSE);
             var auto_close = new Gtk.CheckButton.with_label ("Automatic Close");
             auto_close.show ();
             auto_close.toggled.connect (() => {
-            Timeout.add_seconds (2, () => {
+            Timeout.add_seconds (1, () => {
             message_dialog.destroy ();
                 return false;
             });
@@ -457,13 +461,13 @@ namespace Mindi {
             message_dialog.destroy ();
         }
 
-    private void create_dialog_error (string text) {
-            var message_dialog = new Granite.MessageDialog.with_image_from_icon_name ("Error",text,"com.github.torikulhabib.mindi",
+        private void create_dialog_error (string text) {
+            var message_dialog = new Mindi.MessageDialog.with_image_from_icon_name ("Error",text,"com.github.torikulhabib.mindi",
  Gtk.ButtonsType.CLOSE);
             var auto_close = new Gtk.CheckButton.with_label ("Automatic Close");
             auto_close.show ();
             auto_close.toggled.connect (() => {
-            Timeout.add_seconds (2, () => {
+            Timeout.add_seconds (1, () => {
             message_dialog.destroy ();
                 return false;
             });
@@ -481,13 +485,13 @@ namespace Mindi {
             }
         }
 
-        public void cancel_convert () {
+        private void cancel_convert () {
             if (converter.is_running) {
                 converter.cancel_now.begin ();
             }
         }
 
-        public void fail_convert () {
+        private void fail_convert () {
             if (!converter.is_running) {
                 converter.remove_failed.begin (selected_video, selected_formataudio.formataudio);
             }
