@@ -320,7 +320,7 @@ namespace Mindi {
             convert_container.column_homogeneous = true;
 
             progressbar_revealer = new Gtk.Revealer ();
-            progressbar_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
+            progressbar_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
             progressbar_revealer.valign = Gtk.Align.CENTER;
             convert_container.attach (progressbar_revealer, 0, 0, 2, 1);
 
