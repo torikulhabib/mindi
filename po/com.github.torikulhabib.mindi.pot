@@ -24,7 +24,7 @@ msgstr ""
 
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:8
 #: data/com.github.torikulhabib.mindi.desktop.in.in:5
-msgid "A simple Audio converter"
+msgid "A simple Video to Audio converter"
 msgstr ""
 
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:10

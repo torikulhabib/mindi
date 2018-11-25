@@ -25,8 +25,8 @@ msgstr "Mindi"
 
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:8
 #: data/com.github.torikulhabib.mindi.desktop.in.in:5
-msgid "A simple Audio converter"
-msgstr "Konverter Audio sederhana"
+msgid "A simple Video to Audio converter"
+msgstr "Konverter Video ke Audio sederhana"
 
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:10
 msgid "Option to quickly convert video to audio."

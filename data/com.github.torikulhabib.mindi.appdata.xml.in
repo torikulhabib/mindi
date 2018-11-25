@@ -5,7 +5,7 @@
   <metadata_license>CC0</metadata_license>
   <project_license>GPL-3.0+</project_license>
   <name>Mindi</name>
-  <summary>A simple Audio converter</summary>
+  <summary>A simple Video to Audio converter</summary>
   <description>
     <p>Option to quickly convert to audio.</p>
     <p>Features:</p>
@@ -22,6 +22,15 @@
     <binary>com.github.torikulhabib.mindi</binary>
   </provides>
   ​<releases>
+    <release version="1.2.5" date="2018-11-25">
+      <description>
+        <p>Fix and add feature</p>
+        <ul>
+          <li>Fix input name as output name.</li>
+          <li>Change spiner to Progress.</li>
+        </ul>
+      </description>
+    </release>
     <release version="1.2.1" date="2018-11-20">
       <description>
         <p>Fix and add feature</p>
