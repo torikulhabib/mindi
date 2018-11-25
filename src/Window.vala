@@ -1,4 +1,5 @@
 using Gtk;
+
 namespace Mindi {
     public class Window : Gtk.ApplicationWindow {
         private Dialog dialog = null;

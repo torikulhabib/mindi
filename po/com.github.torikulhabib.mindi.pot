@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:7
-#: data/com.github.torikulhabib.mindi.desktop.in.in:3 src/Window.vala:97
+#: data/com.github.torikulhabib.mindi.desktop.in.in:3 src/Window.vala:95
 msgid "Mindi"
 msgstr ""
 
@@ -71,80 +71,80 @@ msgstr ""
 msgid "Open"
 msgstr ""
 
-#: src/Window.vala:89
+#: src/Window.vala:87
 msgid "Light background"
 msgstr ""
 
-#: src/Window.vala:90
+#: src/Window.vala:88
 msgid "Dark background"
 msgstr ""
 
-#: src/Window.vala:190
+#: src/Window.vala:189
 msgid "Video"
 msgstr ""
 
-#: src/Window.vala:198
+#: src/Window.vala:205
 msgid "Select Video"
 msgstr ""
 
-#: src/Window.vala:217
+#: src/Window.vala:220
 msgid "Choose a video file…"
 msgstr ""
 
-#: src/Window.vala:225 src/Window.vala:336
+#: src/Window.vala:228 src/Window.vala:345
 msgid "Cancel"
 msgstr ""
 
-#: src/Window.vala:225
+#: src/Window.vala:232
 msgid "All files"
 msgstr ""
 
-#: src/Window.vala:232
+#: src/Window.vala:235
 msgid "Video files"
 msgstr ""
 
-#: src/Window.vala:238
+#: src/Window.vala:241
 msgid "Audio files"
 msgstr ""
 
-#: src/Window.vala:261
+#: src/Window.vala:264
 msgid "Audio"
 msgstr ""
 
-#: src/Window.vala:274
+#: src/Window.vala:281
 msgid "Select"
 msgstr ""
 
-#: src/Window.vala:322
+#: src/Window.vala:328
 msgid "Convert"
 msgstr ""
 
-#: src/Window.vala:378
+#: src/Window.vala:372
 msgid "No Video file choosen…"
 msgstr ""
 
-#: src/Window.vala:380
+#: src/Window.vala:374
 msgid "Ready!"
 msgstr ""
 
-#: src/Window.vala:419
+#: src/Window.vala:424
 #, c-format
 msgid "%s was convert into %s"
 msgstr ""
 
-#: src/Window.vala:421
+#: src/Window.vala:426
 #, c-format
 msgid "Error while = convert %s into %s"
 msgstr ""
 
-#: src/Window.vala:433 src/Window.vala:132 src/Window.vala:444
+#: src/Window.vala:438 src/Window.vala:130 src/Window.vala:449
 msgid "Finished"
 msgstr ""
 
-#: src/Window.vala:435 src/Window.vala:461
+#: src/Window.vala:440 src/Window.vala:466
 msgid "Error"
 msgstr ""
 
-#: src/Window.vala:446 src/Window.vala:463
+#: src/Window.vala:451 src/Window.vala:468
 msgid "Automatic Close"
 msgstr ""
