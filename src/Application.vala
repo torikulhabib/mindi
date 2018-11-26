@@ -32,7 +32,7 @@ namespace Mindi {
             var quit_action = new SimpleAction ("quit", null);
             quit_action.activate.connect (() => {
                 if (window != null) {
-                    window.destroy ();
+                    window.signal_close ();
                 }
             });
             add_action (quit_action);

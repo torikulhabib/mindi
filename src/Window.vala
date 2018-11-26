@@ -44,6 +44,7 @@ namespace Mindi {
         private Button open_button;
         private Button location_button;
         private Button find_button;
+        private Stack stack;
 
         private string selected_location;
         private string ask_location_folder;
@@ -53,10 +54,9 @@ namespace Mindi {
         private bool folder_set {get;set;}
         private bool ask_set {get;set;}
 
-        private Stack stack;
-
         Notification desktop_notification;
         Granite.Widgets.Toast app_notification;
+
         private GLib.Icon image_icon { 
             owned get {
                 return format_logo.gicon;
@@ -77,9 +77,7 @@ namespace Mindi {
                 if (selected_video != null) {
                     set_video_label (selected_video.get_basename ());
                     open_video.label = _ ("Change");
-                    string output_set =  MindiApp.settings.get_string ("output-folder");
-                    audio_output_label ("Location : " + selected_video.get_path ());
-                    audio_output_label_loction ("Location : " + output_set);
+                    status_location ();
                     input_find_folder ();
                 } else {
                     set_video_label ("");
@@ -136,7 +134,9 @@ namespace Mindi {
             location_button.tooltip_text = _ ("Location");
             location_button.can_focus = false;
             location_button.clicked.connect (() => {
-                settings.folder_switch ();
+                if (!converter.is_running) {
+                    settings.folder_switch ();
+                }
             });
 
 		    settings.notify["notify-mode"].connect (() => {
@@ -169,27 +169,7 @@ namespace Mindi {
             close_button.vexpand = true;
             close_button.tooltip_text = _("Close");
             close_button.clicked.connect (() => {
-                if (converter.is_running) {
-                    if (dialog == null) {
-                        dialog = new Dialog (this);
-                        dialog.show_all ();
-                        dialog.dialog_cancel_convert.connect ( () => {
-                            cancel_convert ();
-                            converter.finished.connect (() => {
-                                Timeout.add_seconds (1, () => {
-                                    destroy ();
-                                    return false;
-                                });
-                            });
-                        });
-                        dialog.destroy.connect (() => {
-                            dialog = null;
-                        });
-                        }
-                dialog.present ();
-                } else {
-                    destroy ();
-                }
+                signal_close ();
             });
 
             find_button = new Button.from_icon_name ("folder-saved-search-symbolic", IconSize.SMALL_TOOLBAR);
@@ -305,6 +285,30 @@ namespace Mindi {
             }
         }
 
+        public void signal_close () {
+            if (converter.is_running) {
+                if (dialog == null) {
+                    dialog = new Dialog (this);
+                    dialog.show_all ();
+                    dialog.dialog_cancel_convert.connect (() => {
+                        cancel_convert ();
+                        converter.finished.connect (() => {
+                            Timeout.add_seconds (1, () => {
+                                destroy ();
+                                return false;
+                            });
+                        });
+                    });
+                    dialog.destroy.connect (() => {
+                        dialog = null;
+                    });
+                }
+                dialog.present ();
+            } else {
+                destroy ();
+            }
+        }
+
         public static void open_folder_file_app (string link_set) {
             try {
                 var directory = File.new_for_path (link_set);
@@ -342,9 +346,7 @@ namespace Mindi {
 
             location.destroy ();
             settings.output_folder = selected_location;
-            string output_set =  MindiApp.settings.get_string ("output-folder");
-            audio_output_label ("Location : " + selected_video.get_path ());
-            audio_output_label_loction ("Location : " + output_set);
+            status_location ();
         }
 
         private void build_video_area () {
@@ -411,11 +413,16 @@ namespace Mindi {
 
             if (file.run () == Gtk.ResponseType.ACCEPT) {
                 selected_video = file.get_file ();
-                debug (file.get_filename ());
             }
 
             file.destroy ();
             input_find_folder ();
+        }
+
+        private void status_location () {
+            string output_set =  MindiApp.settings.get_string ("output-folder");
+            audio_output_label ("Location : " + selected_video.get_path ());
+            audio_output_label_loction ("Location : " + output_set);
         }
 
         private void input_find_folder () {
@@ -479,7 +486,6 @@ namespace Mindi {
         }
 
         private void on_select_fileformat (Gtk.FlowBoxChild item) {
-            debug ("Selected fileformat: %s", (item as Mindi.Formataudio).formataudio.get_name ());
             selected_formataudio = item as Mindi.Formataudio;
             format_popover.visible = false;
         }
@@ -518,15 +524,15 @@ namespace Mindi {
             convert_cancel.vexpand = true;
             convert_cancel.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
             convert_cancel.clicked.connect (() => {
-            if (dialog == null) {
-                dialog = new Dialog (this);
-                dialog.show_all ();
-                dialog.dialog_cancel_convert.connect ( () => {
-                    cancel_convert ();
-                    });
-                dialog.destroy.connect (() => {
-                dialog = null;
-                    });
+                if (dialog == null) {
+                    dialog = new Dialog (this);
+                    dialog.show_all ();
+                    dialog.dialog_cancel_convert.connect ( () => {
+                        cancel_convert ();
+                        });
+                    dialog.destroy.connect (() => {
+                    dialog = null;
+                        });
                 }
                 dialog.present ();
             });
@@ -553,11 +559,12 @@ namespace Mindi {
             output_name_location.wrap = true;
             audio_output_label_loction ("");
 
-            ask_location = new Gtk.Label ("Where you save the audio file");
+            ask_location = new Gtk.Label ("");
             ask_location.max_width_chars = 16;
             ask_location.use_markup = true;
             output_name_location.valign = Gtk.Align.CENTER;
             output_name_location.wrap = true;
+            ask_audio_output_label_loction ("");
 
             stack = new Stack ();
             stack.add_named (output_name, "name");
@@ -581,7 +588,14 @@ namespace Mindi {
                 output_name_location.label = text;
             } else {
                 output_name_location.label = ("<i>%s</i>").printf (_ ("Audio folder location"));
-                print ("%s",text );
+            }
+        }
+
+        private void ask_audio_output_label_loction (string text) {
+            if (text != "") {
+                ask_location.label = text;
+            } else {
+                ask_location.label = ("<i>%s</i>").printf (_ ("Where you save the audio file"));
             }
         }
 
@@ -594,6 +608,9 @@ namespace Mindi {
         }
 
         private void on_converter_started () {
+            string output_set =  MindiApp.settings.get_string ("ask-folder");
+            ask_audio_output_label_loction ("Location : " + output_set);
+
             open_video.sensitive = false;
             video_name.sensitive = false;
             video_logo.sensitive = false;
@@ -618,6 +635,8 @@ namespace Mindi {
         private void on_converter_finished (bool success) {
             converter.finished.disconnect (on_converter_finished);
             progressbar_revealer.remove (converter);
+
+            ask_audio_output_label_loction ("<i>Where you save the audio file</i>");
 
             Timeout.add_seconds (1, () => {
             convert_revealer.set_reveal_child (true);
