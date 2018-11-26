@@ -725,11 +725,11 @@ namespace Mindi {
 
             if (ask_location.run () == Gtk.ResponseType.ACCEPT) {
                 ask_location_folder = ask_location.get_file ().get_path ();
+                settings.ask_folder = ask_location_folder;
                 converter.finished.connect (on_converter_finished);
                 converter.set_folder.begin (selected_video);
                 converter.converter_now.begin (selected_formataudio.formataudio);
             }
-            settings.ask_folder = ask_location_folder;
             ask_location.destroy ();
         }
 
