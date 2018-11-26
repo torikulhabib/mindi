@@ -12,6 +12,15 @@
 		<value nick="WMA" value="8" />
 		<value nick="WAV" value="9" />
 	</enum>
+	<enum id="com.github.torikulhabib.nino.notify-mode">
+		<value nick="notify" value="0" />
+		<value nick="silent" value="1" />
+	</enum>
+	<enum id="com.github.torikulhabib.nino.folder-mode">
+		<value nick="place" value="0" />
+		<value nick="custom" value="1" />
+		<value nick="ask" value="2" />
+	</enum>
   <schema id="com.github.torikulhabib.mindi" path="/com/github/torikulhabib/mindi/">
     <key name="prefer-dark-style" type="b">
       <default>false</default>
@@ -23,10 +32,35 @@
       <summary>Automatic close should be used</summary>
       <description>Automatic close should be used</description>
     </key> 
+		<key name="folder-mode" enum="com.github.torikulhabib.nino.folder-mode">
+			<default>"place"</default>
+			<summary>folder mode.</summary>
+			<description>folder mode.</description>
+		</key>
+		<key name="output-folder" type="s">
+			<default>''</default>
+			<summary>Select the output folder</summary>
+			<description>Select the output folder</description>
+		</key>
+		<key name="ask-folder" type="s">
+			<default>''</default>
+			<summary>Ask select the output folder</summary>
+			<description>Ask select the output folder</description>
+		</key>
+		<key name="folder-link" type="s">
+			<default>''</default>
+			<summary>Select the output folder</summary>
+			<description>Select the output folder</description>
+		</key>
 		<key name="format-audios" enum="com.github.torikulhabib.nino.format-audios">
 			<default>"AAC"</default>
 			<summary>Format audio.</summary>
 			<description>Format audio.</description>
+		</key>
+		<key name="notify-mode" enum="com.github.torikulhabib.nino.notify-mode">
+			<default>"notify"</default>
+			<summary>Lock mode.</summary>
+			<description>Lock mode.</description>
 		</key>
   </schema>
 </schemalist>

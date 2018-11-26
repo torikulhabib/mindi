@@ -20,6 +20,7 @@
 */
 
 using Gtk;
+using Mindi.Configs;
 
 namespace Mindi {
     public class ObjectConverter : Grid {
@@ -42,7 +43,20 @@ namespace Mindi {
         public bool is_running {get;set;}
         public signal void begin ();
         public signal void finished (bool success);
-        private string[] cmd;
+        private string [] cmd;
+        private string ac3_path;
+        private string aiff_path;
+        private string flac_path;
+        private string mmf_path;
+        private string mp3_path;
+        private string m4a_path;
+        private string ogg_path;
+        private string wma_path;
+        private string wav_path;
+        private string aac_path;
+        private string inputvideo;
+        private string foldersave;
+        private string asksave;
 
         public ObjectConverter () {}
 
@@ -90,51 +104,87 @@ namespace Mindi {
                 }
         }
 
-        public async void converter_now (File video, Mindi.Formataudios formataudio) {
-            begin ();
-            string inputvideo = video.get_path ();
-	        string [] input = inputvideo.split (".");
-            string outputvideo = input [0];
+        public async void set_folder (File video) {
+                var settings = Mindi.Configs.Settings.get_settings ();
+                inputvideo = video.get_path ();
+                string inputname = video.get_basename ();
+	            string [] input = inputvideo.split (".");
+	            string [] inputbase = inputname.split (".");
+                string outputvideo = input [0];
+                string outputname = inputbase [0];
+                foldersave = MindiApp.settings.get_string ("output-folder");
+                asksave = MindiApp.settings.get_string ("ask-folder");
+                switch (settings.folder_mode) {
+                case FolderMode.PLACE :
+                    ac3_path = GLib.Path.build_filename (outputvideo +".ac3");
+                    aiff_path = GLib.Path.build_filename (outputvideo +".aif");
+                    flac_path = GLib.Path.build_filename (outputvideo +".flac");
+                    mmf_path = GLib.Path.build_filename (outputvideo +".mmf");
+                    mp3_path = GLib.Path.build_filename (outputvideo +".mp3");
+                    m4a_path = GLib.Path.build_filename (outputvideo + ".m4a");
+                    ogg_path = GLib.Path.build_filename (outputvideo + ".ogg");
+                    wma_path = GLib.Path.build_filename (outputvideo + ".wma");
+                    wav_path = GLib.Path.build_filename (outputvideo + ".wav");
+                    aac_path = GLib.Path.build_filename (outputvideo +".aac");
+                    break;
+                case FolderMode.CUSTOM :
+                    ac3_path = GLib.Path.build_filename (foldersave+"/"+outputname +".ac3");
+                    aiff_path = GLib.Path.build_filename (foldersave+"/"+outputname +".aif");
+                    flac_path = GLib.Path.build_filename (foldersave+"/"+outputname +".flac");
+                    mmf_path = GLib.Path.build_filename (foldersave+"/"+outputname +".mmf");
+                    mp3_path = GLib.Path.build_filename (foldersave+"/"+outputname +".mp3");
+                    m4a_path = GLib.Path.build_filename (foldersave+"/"+outputname +".m4a");
+                    ogg_path = GLib.Path.build_filename (foldersave+"/"+outputname +".ogg");
+                    wma_path = GLib.Path.build_filename (foldersave+"/"+outputname +".wma");
+                    wav_path = GLib.Path.build_filename (foldersave+"/"+outputname +".wav");
+                    aac_path = GLib.Path.build_filename (foldersave+"/"+outputname +".aac");
+                    break;
+                case FolderMode.ASK :
+                    ac3_path = GLib.Path.build_filename (asksave+"/"+outputname +".ac3");
+                    aiff_path = GLib.Path.build_filename (asksave+"/"+outputname +".aif");
+                    flac_path = GLib.Path.build_filename (asksave+"/"+outputname +".flac");
+                    mmf_path = GLib.Path.build_filename (asksave+"/"+outputname +".mmf");
+                    mp3_path = GLib.Path.build_filename (asksave+"/"+outputname +".mp3");
+                    m4a_path = GLib.Path.build_filename (asksave+"/"+outputname +".m4a");
+                    ogg_path = GLib.Path.build_filename (asksave+"/"+outputname +".ogg");
+                    wma_path = GLib.Path.build_filename (asksave+"/"+outputname +".wma");
+                    wav_path = GLib.Path.build_filename (asksave+"/"+outputname +".wav");
+                    aac_path = GLib.Path.build_filename (asksave+"/"+outputname +".aac");
+                    break;
+                }
+            }
 
+        public async void converter_now (Mindi.Formataudios formataudio) {
+            begin ();
             switch (formataudio) {
                 case Mindi.Formataudios.AC3:
-                var ac3_path = GLib.Path.build_filename (outputvideo +".ac3");
                     cmd = {"ffmpeg", "-y", "-i", inputvideo, "-f", "ac3", "-acodec", "ac3", "-b:a", "192k", "-ar", "48000", "-ac", "2", ac3_path};
                     break;
                 case Mindi.Formataudios.AIFF:
-                var aiff_path = GLib.Path.build_filename (outputvideo +".aif");
                     cmd = {"ffmpeg", "-y", "-i", inputvideo, aiff_path};
                     break;
                 case Mindi.Formataudios.FLAC:
-                var flac_path = GLib.Path.build_filename (outputvideo +".flac");
                     cmd = {"ffmpeg", "-y", "-i", inputvideo, "-c:a", "flac", flac_path};
                     break;
                 case Mindi.Formataudios.MMF:
-                var mmf_path = GLib.Path.build_filename (outputvideo +".mmf");
                     cmd = {"ffmpeg", "-y", "-i", inputvideo,  "-strict", "-2", "-ar", "44100", mmf_path};
                     break;
                 case Mindi.Formataudios.MP3:
-                var mp3_path = GLib.Path.build_filename (outputvideo +".mp3");
                     cmd = {"ffmpeg", "-y", "-i", inputvideo, "-acodec", "libmp3lame", "-b:a", "160k", "-ac", "2", "-ar", "44100", mp3_path};
                     break;
                 case Mindi.Formataudios.M4A:
-                var m4a_path = GLib.Path.build_filename (outputvideo + ".m4a");
                     cmd = {"ffmpeg", "-y", "-i", inputvideo, "-vn", "-acodec", "aac", "-strict", "experimental", "-b:a", "112k", "-ac", "2", "-ar", "48000", m4a_path};
                     break;
                 case Mindi.Formataudios.OGG:
-                var ogg_path = GLib.Path.build_filename (outputvideo + ".ogg");
                     cmd = {"ffmpeg", "-y", "-i", inputvideo, "-acodec", "libvorbis", "-aq", "3", "-vn", "-ac", "2", ogg_path};
                     break;
                 case Mindi.Formataudios.WMA:
-                var wma_path = GLib.Path.build_filename (outputvideo + ".wma");
                     cmd = {"ffmpeg", "-y", "-i", inputvideo, "-vn", "-acodec", "wmav2", "-b:a", "160k", "-ac", "2", wma_path};
                     break;
                 case Mindi.Formataudios.WAV:
-                var wav_path = GLib.Path.build_filename (outputvideo + ".wav");
                     cmd = {"ffmpeg", "-y", "-i", inputvideo, "-vn", "-ar", "44100", wav_path};
                     break;
                 default:
-                var aac_path = GLib.Path.build_filename (outputvideo +".aac");
                     cmd = {"ffmpeg", "-y", "-i", inputvideo, "-strict", "experimental", "-c:a", "aac", "-b:a", "128k", aac_path};
                     break;
                  }
@@ -152,6 +202,7 @@ namespace Mindi {
                         } catch (Error e) {
                                 GLib.warning ("Error: %s\n", e.message);
                                 finished (false);
+                                progress_bar.set_fraction (0);
                         }
                     });
                 } catch (Error e) {
@@ -208,52 +259,39 @@ namespace Mindi {
             }
         }
 
-        public async void remove_failed (File video, Mindi.Formataudios formataudio) {
+        public async void remove_failed (Mindi.Formataudios formataudio) {
             string[] spawn_args;
 		    string[] spawn_env = Environ.get ();
-            string inputvideo = video.get_path ();
-	        string [] input = inputvideo.split (".");
-            string outputvideo = input [0];
 
             switch (formataudio) {
                 case Mindi.Formataudios.AC3:
-                var ac3_path = GLib.Path.build_filename (outputvideo +".ac3");
                     spawn_args = {"rm", "-rf", ac3_path};
                     break;
                 case Mindi.Formataudios.AIFF:
-                var aiff_path = GLib.Path.build_filename (outputvideo +".aif");
                     spawn_args = {"rm", "-rf", aiff_path};
                     break;
                 case Mindi.Formataudios.FLAC:
-                var flac_path = GLib.Path.build_filename (outputvideo +".flac");
                     spawn_args = {"rm", "-rf", flac_path};
                     break;
                 case Mindi.Formataudios.MMF:
-                var mmf_path = GLib.Path.build_filename (outputvideo +".mmf");
                     spawn_args = {"rm", "-rf", mmf_path};
                     break;
                 case Mindi.Formataudios.MP3:
-                var mp3_path = GLib.Path.build_filename (outputvideo +".mp3");
                     spawn_args = {"rm", "-rf", mp3_path};
                     break;
                 case Mindi.Formataudios.M4A:
-                var m4a_path = GLib.Path.build_filename (outputvideo + ".m4a");
                     spawn_args = {"rm", "-rf", m4a_path};
                     break;
                 case Mindi.Formataudios.OGG:
-                var ogg_path = GLib.Path.build_filename (outputvideo + ".ogg");
                     spawn_args = {"rm", "-rf", ogg_path};
                     break;
                 case Mindi.Formataudios.WMA:
-                var wma_path = GLib.Path.build_filename (outputvideo + ".wma");
                     spawn_args = {"rm", "-rf", wma_path};
                     break;
                 case Mindi.Formataudios.WAV:
-                var wav_path = GLib.Path.build_filename (outputvideo + ".wav");
                     spawn_args = {"rm", "-rf", wav_path};
                     break;
                 default:
-                var aac_path = GLib.Path.build_filename (outputvideo +".aac");
                     spawn_args = {"rm", "-rf", aac_path};
                     break;
             }

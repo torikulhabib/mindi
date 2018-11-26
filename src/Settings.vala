@@ -32,10 +32,23 @@ namespace Mindi.Configs {
         WMA = 8,
         WAV = 9
     }
-
+    public enum NotifyMode {
+        NOTIFY = 0,
+        SILENT = 1
+    }
+    public enum FolderMode {
+        PLACE = 0,
+        CUSTOM = 1,
+        ASK = 2
+    }
     public class Settings : Granite.Services.Settings {
         private static Settings? settings;
         public FormatAudios format_audios  { get; set; }
+        public NotifyMode notify_mode  { get; set; }
+        public FolderMode folder_mode  { get; set; }
+        public string output_folder    { get; set; }
+        public string ask_folder    { get; set; }
+        public string folder_link    { get; set; }
 
         private Settings () {
             base ("com.github.torikulhabib.mindi");
@@ -72,6 +85,31 @@ namespace Mindi.Configs {
                     break;
                 default:
                     settings.format_audios = FormatAudios.AAC;
+                    break;
+            }
+        }
+
+        public void notify_switch () {
+            switch (settings.notify_mode) {
+                case NotifyMode.NOTIFY:
+                    settings.notify_mode = NotifyMode.SILENT;
+                    break;
+                default:
+                    settings.notify_mode = NotifyMode.NOTIFY;
+                    break;
+            }
+        }
+
+        public void folder_switch () {
+            switch (settings.folder_mode) {
+                case FolderMode.PLACE:
+                    settings.folder_mode = FolderMode.CUSTOM;
+                    break;
+                case FolderMode.CUSTOM:
+                    settings.folder_mode = FolderMode.ASK;
+                    break;
+                default:
+                    settings.folder_mode = FolderMode.PLACE;
                     break;
             }
         }
