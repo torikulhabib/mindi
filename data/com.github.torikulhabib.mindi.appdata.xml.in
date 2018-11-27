@@ -32,6 +32,8 @@
           <li>Add silent notify.</li>
           <li>Find location converted.</li>
           <li>Ask converter location.</li>
+          <li>Fix input name as output name.</li>
+          <li>Change spiner to Progress.</li>
         </ul>
       </description>
     </release>
