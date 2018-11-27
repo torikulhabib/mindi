@@ -138,6 +138,7 @@ code_files = files(
     'src/Widgets/Audio.vala',
     'src/Widgets/Dialog.vala',
     'src/Widgets/MessageDialog.vala',
+    'src/Widgets/Toast.vala',
     'src/Objects/Converter.vala'
 )
 

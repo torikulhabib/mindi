@@ -55,7 +55,7 @@ namespace Mindi {
         private bool ask_set {get;set;}
 
         Notification desktop_notification;
-        Granite.Widgets.Toast app_notification;
+        Mindi.Widgets.Toast app_notification;
 
         private GLib.Icon image_icon { 
             owned get {
@@ -227,7 +227,7 @@ namespace Mindi {
             content.halign = Gtk.Align.CENTER;
             content.valign = Gtk.Align.CENTER;
 
-            app_notification = new Granite.Widgets.Toast ("");
+            app_notification = new Mindi.Widgets.Toast ("");
             var overlay = new Gtk.Overlay ();
             overlay.add (content);
             overlay.add_overlay (app_notification);
