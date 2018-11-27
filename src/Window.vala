@@ -18,7 +18,6 @@ namespace Mindi {
         private Label format_name;
         private Grid format_container;
 
-        private Image convert_logo;
         private Grid convert_container;
         private Label convert_label;
         private Button convert_start;
@@ -155,7 +154,7 @@ namespace Mindi {
             });
 
             open_button =  new Button.from_icon_name ("folder-open-symbolic", IconSize.SMALL_TOOLBAR);
-            open_button.tooltip_text = _("Open custom folder");
+            open_button.tooltip_text = _("Open custom location");
             open_button.can_focus = false;
             open_button.clicked.connect (() => {
             select_audio_place ();
@@ -174,7 +173,7 @@ namespace Mindi {
 
             find_button = new Button.from_icon_name ("folder-saved-search-symbolic", IconSize.SMALL_TOOLBAR);
             find_button.vexpand = true;
-            find_button.tooltip_text = _("Find Folder");
+            find_button.tooltip_text = _("Find location");
             find_button.clicked.connect (() => {
                 if (folder_set == false) {
                     link_set =  MindiApp.settings.get_string ("output-folder");
@@ -413,10 +412,10 @@ namespace Mindi {
 
             if (file.run () == Gtk.ResponseType.ACCEPT) {
                 selected_video = file.get_file ();
+                input_find_folder ();
             }
 
             file.destroy ();
-            input_find_folder ();
         }
 
         private void status_location () {
@@ -501,7 +500,6 @@ namespace Mindi {
             progressbar_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
             progressbar_revealer.valign = Gtk.Align.CENTER;
             convert_container.attach (progressbar_revealer, 0, 0, 2, 1);
-            progressbar_revealer.remove (converter);
             convert_start = new Gtk.Button.with_label (_ ("Convert"));
             convert_start.vexpand = true;
             convert_start.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
@@ -615,10 +613,9 @@ namespace Mindi {
             video_name.sensitive = false;
             video_logo.sensitive = false;
             select_format.sensitive = false;
-            format_name.sensitive = false;
             format_logo.sensitive = false;
+            format_name.sensitive = false;
             convert_start.sensitive = false;
-            convert_logo.sensitive = false;
 
             convert_revealer.visible = false;
             convert_revealer.set_reveal_child (false);
@@ -653,7 +650,6 @@ namespace Mindi {
             select_format.sensitive = true;
             format_logo.sensitive = true;
             format_name.sensitive = true;
-            convert_logo.sensitive = true;
             convert_start.sensitive = true;
 
             string message;
@@ -696,7 +692,7 @@ namespace Mindi {
         }
 
         private void create_dialog_finish (string text) {
-            var message_dialog = new Mindi.MessageDialog.with_image_from_icon_name ("Finished",text,"com.github.torikulhabib.mindi",
+            var message_dialog = new Mindi.MessageDialog.with_image_from_icon_name (this, "Finished",text,"com.github.torikulhabib.mindi",
  Gtk.ButtonsType.CLOSE);
             var auto_close = new Gtk.CheckButton.with_label ("Automatic Close");
             auto_close.show ();
@@ -713,7 +709,7 @@ namespace Mindi {
         }
 
         private void create_dialog_error (string text) {
-            var message_dialog = new Mindi.MessageDialog.with_image_from_icon_name ("Error",text,"com.github.torikulhabib.mindi",
+            var message_dialog = new Mindi.MessageDialog.with_image_from_icon_name (this, "Error",text,"com.github.torikulhabib.mindi",
  Gtk.ButtonsType.CLOSE);
             var auto_close = new Gtk.CheckButton.with_label ("Automatic Close");
             auto_close.show ();

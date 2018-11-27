@@ -59,21 +59,27 @@ public class Mindi.MessageDialog : Gtk.Dialog {
 
     private class SingleWidgetBin : Gtk.Bin {}
 
-    public MessageDialog (string primary_text, string secondary_text, GLib.Icon image_icon, Gtk.ButtonsType buttons = Gtk.ButtonsType.CLOSE) {
+    public MessageDialog (Gtk.Window? parent, string primary_text, string secondary_text, GLib.Icon image_icon, Gtk.ButtonsType buttons = Gtk.ButtonsType.CLOSE) {
         Object (
             primary_text: primary_text,
             secondary_text: secondary_text,
             image_icon: image_icon,
-            buttons: buttons
+            buttons: buttons,
+            transient_for: parent,
+            destroy_with_parent: true,
+            window_position: Gtk.WindowPosition.CENTER_ON_PARENT
         );
     }
 
-    public MessageDialog.with_image_from_icon_name (string primary_text, string secondary_text, string image_icon_name = "dialog-information", Gtk.ButtonsType buttons = Gtk.ButtonsType.CLOSE) {
+    public MessageDialog.with_image_from_icon_name (Gtk.Window? parent, string primary_text, string secondary_text, string image_icon_name = "dialog-information", Gtk.ButtonsType buttons = Gtk.ButtonsType.CLOSE) {
         Object (
             primary_text: primary_text,
             secondary_text: secondary_text,
             image_icon: new ThemedIcon (image_icon_name),
-            buttons: buttons
+            buttons: buttons,
+            transient_for: parent,
+            destroy_with_parent: true,
+            window_position: Gtk.WindowPosition.CENTER_ON_PARENT
         );
     }
 

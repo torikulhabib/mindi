@@ -63,88 +63,120 @@ msgstr ""
 msgid "Yes"
 msgstr ""
 
-#: src/Window.vala:51
+#: src/Window.vala:78
 msgid "Change"
 msgstr ""
 
-#: src/Window.vala:54 src/Window.vala:223 src/Window.vala:226
+#: src/Window.vala:85 src/Window.vala:334 src/Window.vala:390 src/Window.vala:392 src/Window.vala:732
 msgid "Open"
 msgstr ""
 
-#: src/Window.vala:87
+#: src/Window.vala:115
 msgid "Light background"
 msgstr ""
 
-#: src/Window.vala:88
+#: src/Window.vala:116
 msgid "Dark background"
 msgstr ""
 
-#: src/Window.vala:189
+#: src/Window.vala:133 src/Window.vala:423 src/Window.vala:424 src/Window.vala:610
+msgid "Location"
+msgstr ""
+
+#: src/Window.vala:150
+msgid "Notify"
+msgstr ""
+
+#: src/Window.vala:157
+msgid "Open custom location"
+msgstr ""
+
+#: src/Window.vala:169
+msgid "Close"
+msgstr ""
+
+#: src/Window.vala:176
+msgid "Find location"
+msgstr ""
+
+#: src/Window.vala:337
+msgid "Folder"
+msgstr ""
+
+#: src/Window.vala:357
 msgid "Video"
 msgstr ""
 
-#: src/Window.vala:205
+#: src/Window.vala:373
 msgid "Select Video"
 msgstr ""
 
-#: src/Window.vala:220
+#: src/Window.vala:384
 msgid "Choose a video file…"
 msgstr ""
 
-#: src/Window.vala:228 src/Window.vala:345
+#: src/Window.vala:521 src/Window.vala:345
 msgid "Cancel"
 msgstr ""
 
-#: src/Window.vala:232
+#: src/Window.vala:395
 msgid "All files"
 msgstr ""
 
-#: src/Window.vala:235
+#: src/Window.vala:398
 msgid "Video files"
 msgstr ""
 
-#: src/Window.vala:241
+#: src/Window.vala:404
 msgid "Audio files"
 msgstr ""
 
-#: src/Window.vala:264
+#: src/Window.vala:442
 msgid "Audio"
 msgstr ""
 
-#: src/Window.vala:281
+#: src/Window.vala:459
 msgid "Select"
 msgstr ""
 
-#: src/Window.vala:328
+#: src/Window.vala:503
 msgid "Convert"
 msgstr ""
 
-#: src/Window.vala:372
+#: src/Window.vala:580 src/Window.vala:588
+msgid "Audio folder location"
+msgstr ""
+
+#: src/Window.vala:596 src/Window.vala:636
+msgid "Where you save the audio file"
+msgstr ""
+
+#: src/Window.vala:602
 msgid "No Video file choosen…"
 msgstr ""
 
-#: src/Window.vala:374
+#: src/Window.vala:604
 msgid "Ready!"
 msgstr ""
 
-#: src/Window.vala:424
+#: src/Window.vala:657
 #, c-format
 msgid "%s was convert into %s"
 msgstr ""
 
-#: src/Window.vala:426
+#: src/Window.vala:659
 #, c-format
 msgid "Error while = convert %s into %s"
 msgstr ""
 
-#: src/Window.vala:438 src/Window.vala:130 src/Window.vala:449
+#: src/Window.vala:234 src/Window.vala:667 src/Window.vala:695 src/Window.vala:681
 msgid "Finished"
 msgstr ""
 
-#: src/Window.vala:440 src/Window.vala:466
+#: src/Window.vala:683 src/Window.vala:712
 msgid "Error"
 msgstr ""
 
-#: src/Window.vala:451 src/Window.vala:468
+#: src/Window.vala:697 src/Window.vala:714
 msgid "Automatic Close"
 msgstr ""
