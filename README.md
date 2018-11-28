@@ -1,5 +1,7 @@
 # A simple Video to Audio converter designed for elementary OS
 
+[![Get it on AppCenter](https://appcenter.elementary.io/badge.svg)](https://appcenter.elementary.io/com.github.torikulhabib.mindi)
+
 Quickly convert video to audio  
 Features:
 - Use from context menu: right click on video, and select "Convert to Audio".

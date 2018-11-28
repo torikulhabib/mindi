@@ -334,18 +334,15 @@ namespace Mindi {
                 _ ("_Open"), Gtk.ResponseType.ACCEPT);
 
             var folder = new Gtk.FileFilter ();
-            folder.set_filter_name (_ ("Folder"));
             folder.add_mime_type ("inode/directory");
-
-            location.add_filter (folder);
+            location.set_filter (folder);
 
             if (location.run () == Gtk.ResponseType.ACCEPT) {
                 selected_location = location.get_file ().get_path ();
+                settings.output_folder = selected_location;
+                status_location ();
             }
-
             location.destroy ();
-            settings.output_folder = selected_location;
-            status_location ();
         }
 
         private void build_video_area () {
@@ -420,6 +417,7 @@ namespace Mindi {
 
         private void status_location () {
             string output_set =  MindiApp.settings.get_string ("output-folder");
+            ask_audio_output_label_loction ("<i>Where you want to save the audio file</i>");
             audio_output_label ("Location : " + selected_video.get_path ());
             audio_output_label_loction ("Location : " + output_set);
         }
@@ -496,6 +494,12 @@ namespace Mindi {
             convert_container.width_request = 16;
             convert_container.column_homogeneous = true;
 
+            convert_label = new Gtk.Label ("");
+            convert_label.use_markup = true;
+            convert_label.vexpand = true;
+            set_convert_label ();
+            convert_container.attach (convert_label, 0, 0, 2, 1);
+
             progressbar_revealer = new Gtk.Revealer ();
             progressbar_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
             progressbar_revealer.valign = Gtk.Align.CENTER;
@@ -504,12 +508,6 @@ namespace Mindi {
             convert_start.vexpand = true;
             convert_start.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
             convert_start.clicked.connect (convert_video);
-
-            convert_label = new Gtk.Label ("");
-            convert_label.use_markup = true;
-            convert_label.vexpand = true;
-            set_convert_label ();
-            convert_container.attach (convert_label, 0, 0, 2, 1);
 
             convert_revealer = new Gtk.Revealer ();
             convert_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
@@ -633,7 +631,7 @@ namespace Mindi {
             converter.finished.disconnect (on_converter_finished);
             progressbar_revealer.remove (converter);
 
-            ask_audio_output_label_loction ("<i>Where you save the audio file</i>");
+            ask_audio_output_label_loction ("<i>Where you want to save the audio file</i>");
 
             Timeout.add_seconds (1, () => {
             convert_revealer.set_reveal_child (true);
@@ -656,7 +654,7 @@ namespace Mindi {
             if (success) {
                 message = _("%s was converted into %s").printf (selected_video.get_basename (), selected_formataudio.formataudio.get_name ());
             } else {
-                message = _("Error while convert %s into %s").printf (selected_video.get_basename (), selected_formataudio.formataudio.get_name ());
+                message = _("%s Error while convert into %s").printf (selected_video.get_basename (), selected_formataudio.formataudio.get_name ());
             }
 
             if (is_active) {
@@ -733,10 +731,8 @@ namespace Mindi {
                 _ ("_Open"), Gtk.ResponseType.ACCEPT);
 
             var folder_ask = new Gtk.FileFilter ();
-            folder_ask.set_filter_name (_ ("Folder"));
             folder_ask.add_mime_type ("inode/directory");
-
-            ask_location.add_filter (folder_ask);
+            ask_location.set_filter (folder_ask);
 
             if (ask_location.run () == Gtk.ResponseType.ACCEPT) {
                 ask_location_folder = ask_location.get_file ().get_path ();
@@ -832,10 +828,10 @@ namespace Mindi {
                     location_button.set_image (icon_folder_open);
                     folder_set = true;
                     ask_set = false;
-                    Timeout.add_seconds (0, () => {
+                    Timeout.add_seconds (0,() => {
                         choose_revealer.set_reveal_child (false);
                         find_revealer.set_reveal_child (true);
-                    stack.visible_child_name = "name";
+                        stack.visible_child_name = "name";
                         return false;
                     });
                     break;
@@ -843,7 +839,7 @@ namespace Mindi {
                     location_button.set_image (icon_folder);
                     folder_set = false;
                     ask_set = false;
-                    Timeout.add_seconds (0, () => {
+                    Timeout.add_seconds (0,() => {
                         choose_revealer.set_reveal_child (true);
                         find_revealer.set_reveal_child (true);
                         stack.visible_child_name = "name_custom";
@@ -854,7 +850,7 @@ namespace Mindi {
                     location_button.set_image (ask_icon_folder);
                     folder_set = false;
                     ask_set = true;
-                    Timeout.add_seconds (0, () => {
+                    Timeout.add_seconds (0,() => {
                         choose_revealer.set_reveal_child (false);
                         find_revealer.set_reveal_child (false);
                         stack.visible_child_name = "ask";
@@ -863,7 +859,6 @@ namespace Mindi {
                     break;
                 }
                    location_button.show_all ();
-            }
-
+        }
     }
 }

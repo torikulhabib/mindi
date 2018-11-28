@@ -34,10 +34,10 @@ namespace Mindi {
             }
         }
 
-        private Box         container;
-        private Box         box_name_progress;
+        private Box container;
+        private Box box_name_progress;
         private ProgressBar progress_bar;
-        private Label       status;
+        private Label status;
         private double progress;
 
         public bool is_running {get;set;}
