@@ -63,11 +63,11 @@ msgstr ""
 msgid "Yes"
 msgstr ""
 
-#: src/Window.vala:78
+#: src/Window.vala:101
 msgid "Change"
 msgstr ""
 
-#: src/Window.vala:85 src/Window.vala:334 src/Window.vala:390 src/Window.vala:392 src/Window.vala:732
+#: src/Window.vala:107 src/Window.vala:334 src/Window.vala:390 src/Window.vala:392 src/Window.vala:732
 msgid "Open"
 msgstr ""
 

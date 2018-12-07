@@ -21,6 +21,14 @@
 		<value nick="custom" value="1" />
 		<value nick="ask" value="2" />
 	</enum>
+	<enum id="com.github.torikulhabib.nino.youtube-mode">
+		<value nick="pc" value="0" />
+		<value nick="youtube" value="1" />
+	</enum>
+	<enum id="com.github.torikulhabib.nino.light-mode">
+		<value nick="light" value="0" />
+		<value nick="dark" value="1" />
+	</enum>
   <schema id="com.github.torikulhabib.mindi" path="/com/github/torikulhabib/mindi/">
     <key name="prefer-dark-style" type="b">
       <default>false</default>
@@ -42,7 +50,7 @@
 			<summary>Select the output folder</summary>
 			<description>Select the output folder</description>
 		</key>
-		<key name="ask-folder" type="s">
+		<key name="ask-location" type="s">
 			<default>''</default>
 			<summary>Ask select the output folder</summary>
 			<description>Ask select the output folder</description>
@@ -51,6 +59,16 @@
 			<default>''</default>
 			<summary>Select the output folder</summary>
 			<description>Select the output folder</description>
+		</key>
+		<key name="name-cache" type="s">
+			<default>''</default>
+			<summary>Select the output folder</summary>
+			<description>Select the output folder</description>
+		</key>
+		<key name="name-link" type="s">
+			<default>''</default>
+			<summary>Name output file</summary>
+			<description>Name output file</description>
 		</key>
 		<key name="format-audios" enum="com.github.torikulhabib.nino.format-audios">
 			<default>"AAC"</default>
@@ -61,6 +79,16 @@
 			<default>"notify"</default>
 			<summary>Lock mode.</summary>
 			<description>Lock mode.</description>
+		</key>
+		<key name="youtube-mode" enum="com.github.torikulhabib.nino.youtube-mode">
+			<default>"pc"</default>
+			<summary>Youtube mode.</summary>
+			<description>youtube mode.</description>
+		</key>
+		<key name="light-mode" enum="com.github.torikulhabib.nino.light-mode">
+			<default>"light"</default>
+			<summary>Youtube mode.</summary>
+			<description>youtube mode.</description>
 		</key>
   </schema>
 </schemalist>

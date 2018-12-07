@@ -55,6 +55,14 @@ icon_sizes = ['48']
 
 foreach i : icon_sizes
     install_data(
+        join_paths('data/icons', i, meson.project_name() + '.youtube.svg'),
+        join_paths('data/icons', i, meson.project_name() + '.mp4.svg'),
+        join_paths('data/icons', i, meson.project_name() + '.flv.svg'),
+        join_paths('data/icons', i, meson.project_name() + '.webm.svg'),
+        join_paths('data/icons', i, meson.project_name() + '.avi.svg'),
+        join_paths('data/icons', i, meson.project_name() + '.mpg.svg'),
+        join_paths('data/icons', i, meson.project_name() + '.mpeg.svg'),
+        join_paths('data/icons', i, meson.project_name() + '.mkv.svg'),
         join_paths('data/icons', i, meson.project_name() + '.aiff.svg'),
         join_paths('data/icons', i, meson.project_name() + '.mmf.svg'),
         join_paths('data/icons', i, meson.project_name() + '.aac.svg'),
@@ -68,6 +76,14 @@ foreach i : icon_sizes
         install_dir: join_paths(get_option('datadir'), 'icons', 'hicolor', i + 'x' + i, 'mimetypes')
     )
     install_data(
+        join_paths('data/icons', i, meson.project_name() + '.youtube.svg'),
+        join_paths('data/icons', i, meson.project_name() + '.mp4.svg'),
+        join_paths('data/icons', i, meson.project_name() + '.flv.svg'),
+        join_paths('data/icons', i, meson.project_name() + '.webm.svg'),
+        join_paths('data/icons', i, meson.project_name() + '.avi.svg'),
+        join_paths('data/icons', i, meson.project_name() + '.mpg.svg'),
+        join_paths('data/icons', i, meson.project_name() + '.mpeg.svg'),
+        join_paths('data/icons', i, meson.project_name() + '.mkv.svg'),
         join_paths('data/icons', i, meson.project_name() + '.aiff.svg'),
         join_paths('data/icons', i, meson.project_name() + '.mmf.svg'),
         join_paths('data/icons', i, meson.project_name() + '.aac.svg'),
@@ -133,7 +149,6 @@ code_files = files(
     'src/Application.vala',
     'src/Window.vala',
     'src/Settings.vala',
-    'src/Utils/StringUtil.vala',
     'src/Utils/TimeUtil.vala',
     'src/Widgets/Audio.vala',
     'src/Widgets/Dialog.vala',

@@ -11,5 +11,5 @@ Standards-Version: 4.14
 
 Package: com.github.torikulhabib.mindi
 Architecture: any
-Depends: ffmpeg, ${misc:Depends}, ${shlibs:Depends} 
+Depends: ffmpeg, youtube-dl, ${misc:Depends}, ${shlibs:Depends} 
 Description: Simple audio converter

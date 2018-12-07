@@ -32,6 +32,10 @@ namespace Mindi.Configs {
         WMA = 8,
         WAV = 9
     }
+    public enum LightMode {
+        LIGHT = 0,
+        DARK = 1
+    }
     public enum NotifyMode {
         NOTIFY = 0,
         SILENT = 1
@@ -41,14 +45,22 @@ namespace Mindi.Configs {
         CUSTOM = 1,
         ASK = 2
     }
+    public enum YoutubeMode {
+        PC = 0,
+        YOUTUBE = 1
+    }
     public class Settings : Granite.Services.Settings {
         private static Settings? settings;
         public FormatAudios format_audios  { get; set; }
         public NotifyMode notify_mode  { get; set; }
         public FolderMode folder_mode  { get; set; }
+        public YoutubeMode youtube_mode  { get; set; }
+        public LightMode light_mode  { get; set; }
         public string output_folder    { get; set; }
-        public string ask_folder    { get; set; }
+        public string ask_location    { get; set; }
         public string folder_link    { get; set; }
+        public string name_link    { get; set; }
+        public string name_cache    { get; set; }
 
         private Settings () {
             base ("com.github.torikulhabib.mindi");
@@ -89,6 +101,17 @@ namespace Mindi.Configs {
             }
         }
 
+        public void light_switch () {
+            switch (settings.light_mode) {
+                case LightMode.LIGHT:
+                    settings.light_mode = LightMode.DARK;
+                    break;
+                default:
+                    settings.light_mode = LightMode.LIGHT;
+                    break;
+            }
+        }
+
         public void notify_switch () {
             switch (settings.notify_mode) {
                 case NotifyMode.NOTIFY:
@@ -110,6 +133,17 @@ namespace Mindi.Configs {
                     break;
                 default:
                     settings.folder_mode = FolderMode.PLACE;
+                    break;
+            }
+        }
+
+        public void youtube_switch () {
+            switch (settings.youtube_mode) {
+                case YoutubeMode.PC:
+                    settings.youtube_mode = YoutubeMode.YOUTUBE;
+                    break;
+                default:
+                    settings.youtube_mode = YoutubeMode.PC;
                     break;
             }
         }
