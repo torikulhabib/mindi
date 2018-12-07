@@ -178,7 +178,7 @@ namespace Mindi {
             });
 
             open_button =  new Button.from_icon_name ("folder-open-symbolic", IconSize.SMALL_TOOLBAR);
-            open_button.tooltip_text = _("Open location");
+            open_button.tooltip_text = _("Set location");
             open_button.clicked.connect (() => {
             if (!converter.is_running) {
                 costum_location ();
@@ -200,7 +200,7 @@ namespace Mindi {
 		    });
 
             icon_pc = new Gtk.Image.from_icon_name ("computer-symbolic", Gtk.IconSize.BUTTON);
-            icon_youtube = new Gtk.Image.from_icon_name ("camera-video-symbolic", Gtk.IconSize.BUTTON);
+            icon_youtube = new Gtk.Image.from_icon_name ("internet-web-browser-symbolic", Gtk.IconSize.BUTTON);
 
             youtube_button = new Button ();
             youtube_symbol ();
@@ -480,10 +480,8 @@ namespace Mindi {
                 string [] link = url.split ("&");
                 string result = link [0];
                 add_download (result);
-                entry.set_text ("");
             } else {
                 add_download (url);
-                entry.set_text ("");
             }
         }
 
@@ -631,7 +629,7 @@ namespace Mindi {
             format_logo = new Gtk.Image ();
             format_container.attach (format_logo, 0, 1, 1, 1);
 
-            format_name = new Gtk.Label (("<i>%s</i>").printf (_ ("")));
+            format_name = new Gtk.Label (_(""));
             format_name.use_markup = true;
             format_container.attach (format_name, 0, 2, 1, 1);
 
@@ -818,7 +816,7 @@ namespace Mindi {
                             youtube_name.label = converter.name_file_stream;
                             return false;
                         });
-
+                        entry.set_text ("");
                         app_notification.title = "Download succes";
                         convert_label.label = ("Ready to convert!");
                         app_notification.send_notification ();
@@ -830,7 +828,7 @@ namespace Mindi {
                         youtube_name.label = ("Failed retrieve…");
                         convert_label.label = ("<i>Not ready yet!</i>");
                         convert_start.sensitive = false;
-                        select_format.sensitive = true;
+                        select_format.sensitive = false;
                     }
                 } else {
                     if (success) {

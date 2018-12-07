@@ -126,14 +126,14 @@ namespace Mindi {
         }
 
         public async void read_name () {
-            cache_dir_path = Path.build_path (Path.DIR_SEPARATOR_S, Environment.get_user_config_dir (), "mindi");
+            cache_dir_path = Path.build_path (Path.DIR_SEPARATOR_S, Environment.get_user_cache_dir (), "mindi");
             File cache_dir_source = File.new_for_path (cache_dir_path);
             get_folder_data (cache_dir_source, "");
         }
 
         public async void get_video (string uri) {
             downloading ();
-            cache_dir_path = Path.build_path (Path.DIR_SEPARATOR_S, Environment.get_user_config_dir (), "mindi");
+            cache_dir_path = Path.build_path (Path.DIR_SEPARATOR_S, Environment.get_user_cache_dir (), "mindi");
             string ignore = "" + name_file_stream;
             string up = ignore.up ();
             if (up.contains ("")) {
@@ -155,7 +155,7 @@ namespace Mindi {
         }
 
 	    private void get_video_youtube (string uri) {
-            cache_dir_path = Path.build_path (Path.DIR_SEPARATOR_S, Environment.get_user_config_dir(), "mindi");
+            cache_dir_path = Path.build_path (Path.DIR_SEPARATOR_S, Environment.get_user_cache_dir(), "mindi");
             var cache_dir = File.new_for_path (cache_dir_path);
             if (!cache_dir.query_exists ()) {
                 try {
@@ -201,19 +201,23 @@ namespace Mindi {
 
         public async void set_folder (File video, bool youtube_active) {
             var settings = Mindi.Configs.Settings.get_settings ();
-            cache_dir_path = Path.build_path (Path.DIR_SEPARATOR_S, Environment.get_user_config_dir(), "mindi");
+            cache_dir_path = Path.build_path (Path.DIR_SEPARATOR_S, Environment.get_user_cache_dir(), "mindi");
                 if (youtube_active) {
                     inputvideo = cache_dir_path + "/" + name_file_stream;
-	                string [] inputbase = name_file_stream.split (".");
+	                int i = name_file_stream.last_index_of (".");
+                    string out_last = name_file_stream.substring (i + 1);
+	                string [] inputbase = name_file_stream.split ("." + out_last);
                     outputname = inputbase [0];
                     string set_link =  MindiApp.settings.get_string ("folder-link");
                     outputvideo = set_link + outputname;
                 } else {
                     inputvideo = video.get_path ();
                     string inputname = video.get_basename ();
-	                string [] inputbase = inputname.split (".");
+	                int i = inputname.last_index_of (".");
+                    string out_last = inputname.substring (i + 1);
+	                string [] inputbase = inputname.split ("." + out_last);
                     outputname = inputbase [0];
-	                string [] input = inputvideo.split (".");
+	                string [] input = inputvideo.split ("." + out_last);
                     outputvideo = input [0];
                 }
 
@@ -341,7 +345,7 @@ namespace Mindi {
                     }
                 }
             } catch (Error e) {
-                GLib.critical ("Error: %s\n", e.message);
+                GLib.critical (e.message);
             }
         }
 

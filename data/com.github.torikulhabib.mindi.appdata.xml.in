@@ -10,6 +10,7 @@
     <p>Option to quickly convert to audio.</p>
     <p>Features:</p>
     <ul>
+      <li>Get from youtube.</li>
       <li>Use from context menu: right click on video or audio file, and select Convert to Audio.</li>
       <li>Use from Applications select video.</li>
       <li>Dark and light.</li>
@@ -22,7 +23,7 @@
     <binary>com.github.torikulhabib.mindi</binary>
   </provides>
   ​<releases>
-    <release version="1.5.1" date="2018-12-07">
+    <release version="1.5.2" date="2018-12-07">
       <description>
         <p>Fix and add feature</p>
         <ul>
