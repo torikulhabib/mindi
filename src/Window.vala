@@ -357,9 +357,6 @@ namespace Mindi {
         }
 
         private void status_location () {
-            if (selected_video != null) {
-                input_find_location ();
-            }
             string output_set = MindiApp.settings.get_string ("output-folder");
 	        int longchar = output_set.char_count ();
 	        if (longchar > 26) {
@@ -370,14 +367,6 @@ namespace Mindi {
             }
             ask_location.label = ("<i>Where you want to save the audio file</i>");
 
-            set_link =  MindiApp.settings.get_string ("folder-link");
-	        int link_longchar = set_link.char_count ();
-	        if (link_longchar > 26) {
-	            string string_limit = set_link.substring (0, 25 - 0);
-                output_name.label = ("Location : " + string_limit + "…");
-            } else {
-                output_name.label = ("Location : " + set_link);
-            }
             Timeout.add_seconds (0,() => {
                 output_name_location.set_uri ("file://"+ output_set);
                 return false;
@@ -545,6 +534,14 @@ namespace Mindi {
             string [] output = video.split (input);
             string result = output [0];
             settings.folder_link = result;
+            set_link =  MindiApp.settings.get_string ("folder-link");
+	        int link_longchar = set_link.char_count ();
+	        if (link_longchar > 26) {
+	            string string_limit = set_link.substring (0, 25 - 0);
+                output_name.label = ("Location : " + string_limit + "…");
+            } else {
+                output_name.label = ("Location : " + set_link);
+            }
             Timeout.add_seconds (0,() => {
             output_name.set_uri ("file://" + set_link);
                 return false;

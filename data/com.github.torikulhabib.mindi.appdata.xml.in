@@ -22,6 +22,16 @@
     <binary>com.github.torikulhabib.mindi</binary>
   </provides>
   ​<releases>
+    <release version="1.5.1" date="2018-12-07">
+      <description>
+        <p>Fix and add feature</p>
+        <ul>
+          <li>Download from Youtube.</li>
+          <li>Change find folder from icon location.</li>
+          <li>Icon input.</li>
+        </ul>
+      </description>
+    </release>
     <release version="1.4.1" date="2018-11-27">
       <description>
         <p>Fix and add feature</p>
