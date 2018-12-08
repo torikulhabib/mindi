@@ -23,7 +23,7 @@
     <binary>com.github.torikulhabib.mindi</binary>
   </provides>
   ​<releases>
-    <release version="1.5.2" date="2018-12-07">
+    <release version="1.5.3" date="2018-12-08">
       <description>
         <p>Fix and add feature</p>
         <ul>
