@@ -151,7 +151,7 @@ msgstr ""
 msgid "Video files"
 msgstr ""
 
-#: src/Window.vala:511
+#: src/Window.vala:512
 msgid "Audio files"
 msgstr ""
 
@@ -191,44 +191,44 @@ msgstr ""
 msgid "Please wait…"
 msgstr ""
 
-#: src/Window.vala:820
+#: src/Window.vala:816
 msgid "Download succes"
 msgstr ""
 
-#: src/Window.vala:821
+#: src/Window.vala:817
 msgid "Ready to convert!"
 msgstr ""
 
-#: src/Window.vala:826
+#: src/Window.vala:822
 msgid "Download Error"
 msgstr ""
 
-#: src/Window.vala:828
+#: src/Window.vala:824
 msgid "Failed retrieve…"
 msgstr ""
 
-#: src/Window.vala:829
+#: src/Window.vala:825
 msgid "Not ready yet!"
 msgstr ""
 
-#: src/Window.vala:835 src/Window.vala:843
+#: src/Window.vala:831 src/Window.vala:839
 #, c-format
 msgid "%s was convert into %s"
 msgstr ""
 
-#: src/Window.vala:837 src/Window.vala:845
+#: src/Window.vala:833 src/Window.vala:841
 #, c-format
 msgid "Error while = convert %s into %s"
 msgstr ""
 
-#: src/Window.vala:257 src/Window.vala:857 src/Window.vala:871 src/Window.vala:884
+#: src/Window.vala:257 src/Window.vala:853 src/Window.vala:867 src/Window.vala:880
 msgid "Finished"
 msgstr ""
 
-#: src/Window.vala:864 src/Window.vala:874 src/Window.vala:901
+#: src/Window.vala:860 src/Window.vala:869 src/Window.vala:897
 msgid "Error"
 msgstr ""
 
-#: src/Window.vala:886 src/Window.vala:903
+#: src/Window.vala:882 src/Window.vala:899
 msgid "Automatic Close"
 msgstr ""
