@@ -811,11 +811,7 @@ namespace Mindi {
                 if (converter.is_downloading){
                     status_location ();
                     if (success) {
-                        Timeout.add_seconds (0, () => {
-                            converter.read_name.begin ();
-                            youtube_name.label = converter.name_file_stream;
-                            return false;
-                        });
+                        youtube_name.label = converter.name_file_stream;
                         entry.set_text ("");
                         app_notification.title = "Download succes";
                         convert_label.label = ("Ready to convert!");

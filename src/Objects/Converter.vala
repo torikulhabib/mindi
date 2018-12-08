@@ -104,18 +104,20 @@ namespace Mindi {
                     is_converting = false;
                     is_downloading = false;
                     return false;
-                });
+	            });
             });
         }
 
-        private void get_folder_data (File file, string name = "") {
+        private void get_folder_data (string cache, File file, string name = "") {
+            var cache_dir = File.new_for_path (cache);
+            if (cache_dir.query_exists ()) {
             try {
                 var enumerator = file.enumerate_children ("", FileQueryInfoFlags.NOFOLLOW_SYMLINKS);
                 FileInfo info = null;
                 while ((info = enumerator.next_file ()) != null) {
                     if (info.get_file_type () == FileType.DIRECTORY) {
                        File subdir = file.resolve_relative_path (info.get_name ());
-                        get_folder_data (subdir, "");
+                        get_folder_data (cache, subdir, name = "");
                     } else {
                         name_file_stream = info.get_name ();
                     }
@@ -123,24 +125,25 @@ namespace Mindi {
             } catch (Error e) {
                 GLib.warning (e.message);
             }
+            }
         }
 
         public async void read_name () {
-            cache_dir_path = Path.build_path (Path.DIR_SEPARATOR_S, Environment.get_user_cache_dir (), "mindi");
+            cache_dir_path = Path.build_path (Path.DIR_SEPARATOR_S, Environment.get_user_cache_dir (), Environment.get_application_name());
             File cache_dir_source = File.new_for_path (cache_dir_path);
-            get_folder_data (cache_dir_source, "");
+            get_folder_data (cache_dir_path, cache_dir_source, "");
         }
 
         public async void get_video (string uri) {
             downloading ();
-            cache_dir_path = Path.build_path (Path.DIR_SEPARATOR_S, Environment.get_user_cache_dir (), "mindi");
-            string ignore = "" + name_file_stream;
-            string up = ignore.up ();
+            cache_dir_path = Path.build_path (Path.DIR_SEPARATOR_S, Environment.get_user_cache_dir (), Environment.get_application_name());
+            string ignore_name = "" + name_file_stream;
+            string up = ignore_name.up ();
             if (up.contains ("")) {
-               if (up.contains (".PART")) {
+               if (up.contains ("PART")) {
                 get_video_youtube (uri);
-                } else {
-                    string check_file = Path.build_path (Path.DIR_SEPARATOR_S, cache_dir_path, ignore);
+                } else if (up.contains (".")) {
+                    string check_file = Path.build_path (Path.DIR_SEPARATOR_S, cache_dir_path, ignore_name);
                     if (File.new_for_path (check_file).query_exists ()) {
                         File file = File.new_for_path (check_file);
 	                    try {
@@ -150,12 +153,14 @@ namespace Mindi {
 	                    }
 	                    }
 	                get_video_youtube (uri);
+                } else {
+	                get_video_youtube (uri);
 	            }
             }
         }
 
 	    private void get_video_youtube (string uri) {
-            cache_dir_path = Path.build_path (Path.DIR_SEPARATOR_S, Environment.get_user_cache_dir(), "mindi");
+            cache_dir_path = Path.build_path (Path.DIR_SEPARATOR_S, Environment.get_user_cache_dir (), Environment.get_application_name());
             var cache_dir = File.new_for_path (cache_dir_path);
             if (!cache_dir.query_exists ()) {
                 try {
@@ -177,10 +182,10 @@ namespace Mindi {
                     convert_async.begin (input_stream, (obj, async_res) => {
                         try {
                             if (subprocess.wait_check ()) {
-                                finished (true);
+
                                 subprocess.get_successful ();
                                 Timeout.add_seconds (1,() => {
-                                    progress_bar.set_fraction (0);
+                                    remove_part.begin ();
                                     return false;
                                 });
                             }
@@ -195,13 +200,39 @@ namespace Mindi {
             }
         }
 
+        private async void remove_part () {
+            while (true) {
+                read_name.begin ();
+                cache_dir_path = Path.build_path (Path.DIR_SEPARATOR_S, Environment.get_user_cache_dir (), Environment.get_application_name());
+                string ignore_name = "" + name_file_stream;
+                string up = ignore_name.up ();
+                if (up.contains ("")) {
+                   if (up.contains ("PART")) {
+                        string check_file = Path.build_path (Path.DIR_SEPARATOR_S, cache_dir_path, ignore_name);
+                        if (File.new_for_path (check_file).query_exists ()) {
+                            File file = File.new_for_path (check_file);
+	                        try {
+		                        file.delete ();
+	                        } catch (Error e) {
+                                GLib.warning (e.message);
+	                        }
+	                    }
+	                }  else {
+                        progress_bar.set_fraction (0);
+	                    finished (true);
+	                    break;
+	                }
+                }
+            }
+	    }
+
         public async void cancel_now () {
             subprocess.force_exit ();
         }
 
         public async void set_folder (File video, bool youtube_active) {
             var settings = Mindi.Configs.Settings.get_settings ();
-            cache_dir_path = Path.build_path (Path.DIR_SEPARATOR_S, Environment.get_user_cache_dir(), "mindi");
+            cache_dir_path = Path.build_path (Path.DIR_SEPARATOR_S, Environment.get_user_cache_dir (), Environment.get_application_name());
                 if (youtube_active) {
                     inputvideo = cache_dir_path + "/" + name_file_stream;
 	                int i = name_file_stream.last_index_of (".");
@@ -265,44 +296,44 @@ namespace Mindi {
 
         public async void converter_now (Mindi.Formataudios formataudio) {
             converting ();
-            string [] cmd;
+            string [] spawn_args;
 		    string [] spawn_env = Environ.get ();
 
             switch (formataudio) {
                 case Mindi.Formataudios.AC3:
-                    cmd = {"ffmpeg", "-y", "-i", inputvideo, "-f", "ac3", "-acodec", "ac3", "-b:a", "192k", "-ar", "48000", "-ac", "2", ac3_path};
+                    spawn_args = {"ffmpeg", "-y", "-i", inputvideo, "-f", "ac3", "-acodec", "ac3", "-b:a", "192k", "-ar", "48000", "-ac", "2", ac3_path};
                     break;
                 case Mindi.Formataudios.AIFF:
-                    cmd = {"ffmpeg", "-y", "-i", inputvideo, aiff_path};
+                    spawn_args = {"ffmpeg", "-y", "-i", inputvideo, aiff_path};
                     break;
                 case Mindi.Formataudios.FLAC:
-                    cmd = {"ffmpeg", "-y", "-i", inputvideo, "-c:a", "flac", flac_path};
+                    spawn_args = {"ffmpeg", "-y", "-i", inputvideo, "-c:a", "flac", flac_path};
                     break;
                 case Mindi.Formataudios.MMF:
-                    cmd = {"ffmpeg", "-y", "-i", inputvideo,  "-strict", "-2", "-ar", "44100", mmf_path};
+                    spawn_args = {"ffmpeg", "-y", "-i", inputvideo,  "-strict", "-2", "-ar", "44100", mmf_path};
                     break;
                 case Mindi.Formataudios.MP3:
-                    cmd = {"ffmpeg", "-y", "-i", inputvideo, "-acodec", "libmp3lame", "-b:a", "160k", "-ac", "2", "-ar", "44100", mp3_path};
+                    spawn_args = {"ffmpeg", "-y", "-i", inputvideo, "-acodec", "libmp3lame", "-b:a", "160k", "-ac", "2", "-ar", "44100", mp3_path};
                     break;
                 case Mindi.Formataudios.M4A:
-                    cmd = {"ffmpeg", "-y", "-i", inputvideo, "-vn", "-acodec", "aac", "-strict", "experimental", "-b:a", "112k", "-ac", "2", "-ar", "48000", m4a_path};
+                    spawn_args = {"ffmpeg", "-y", "-i", inputvideo, "-vn", "-acodec", "aac", "-strict", "experimental", "-b:a", "112k", "-ac", "2", "-ar", "48000", m4a_path};
                     break;
                 case Mindi.Formataudios.OGG:
-                    cmd = {"ffmpeg", "-y", "-i", inputvideo, "-acodec", "libvorbis", "-aq", "3", "-vn", "-ac", "2", ogg_path};
+                    spawn_args = {"ffmpeg", "-y", "-i", inputvideo, "-acodec", "libvorbis", "-aq", "3", "-vn", "-ac", "2", ogg_path};
                     break;
                 case Mindi.Formataudios.WMA:
-                    cmd = {"ffmpeg", "-y", "-i", inputvideo, "-vn", "-acodec", "wmav2", "-b:a", "160k", "-ac", "2", wma_path};
+                    spawn_args = {"ffmpeg", "-y", "-i", inputvideo, "-vn", "-acodec", "wmav2", "-b:a", "160k", "-ac", "2", wma_path};
                     break;
                 case Mindi.Formataudios.WAV:
-                    cmd = {"ffmpeg", "-y", "-i", inputvideo, "-vn", "-ar", "44100", wav_path};
+                    spawn_args = {"ffmpeg", "-y", "-i", inputvideo, "-vn", "-ar", "44100", wav_path};
                     break;
                 default:
-                    cmd = {"ffmpeg", "-y", "-i", inputvideo, "-strict", "experimental", "-c:a", "aac", "-b:a", "128k", aac_path};
+                    spawn_args = {"ffmpeg", "-y", "-i", inputvideo, "-strict", "experimental", "-c:a", "aac", "-b:a", "128k", aac_path};
                     break;
                  }
             try {
                     SubprocessLauncher launcher = new SubprocessLauncher (SubprocessFlags.STDERR_PIPE);
-                    subprocess = launcher.spawnv (cmd);
+                    subprocess = launcher.spawnv (spawn_args);
                     launcher.set_environ (spawn_env);
                     InputStream input_stream    = subprocess.get_stderr_pipe ();
 
