@@ -750,7 +750,6 @@ namespace Mindi {
 
             open_video.sensitive = false;
             open_youtube.sensitive = false;
-            video_name.sensitive = false;
             video_logo.sensitive = false;
             select_format.sensitive = false;
             format_logo.sensitive = false;
@@ -777,7 +776,11 @@ namespace Mindi {
                         youtube_name.label = "Please wait…";
                         return false;
                     });
+                } else {
+                    youtube_name.label = "Converting…";
                 }
+            } else {
+                video_name.label = "Converting…";
             }
         }
 
@@ -799,7 +802,6 @@ namespace Mindi {
 
             open_video.sensitive = true;
             open_youtube.sensitive = true;
-            video_name.sensitive = true;
             video_logo.sensitive = true;
             select_format.sensitive = true;
             format_logo.sensitive = true;
@@ -808,6 +810,7 @@ namespace Mindi {
             youtube_logo.sensitive = true;
 
             if (youtube_active) {
+                youtube_name.label = converter.name_file_stream;
                 if (converter.is_downloading){
                     status_location ();
                     if (success) {
@@ -835,6 +838,7 @@ namespace Mindi {
                     notify_signal (success);
                 }
             } else {
+                video_name.label = (selected_video.get_basename ());
                 if (success) {
                     message = _("%s was converted into %s").printf (selected_video.get_basename (), selected_formataudio.formataudio.get_name ());
                 } else {
