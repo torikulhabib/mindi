@@ -67,6 +67,7 @@ namespace Mindi {
         private bool notify_active {get;set;}
         private bool ask_active {get;set;}
         private bool stream_active {get;set;}
+        private bool stream {get;set;}
 
         Notification desktop_notification;
         Mindi.Widgets.Toast app_notification;
@@ -449,7 +450,7 @@ namespace Mindi {
             });
 
             button.clicked.connect (() => {
-                add_url_clicked ();
+                add_url_clicked (stream);
                 add_url_popover.hide ();
             });
 
@@ -473,23 +474,29 @@ namespace Mindi {
             content.attach (stream_stack, 0, 0, 1, 1);
         }
 
-        private void add_url_clicked () {
+        private void add_url_clicked (bool stream) {
             string url = entry.get_text().strip ();
+            if (url.contains ("outube")) {
+            stream = true;
             bool list = url.contains ("list");
             if (list) {
                 string [] link = url.split ("&");
                 string result = link [0];
-                add_download (result);
+                add_download (result, stream);
             } else {
-                add_download (url);
+                add_download (url, stream);
+            }
+            } else {
+                stream = false;
+                add_download (url, stream);
             }
         }
 
-        private void add_download (string url) {
+        private void add_download (string url, bool stream) {
             if (!converter.is_running) {
                 converter.finished.connect (on_converter_finished);
                 converter.finished.connect (notify_signal);
-                converter.get_video.begin (url);
+                converter.get_video.begin (url, stream);
             }
         }
 

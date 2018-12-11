@@ -134,14 +134,14 @@ namespace Mindi {
             get_folder_data (cache_dir_path, cache_dir_source, "");
         }
 
-        public async void get_video (string uri) {
+        public async void get_video (string uri, bool stream) {
             downloading ();
             cache_dir_path = Path.build_path (Path.DIR_SEPARATOR_S, Environment.get_user_cache_dir (), Environment.get_application_name());
             string ignore_name = "" + name_file_stream;
             string up = ignore_name.up ();
             if (up.contains ("")) {
                if (up.contains ("PART")) {
-                get_video_stream (uri);
+                get_video_stream (uri, stream);
                 } else if (up.contains (".")) {
                     string check_file = Path.build_path (Path.DIR_SEPARATOR_S, cache_dir_path, ignore_name);
                     if (File.new_for_path (check_file).query_exists ()) {
@@ -152,14 +152,18 @@ namespace Mindi {
                             GLib.warning (e.message);
 	                    }
 	                    }
-	                get_video_stream (uri);
+	                get_video_stream (uri, stream);
                 } else {
-	                get_video_stream (uri);
+	                get_video_stream (uri, stream);
 	            }
             }
         }
 
-	    private void get_video_stream (string uri) {
+	    private void get_video_stream (string uri, bool stream) {
+	    	string [] spawn_args;
+            string [] spawn_env = Environ.get ();
+
+	        if (stream) {
             cache_dir_path = Path.build_path (Path.DIR_SEPARATOR_S, Environment.get_user_cache_dir (), Environment.get_application_name());
             var cache_dir = File.new_for_path (cache_dir_path);
             if (!cache_dir.query_exists ()) {
@@ -170,8 +174,10 @@ namespace Mindi {
                 }
             }
 
-		    string [] spawn_args = {"youtube-dl", "-f", "251", "-o", "%(title)s.%(ext)s" , uri};
-            string [] spawn_env = Environ.get ();
+		        spawn_args = {"youtube-dl", "-f", "251", "-o", "%(title)s.%(ext)s" , uri};
+		    } else {
+		        spawn_args = {"youtube-dl", "-o", "%(title)s.%(ext)s" , uri};
+		    }
             try {
                     SubprocessLauncher launcher = new SubprocessLauncher (SubprocessFlags.STDOUT_PIPE);
                     launcher.set_cwd (cache_dir_path);
