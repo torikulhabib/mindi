@@ -141,7 +141,7 @@ namespace Mindi {
             string up = ignore_name.up ();
             if (up.contains ("")) {
                if (up.contains ("PART")) {
-                get_video_youtube (uri);
+                get_video_stream (uri);
                 } else if (up.contains (".")) {
                     string check_file = Path.build_path (Path.DIR_SEPARATOR_S, cache_dir_path, ignore_name);
                     if (File.new_for_path (check_file).query_exists ()) {
@@ -152,14 +152,14 @@ namespace Mindi {
                             GLib.warning (e.message);
 	                    }
 	                    }
-	                get_video_youtube (uri);
+	                get_video_stream (uri);
                 } else {
-	                get_video_youtube (uri);
+	                get_video_stream (uri);
 	            }
             }
         }
 
-	    private void get_video_youtube (string uri) {
+	    private void get_video_stream (string uri) {
             cache_dir_path = Path.build_path (Path.DIR_SEPARATOR_S, Environment.get_user_cache_dir (), Environment.get_application_name());
             var cache_dir = File.new_for_path (cache_dir_path);
             if (!cache_dir.query_exists ()) {
@@ -230,10 +230,10 @@ namespace Mindi {
             subprocess.force_exit ();
         }
 
-        public async void set_folder (File video, bool youtube_active) {
+        public async void set_folder (File video, bool stream_active) {
             var settings = Mindi.Configs.Settings.get_settings ();
             cache_dir_path = Path.build_path (Path.DIR_SEPARATOR_S, Environment.get_user_cache_dir (), Environment.get_application_name());
-                if (youtube_active) {
+                if (stream_active) {
                     inputvideo = cache_dir_path + "/" + name_file_stream;
 	                int i = name_file_stream.last_index_of (".");
                     string out_last = name_file_stream.substring (i + 1);

@@ -50,13 +50,13 @@ namespace Mindi {
         private Button light_dark_button;
 
         private Stack stack;
-        private Image youtube_logo;
-        private Stack youtube_stack;
-        private Label youtube_name;
-        private Button youtube_button;
-        private Grid youtube_container;
-        private Button open_youtube;
-        private Image icon_youtube;
+        private Image stream_logo;
+        private Stack stream_stack;
+        private Label stream_name;
+        private Button stream_button;
+        private Grid stream_container;
+        private Button open_stream;
+        private Image icon_stream;
         private Popover add_url_popover;
         private Entry entry;
 
@@ -66,7 +66,7 @@ namespace Mindi {
         private string set_link;
         private bool notify_active {get;set;}
         private bool ask_active {get;set;}
-        private bool youtube_active {get;set;}
+        private bool stream_active {get;set;}
 
         Notification desktop_notification;
         Mindi.Widgets.Toast app_notification;
@@ -195,19 +195,19 @@ namespace Mindi {
                 signal_close ();
             });
 
-		    settings.notify["youtube-mode"].connect (() => {
-            youtube_symbol ();
+		    settings.notify["stream-mode"].connect (() => {
+            stream_symbol ();
 		    });
 
             icon_pc = new Gtk.Image.from_icon_name ("computer-symbolic", Gtk.IconSize.BUTTON);
-            icon_youtube = new Gtk.Image.from_icon_name ("internet-web-browser-symbolic", Gtk.IconSize.BUTTON);
+            icon_stream = new Gtk.Image.from_icon_name ("internet-web-browser-symbolic", Gtk.IconSize.BUTTON);
 
-            youtube_button = new Button ();
-            youtube_symbol ();
-            youtube_button.tooltip_text = _("Mode");
-            youtube_button.clicked.connect (() => {
+            stream_button = new Button ();
+            stream_symbol ();
+            stream_button.tooltip_text = _("Mode");
+            stream_button.clicked.connect (() => {
             if (!converter.is_running) {
-                settings.youtube_switch ();
+                settings.stream_switch ();
             }
             });
 
@@ -220,7 +220,7 @@ namespace Mindi {
             headerbar.pack_start (close_button);
             headerbar.pack_start (location_button);
             headerbar.pack_start (choose_revealer);
-            headerbar.pack_start (youtube_button);
+            headerbar.pack_start (stream_button);
             set_titlebar (headerbar);
 
             var header_context = headerbar.get_style_context ();
@@ -257,10 +257,10 @@ namespace Mindi {
             desktop_notification = new Notification (_ ("Finished"));
 
             build_video_area ();
-            build_youtube_area ();
+            build_stream_area ();
             build_format_area ();
             build_convert_area ();
-            stack_video_youtube ();
+            stack_video_stream ();
             add (overlay);
             show_all ();
 
@@ -401,27 +401,27 @@ namespace Mindi {
             video_container.attach (open_video, 0, 3, 1, 1);
         }
 
-        private void build_youtube_area () {
-            youtube_container = new Gtk.Grid ();
-            youtube_container.row_spacing = 10;
-            youtube_container.width_request = 16;
-            youtube_container.column_homogeneous = true;
+        private void build_stream_area () {
+            stream_container = new Gtk.Grid ();
+            stream_container.row_spacing = 10;
+            stream_container.width_request = 16;
+            stream_container.column_homogeneous = true;
 
-            var title_youtube = new Gtk.Label ("Youtube");
-            title_youtube.get_style_context ().add_class (Granite.STYLE_CLASS_H2_LABEL);
-            title_youtube.hexpand = true;
-            youtube_container.attach (title_youtube, 0, 0, 1, 1);
+            var title_stream = new Gtk.Label ("Stream");
+            title_stream.get_style_context ().add_class (Granite.STYLE_CLASS_H2_LABEL);
+            title_stream.hexpand = true;
+            stream_container.attach (title_stream, 0, 0, 1, 1);
 
-            youtube_logo = new Image.from_icon_name ("com.github.torikulhabib.mindi.youtube", Gtk.IconSize.DIALOG);
-            youtube_container.attach (youtube_logo, 0, 1, 1, 1);
+            stream_logo = new Image.from_icon_name ("internet-web-browser", Gtk.IconSize.DIALOG);
+            stream_container.attach (stream_logo, 0, 1, 1, 1);
 
-            youtube_name = new Gtk.Label ("Download now…");
-            youtube_name.max_width_chars = 16;
-            youtube_name.ellipsize = Pango.EllipsizeMode.END;
-            youtube_name.halign = Gtk.Align.CENTER;
-            youtube_name.wrap = true;
-            youtube_name.show ();
-            youtube_container.attach (youtube_name, 0, 2, 1, 1);
+            stream_name = new Gtk.Label ("Get now…");
+            stream_name.max_width_chars = 16;
+            stream_name.ellipsize = Pango.EllipsizeMode.END;
+            stream_name.halign = Gtk.Align.CENTER;
+            stream_name.wrap = true;
+            stream_name.show ();
+            stream_container.attach (stream_name, 0, 2, 1, 1);
 
             var button = new Button.from_icon_name ("list-add-symbolic", IconSize.SMALL_TOOLBAR);
             button.tooltip_text = _("Add");
@@ -430,15 +430,15 @@ namespace Mindi {
             entry = new Gtk.Entry ();
             entry.tooltip_text = _("Paste URL here…");
 
-            var youtube_grid = new Gtk.Grid ();
-            youtube_grid.orientation = Gtk.Orientation.HORIZONTAL;
-            youtube_grid.row_spacing = 10;
-            youtube_grid.column_spacing = 10;
-            youtube_grid.border_width = 10;
-            youtube_grid.add (entry);
-            youtube_grid.add (clip_button);
-            youtube_grid.add (button);
-            youtube_grid.show_all ();
+            var stream_grid = new Gtk.Grid ();
+            stream_grid.orientation = Gtk.Orientation.HORIZONTAL;
+            stream_grid.row_spacing = 10;
+            stream_grid.column_spacing = 10;
+            stream_grid.border_width = 10;
+            stream_grid.add (entry);
+            stream_grid.add (clip_button);
+            stream_grid.add (button);
+            stream_grid.show_all ();
             entry.has_focus = true;
 
             clip_button.clicked.connect (() => {
@@ -453,24 +453,24 @@ namespace Mindi {
                 add_url_popover.hide ();
             });
 
-            open_youtube = new Gtk.Button.with_label (_ ("Add URL"));
-            open_youtube.valign = Gtk.Align.END;
-            open_youtube.clicked.connect (() => {
+            open_stream = new Gtk.Button.with_label (_ ("Add URL"));
+            open_stream.valign = Gtk.Align.END;
+            open_stream.clicked.connect (() => {
                     add_url_popover.visible = !add_url_popover.visible;
             });
 
-            add_url_popover = new Gtk.Popover (open_youtube);
+            add_url_popover = new Gtk.Popover (open_stream);
             add_url_popover.position = Gtk.PositionType.TOP;
-            add_url_popover.add (youtube_grid);
+            add_url_popover.add (stream_grid);
 
-            youtube_container.attach (open_youtube, 0, 3, 1, 1);
+            stream_container.attach (open_stream, 0, 3, 1, 1);
         }
 
-        private void stack_video_youtube () {
-            youtube_stack = new Stack ();
-            youtube_stack.add_named (video_container, "video");
-            youtube_stack.add_named (youtube_container, "youtube");
-            content.attach (youtube_stack, 0, 0, 1, 1);
+        private void stack_video_stream () {
+            stream_stack = new Stack ();
+            stream_stack.add_named (video_container, "video");
+            stream_stack.add_named (stream_container, "stream");
+            content.attach (stream_stack, 0, 0, 1, 1);
         }
 
         private void add_url_clicked () {
@@ -749,13 +749,13 @@ namespace Mindi {
             ask_location.label = ("Location : " + ask_location_set);
 
             open_video.sensitive = false;
-            open_youtube.sensitive = false;
+            open_stream.sensitive = false;
             video_logo.sensitive = false;
             select_format.sensitive = false;
             format_logo.sensitive = false;
             format_name.sensitive = false;
             convert_start.sensitive = false;
-            youtube_logo.sensitive = false;
+            stream_logo.sensitive = false;
 
             convert_revealer.visible = false;
             convert_revealer.set_reveal_child (false);
@@ -767,17 +767,17 @@ namespace Mindi {
             convert_label.visible = false;
                 return false;
             });
-            if (youtube_active) {
+            if (stream_active) {
             convert_container.sensitive = true;
             format_container.sensitive = true;
                 if (!now_converting) {
                     Timeout.add_seconds (0,() => {
                         stack.visible_child_name = "download";
-                        youtube_name.label = "Please wait…";
+                        stream_name.label = "Please wait…";
                         return false;
                     });
                 } else {
-                    youtube_name.label = "Converting…";
+                    stream_name.label = "Converting…";
                 }
             } else {
                 video_name.label = "Converting…";
@@ -801,20 +801,20 @@ namespace Mindi {
             });
 
             open_video.sensitive = true;
-            open_youtube.sensitive = true;
+            open_stream.sensitive = true;
             video_logo.sensitive = true;
             select_format.sensitive = true;
             format_logo.sensitive = true;
             format_name.sensitive = true;
             convert_start.sensitive = true;
-            youtube_logo.sensitive = true;
+            stream_logo.sensitive = true;
 
-            if (youtube_active) {
-                youtube_name.label = converter.name_file_stream;
+            if (stream_active) {
+                stream_name.label = converter.name_file_stream;
                 if (converter.is_downloading){
                     status_location ();
                     if (success) {
-                        youtube_name.label = converter.name_file_stream;
+                        stream_name.label = converter.name_file_stream;
                         entry.set_text ("");
                         app_notification.title = "Download succes";
                         convert_label.label = ("Ready to convert!");
@@ -824,7 +824,7 @@ namespace Mindi {
                     } else {
                         app_notification.title = "Download Error";
                         app_notification.send_notification ();
-                        youtube_name.label = ("Failed retrieve…");
+                        stream_name.label = ("Failed retrieve…");
                         convert_label.label = ("<i>Not ready yet!</i>");
                         convert_start.sensitive = false;
                         select_format.sensitive = false;
@@ -919,7 +919,7 @@ namespace Mindi {
             var ask_location = new Gtk.FileChooserDialog (
                 _ ("Select a folder."), this, Gtk.FileChooserAction.SELECT_FOLDER,
                 _ ("_Cancel"), Gtk.ResponseType.CANCEL,
-                _ ("_Open"), Gtk.ResponseType.ACCEPT);
+                _ ("OK"), Gtk.ResponseType.ACCEPT);
 
             var folder_ask = new Gtk.FileFilter ();
             folder_ask.add_mime_type ("inode/directory");
@@ -930,7 +930,7 @@ namespace Mindi {
                 settings.ask_location = ask_location_folder;
                 converter.finished.connect (on_converter_finished);
                 converter.finished.connect (notify_signal);
-                converter.set_folder.begin (selected_video, youtube_active);
+                converter.set_folder.begin (selected_video, stream_active);
                 converter.converter_now.begin (selected_formataudio.formataudio);
             }
             ask_location.destroy ();
@@ -943,7 +943,7 @@ namespace Mindi {
                 } else {
                     converter.finished.connect (on_converter_finished);
                     converter.finished.connect (notify_signal);
-                    converter.set_folder.begin (selected_video, youtube_active);
+                    converter.set_folder.begin (selected_video, stream_active);
                     converter.converter_now.begin (selected_formataudio.formataudio);
                 }
             }
@@ -957,7 +957,7 @@ namespace Mindi {
 
         private void fail_convert () {
             if (!converter.is_running) {
-                converter.set_folder.begin (selected_video, youtube_active);
+                converter.set_folder.begin (selected_video, stream_active);
                 converter.remove_failed.begin (selected_formataudio.formataudio);
             }
         }
@@ -1029,27 +1029,27 @@ namespace Mindi {
                    notify_button.show_all ();
             }
 
-        private void youtube_symbol () {
+        private void stream_symbol () {
             var settings = Mindi.Configs.Settings.get_settings ();
-            switch (settings.youtube_mode) {
-                case YoutubeMode.PC :
-                    youtube_button.set_image (icon_pc);
-                    youtube_active = false;
+            switch (settings.stream_mode) {
+                case StreamMode.PC :
+                    stream_button.set_image (icon_pc);
+                    stream_active = false;
                     Timeout.add_seconds (0,() => {
-                        youtube_stack.visible_child_name = "video";
+                        stream_stack.visible_child_name = "video";
                         return false;
                     });
                     break;
-                case YoutubeMode.YOUTUBE :
-                    youtube_button.set_image (icon_youtube);
-                    youtube_active = true;
+                case StreamMode.STREAM :
+                    stream_button.set_image (icon_stream);
+                    stream_active = true;
                     Timeout.add_seconds (0,() => {
-                        youtube_stack.visible_child_name = "youtube";
+                        stream_stack.visible_child_name = "stream";
                         return false;
                     });
                     break;
             }
-                   youtube_button.show_all ();
+                   stream_button.show_all ();
         }
 
         private void folder_symbol () {

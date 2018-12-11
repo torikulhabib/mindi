@@ -4,7 +4,7 @@
 
 Quickly convert video to audio  
 Features:
-- Get audio from youtube.
+- Get stream video.
 - Use from context menu: right click on video, and select "Convert to Audio".
 - Use from Applications select video.
 

@@ -55,7 +55,6 @@ icon_sizes = ['48']
 
 foreach i : icon_sizes
     install_data(
-        join_paths('data/icons', i, meson.project_name() + '.youtube.svg'),
         join_paths('data/icons', i, meson.project_name() + '.mp4.svg'),
         join_paths('data/icons', i, meson.project_name() + '.flv.svg'),
         join_paths('data/icons', i, meson.project_name() + '.webm.svg'),
@@ -76,7 +75,6 @@ foreach i : icon_sizes
         install_dir: join_paths(get_option('datadir'), 'icons', 'hicolor', i + 'x' + i, 'mimetypes')
     )
     install_data(
-        join_paths('data/icons', i, meson.project_name() + '.youtube.svg'),
         join_paths('data/icons', i, meson.project_name() + '.mp4.svg'),
         join_paths('data/icons', i, meson.project_name() + '.flv.svg'),
         join_paths('data/icons', i, meson.project_name() + '.webm.svg'),

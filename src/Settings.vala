@@ -45,16 +45,16 @@ namespace Mindi.Configs {
         CUSTOM = 1,
         ASK = 2
     }
-    public enum YoutubeMode {
+    public enum StreamMode {
         PC = 0,
-        YOUTUBE = 1
+        STREAM = 1
     }
     public class Settings : Granite.Services.Settings {
         private static Settings? settings;
         public FormatAudios format_audios  { get; set; }
         public NotifyMode notify_mode  { get; set; }
         public FolderMode folder_mode  { get; set; }
-        public YoutubeMode youtube_mode  { get; set; }
+        public StreamMode stream_mode  { get; set; }
         public LightMode light_mode  { get; set; }
         public string output_folder    { get; set; }
         public string ask_location    { get; set; }
@@ -137,13 +137,13 @@ namespace Mindi.Configs {
             }
         }
 
-        public void youtube_switch () {
-            switch (settings.youtube_mode) {
-                case YoutubeMode.PC:
-                    settings.youtube_mode = YoutubeMode.YOUTUBE;
+        public void stream_switch () {
+            switch (settings.stream_mode) {
+                case StreamMode.PC:
+                    settings.stream_mode = StreamMode.STREAM;
                     break;
                 default:
-                    settings.youtube_mode = YoutubeMode.PC;
+                    settings.stream_mode = StreamMode.PC;
                     break;
             }
         }

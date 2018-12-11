@@ -10,7 +10,7 @@
     <p>Option to quickly convert to audio.</p>
     <p>Features:</p>
     <ul>
-      <li>Get from youtube.</li>
+      <li>Get video stream.</li>
       <li>Use from context menu: right click on video or audio file, and select Convert to Audio.</li>
       <li>Use from Applications select video.</li>
       <li>Dark and light.</li>
@@ -27,7 +27,7 @@
       <description>
         <p>Fix and add feature</p>
         <ul>
-          <li>Download from Youtube.</li>
+          <li>Download video stream.</li>
           <li>Change find folder from icon location.</li>
           <li>Change switch to button.</li>
           <li>Icon input.</li>
