@@ -3,9 +3,10 @@ using Mindi.Configs;
 
 namespace Mindi {
     public class Window : Gtk.ApplicationWindow {
-        private Dialog dialog = null;
+        private Dialog? dialog = null;
         private ObjectConverter? converter;
-
+        private NotifySilent? notifysilent;
+        private StreamPc? streampc;
         private Grid content;
         private Button open_video;
         private Image video_logo;
@@ -35,28 +36,18 @@ namespace Mindi {
         private Revealer cancel_revealer;
         private Revealer progressbar_revealer;
 
-
-        private Image icon_light;
-        private Image icon_dark;
-        private Image icon_pc;
         private Image ask_icon_folder;
         private Image icon_folder_open;
         private Image icon_folder;
-        private Image icon_notify;
-        private Image icon_silent;
-        private Button notify_button;
         private Button open_button;
         private Button location_button;
-        private Button light_dark_button;
 
         private Stack stack;
         private Image stream_logo;
         private Stack stream_stack;
         private Label stream_name;
-        private Button stream_button;
         private Grid stream_container;
         private Button open_stream;
-        private Image icon_stream;
         private Popover add_url_popover;
         private Entry entry;
 
@@ -64,9 +55,7 @@ namespace Mindi {
         private string selected_location;
         private string ask_location_folder;
         private string set_link;
-        private bool notify_active {get;set;}
         private bool ask_active {get;set;}
-        private bool stream_active {get;set;}
         private bool stream {get;set;}
 
         Notification desktop_notification;
@@ -133,22 +122,9 @@ namespace Mindi {
 
         construct {
             var settings = Mindi.Configs.Settings.get_settings ();
-		    settings.notify["light-mode"].connect (() => {
-            light_dark_symbol ();
-		    });
-
-            icon_light = new Gtk.Image.from_icon_name ("display-brightness-symbolic", Gtk.IconSize.BUTTON);
-            icon_dark = new Gtk.Image.from_icon_name ("weather-clear-night-symbolic", Gtk.IconSize.BUTTON);
-
-            light_dark_button = new Button ();
-            light_dark_symbol ();
-            light_dark_button.tooltip_text = _("Backgrond");
-            light_dark_button.clicked.connect (() => {
-                settings.light_switch ();
-            });
 
 		    settings.notify["folder-mode"].connect (() => {
-            folder_symbol ();
+                folder_symbol ();
 		    });
 
             icon_folder_open = new Gtk.Image.from_icon_name ("document-save-symbolic", Gtk.IconSize.BUTTON);
@@ -156,33 +132,21 @@ namespace Mindi {
             ask_icon_folder = new Gtk.Image.from_icon_name ("system-help-symbolic", Gtk.IconSize.BUTTON);
 
             location_button = new Gtk.Button ();
-            folder_symbol ();
-            location_button.tooltip_text = _ ("Output location");
+            Timeout.add_seconds (0,() => {
+                folder_symbol ();
+                return false;
+            });
             location_button.clicked.connect (() => {
                 if (!converter.is_running) {
                     settings.folder_switch ();
                 }
             });
 
-		    settings.notify["notify-mode"].connect (() => {
-            notify_symbol ();
-		    });
-
-            icon_notify = new Gtk.Image.from_icon_name ("notification-symbolic", Gtk.IconSize.BUTTON);
-            icon_silent = new Gtk.Image.from_icon_name ("notification-disabled-symbolic", Gtk.IconSize.BUTTON);
-
-            notify_button = new Gtk.Button ();
-            notify_symbol ();
-            notify_button.tooltip_text = _ ("Notify");
-            notify_button.clicked.connect (() => {
-                settings.notify_switch ();
-            });
-
             open_button =  new Button.from_icon_name ("folder-open-symbolic", IconSize.SMALL_TOOLBAR);
             open_button.tooltip_text = _("Set location");
             open_button.clicked.connect (() => {
-            if (!converter.is_running) {
-                costum_location ();
+                if (!converter.is_running) {
+                    costum_location ();
                 }
             });
 
@@ -196,32 +160,24 @@ namespace Mindi {
                 signal_close ();
             });
 
-		    settings.notify["stream-mode"].connect (() => {
-            stream_symbol ();
-		    });
-
-            icon_pc = new Gtk.Image.from_icon_name ("computer-symbolic", Gtk.IconSize.BUTTON);
-            icon_stream = new Gtk.Image.from_icon_name ("internet-web-browser-symbolic", Gtk.IconSize.BUTTON);
-
-            stream_button = new Button ();
-            stream_symbol ();
-            stream_button.tooltip_text = _("Mode");
-            stream_button.clicked.connect (() => {
-            if (!converter.is_running) {
-                settings.stream_switch ();
-            }
+            Timeout.add_seconds (0,() => {
+                stack_stream ();
+                return false;
             });
-
+            var light_dark = new LightDark ();
+            light_dark = LightDark.instance;
+            notifysilent = NotifySilent.instance;
+            streampc = StreamPc.instance;
             var headerbar = new Gtk.HeaderBar ();
             headerbar.title = "Mindi";
             headerbar.has_subtitle = false;
             headerbar.show_close_button = false;
-            headerbar.pack_end (light_dark_button);
-            headerbar.pack_end (notify_button);
+            headerbar.pack_end (light_dark.light_dark_button);
+            headerbar.pack_end (notifysilent.notify_button);
             headerbar.pack_start (close_button);
             headerbar.pack_start (location_button);
             headerbar.pack_start (choose_revealer);
-            headerbar.pack_start (stream_button);
+            headerbar.pack_start (streampc.stream_button);
             set_titlebar (headerbar);
 
             var header_context = headerbar.get_style_context ();
@@ -237,6 +193,7 @@ namespace Mindi {
 
             converter = ObjectConverter.instance;
             converter.begin.connect (on_converter_started);
+            streampc.signal_stream.connect (button_stream);
 
             show_all();
         }
@@ -476,11 +433,14 @@ namespace Mindi {
 
         private void add_url_clicked (bool stream) {
             string url = entry.get_text().strip ();
-            if (url.contains ("outube")) {
+            if (url.contains ("youtu")) {
             stream = true;
-            bool list = url.contains ("list");
-            if (list) {
+            if (url.contains ("&" + "list")) {
                 string [] link = url.split ("&");
+                string result = link [0];
+                add_download (result, stream);
+            } else if (url.contains ("?" + "list")) {
+                string [] link = url.split ("?list");
                 string result = link [0];
                 add_download (result, stream);
             } else {
@@ -548,7 +508,7 @@ namespace Mindi {
                 output_name.label = ("Location : " + set_link);
             }
             Timeout.add_seconds (0,() => {
-            output_name.set_uri ("file://" + set_link);
+                output_name.set_uri ("file://" + set_link);
                 return false;
             });
             input_type ();
@@ -774,7 +734,7 @@ namespace Mindi {
             convert_label.visible = false;
                 return false;
             });
-            if (stream_active) {
+            if (streampc.stream_active) {
             convert_container.sensitive = true;
             format_container.sensitive = true;
                 if (!now_converting) {
@@ -816,7 +776,7 @@ namespace Mindi {
             convert_start.sensitive = true;
             stream_logo.sensitive = true;
 
-            if (stream_active) {
+            if (streampc.stream_active) {
                 stream_name.label = converter.name_file_stream;
                 if (converter.is_downloading){
                     status_location ();
@@ -858,14 +818,14 @@ namespace Mindi {
         private void notify_signal (bool success) {
             if (is_active) {
                 if (success) {
-                    if (notify_active) {
+                    if (notifysilent.notify_active) {
                         create_dialog_finish (_("%s").printf (message));
                     } else {
                         app_notification.title = "Finished";
                         app_notification.send_notification ();
                     }
                 } else {
-                    if (notify_active) {
+                    if (notifysilent.notify_active) {
                         create_dialog_error (_("%s").printf (message));
                     } else {
                         app_notification.title = "Error";
@@ -880,7 +840,7 @@ namespace Mindi {
                     desktop_notification.set_title (_("Error"));
                     fail_convert ();
                 }
-                if (notify_active) {
+                if (notifysilent.notify_active) {
                     desktop_notification.set_body (message);
                     application.send_notification ("notify.app", desktop_notification);
                 }
@@ -937,7 +897,7 @@ namespace Mindi {
                 settings.ask_location = ask_location_folder;
                 converter.finished.connect (on_converter_finished);
                 converter.finished.connect (notify_signal);
-                converter.set_folder.begin (selected_video, stream_active);
+                converter.set_folder.begin (selected_video, streampc.stream_active);
                 converter.converter_now.begin (selected_formataudio.formataudio);
             }
             ask_location.destroy ();
@@ -950,7 +910,7 @@ namespace Mindi {
                 } else {
                     converter.finished.connect (on_converter_finished);
                     converter.finished.connect (notify_signal);
-                    converter.set_folder.begin (selected_video, stream_active);
+                    converter.set_folder.begin (selected_video, streampc.stream_active);
                     converter.converter_now.begin (selected_formataudio.formataudio);
                 }
             }
@@ -964,7 +924,7 @@ namespace Mindi {
 
         private void fail_convert () {
             if (!converter.is_running) {
-                converter.set_folder.begin (selected_video, stream_active);
+                converter.set_folder.begin (selected_video, streampc.stream_active);
                 converter.remove_failed.begin (selected_formataudio.formataudio);
             }
         }
@@ -1006,57 +966,18 @@ namespace Mindi {
             }
         }
 
-        private void light_dark_symbol () {
-            var settings = Mindi.Configs.Settings.get_settings ();
-            switch (settings.light_mode) {
-                case LightMode.LIGHT :
-                    light_dark_button.set_image (icon_light);
-                    Gtk.Settings.get_default().gtk_application_prefer_dark_theme = false;
-                    break;
-                case LightMode.DARK :
-                    light_dark_button.set_image (icon_dark);
-                    Gtk.Settings.get_default().gtk_application_prefer_dark_theme = true;
-                    break;
-                }
-                   light_dark_button.show_all ();
+        private void button_stream () {
+            if (streampc.stream_active) {
+                stream_stack.visible_child_name = "video";
+            } else {
+                stream_stack.visible_child_name = "stream";
             }
+        }
 
-        private void notify_symbol () {
-            var settings = Mindi.Configs.Settings.get_settings ();
-            switch (settings.notify_mode) {
-                case NotifyMode.NOTIFY :
-                    notify_button.set_image (icon_notify);
-                    notify_active = true;
-                    break;
-                case NotifyMode.SILENT :
-                    notify_button.set_image (icon_silent);
-                    notify_active = false;
-                    break;
-                }
-                   notify_button.show_all ();
+        private void stack_stream () {
+            if (MindiApp.settings.get_boolean ("stream-mode")) {
+                stream_stack.visible_child_name = "stream";
             }
-
-        private void stream_symbol () {
-            var settings = Mindi.Configs.Settings.get_settings ();
-            switch (settings.stream_mode) {
-                case StreamMode.PC :
-                    stream_button.set_image (icon_pc);
-                    stream_active = false;
-                    Timeout.add_seconds (0,() => {
-                        stream_stack.visible_child_name = "video";
-                        return false;
-                    });
-                    break;
-                case StreamMode.STREAM :
-                    stream_button.set_image (icon_stream);
-                    stream_active = true;
-                    Timeout.add_seconds (0,() => {
-                        stream_stack.visible_child_name = "stream";
-                        return false;
-                    });
-                    break;
-            }
-                   stream_button.show_all ();
         }
 
         private void folder_symbol () {
@@ -1064,30 +985,24 @@ namespace Mindi {
             switch (settings.folder_mode) {
                 case FolderMode.PLACE :
                     location_button.set_image (icon_folder_open);
+                    location_button.tooltip_text = _ ("Location input");
                     ask_active = false;
-                    Timeout.add_seconds (0,() => {
-                        choose_revealer.set_reveal_child (false);
-                        stack.visible_child_name = "name";
-                        return false;
-                    });
+                    choose_revealer.set_reveal_child (false);
+                    stack.visible_child_name = "name";
                     break;
                 case FolderMode.CUSTOM :
                     location_button.set_image (icon_folder);
+                    location_button.tooltip_text = _ ("Costum");
                     ask_active = false;
-                    Timeout.add_seconds (0,() => {
-                        choose_revealer.set_reveal_child (true);
-                        stack.visible_child_name = "name_custom";
-                        return false;
-                    });
+                    choose_revealer.set_reveal_child (true);
+                    stack.visible_child_name = "name_custom";
                     break;
                 case FolderMode.ASK :
                     location_button.set_image (ask_icon_folder);
+                    location_button.tooltip_text = _ ("Ask");
                     ask_active = true;
-                    Timeout.add_seconds (0,() => {
-                        choose_revealer.set_reveal_child (false);
-                        stack.visible_child_name = "ask";
-                        return false;
-                    });
+                    choose_revealer.set_reveal_child (false);
+                    stack.visible_child_name = "ask";
                     break;
             }
             location_button.show_all ();

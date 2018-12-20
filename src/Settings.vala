@@ -32,30 +32,15 @@ namespace Mindi.Configs {
         WMA = 8,
         WAV = 9
     }
-    public enum LightMode {
-        LIGHT = 0,
-        DARK = 1
-    }
-    public enum NotifyMode {
-        NOTIFY = 0,
-        SILENT = 1
-    }
     public enum FolderMode {
         PLACE = 0,
         CUSTOM = 1,
         ASK = 2
     }
-    public enum StreamMode {
-        PC = 0,
-        STREAM = 1
-    }
     public class Settings : Granite.Services.Settings {
         private static Settings? settings;
         public FormatAudios format_audios  { get; set; }
-        public NotifyMode notify_mode  { get; set; }
         public FolderMode folder_mode  { get; set; }
-        public StreamMode stream_mode  { get; set; }
-        public LightMode light_mode  { get; set; }
         public string output_folder    { get; set; }
         public string ask_location    { get; set; }
         public string folder_link    { get; set; }
@@ -101,28 +86,6 @@ namespace Mindi.Configs {
             }
         }
 
-        public void light_switch () {
-            switch (settings.light_mode) {
-                case LightMode.LIGHT:
-                    settings.light_mode = LightMode.DARK;
-                    break;
-                default:
-                    settings.light_mode = LightMode.LIGHT;
-                    break;
-            }
-        }
-
-        public void notify_switch () {
-            switch (settings.notify_mode) {
-                case NotifyMode.NOTIFY:
-                    settings.notify_mode = NotifyMode.SILENT;
-                    break;
-                default:
-                    settings.notify_mode = NotifyMode.NOTIFY;
-                    break;
-            }
-        }
-
         public void folder_switch () {
             switch (settings.folder_mode) {
                 case FolderMode.PLACE:
@@ -133,17 +96,6 @@ namespace Mindi.Configs {
                     break;
                 default:
                     settings.folder_mode = FolderMode.PLACE;
-                    break;
-            }
-        }
-
-        public void stream_switch () {
-            switch (settings.stream_mode) {
-                case StreamMode.PC:
-                    settings.stream_mode = StreamMode.STREAM;
-                    break;
-                default:
-                    settings.stream_mode = StreamMode.PC;
                     break;
             }
         }

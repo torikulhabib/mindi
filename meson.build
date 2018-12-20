@@ -152,6 +152,9 @@ code_files = files(
     'src/Widgets/Dialog.vala',
     'src/Widgets/MessageDialog.vala',
     'src/Widgets/Toast.vala',
+    'src/Widgets/LightDark.vala',
+    'src/Widgets/Notify.vala',
+    'src/Widgets/StreamPc.vala',
     'src/Objects/Converter.vala'
 )
 
