@@ -132,10 +132,6 @@ namespace Mindi {
             ask_icon_folder = new Gtk.Image.from_icon_name ("system-help-symbolic", Gtk.IconSize.BUTTON);
 
             location_button = new Gtk.Button ();
-            Timeout.add_seconds (0,() => {
-                folder_symbol ();
-                return false;
-            });
             location_button.clicked.connect (() => {
                 if (!converter.is_running) {
                     settings.folder_switch ();
@@ -161,6 +157,7 @@ namespace Mindi {
             });
 
             Timeout.add_seconds (0,() => {
+                folder_symbol ();
                 stack_stream ();
                 return false;
             });
@@ -730,8 +727,8 @@ namespace Mindi {
             progressbar_revealer.add (converter);
 
             Timeout.add_seconds (1, () => {
-            progressbar_revealer.set_reveal_child (true);
-            convert_label.visible = false;
+                progressbar_revealer.set_reveal_child (true);
+                convert_label.visible = false;
                 return false;
             });
             if (streampc.stream_active) {
@@ -759,11 +756,11 @@ namespace Mindi {
             ask_location.label = ("<i>Where you want to save the audio file</i>");
 
             Timeout.add_seconds (1, () => {
-            convert_revealer.set_reveal_child (true);
-            convert_revealer.visible = true;
-            cancel_revealer.set_reveal_child (false);
-            progressbar_revealer.set_reveal_child (false);
-            convert_label.visible = true;
+                convert_revealer.set_reveal_child (true);
+                convert_revealer.visible = true;
+                cancel_revealer.set_reveal_child (false);
+                progressbar_revealer.set_reveal_child (false);
+                convert_label.visible = true;
                 return false;
             });
 
@@ -853,10 +850,10 @@ namespace Mindi {
             var auto_close = new Gtk.CheckButton.with_label ("Automatic Close");
             auto_close.show ();
             auto_close.toggled.connect (() => {
-            Timeout.add_seconds (1, () => {
-            message_dialog.destroy ();
-                return false;
-            });
+                Timeout.add_seconds (1, () => {
+                    message_dialog.destroy ();
+                    return false;
+                });
             });
             message_dialog.custom_bin.add (auto_close);
             MindiApp.settings.bind ("auto-close", auto_close, "active", GLib.SettingsBindFlags.DEFAULT);
@@ -870,10 +867,10 @@ namespace Mindi {
             var auto_close = new Gtk.CheckButton.with_label ("Automatic Close");
             auto_close.show ();
             auto_close.toggled.connect (() => {
-            Timeout.add_seconds (1, () => {
-            message_dialog.destroy ();
-                return false;
-            });
+                Timeout.add_seconds (1, () => {
+                    message_dialog.destroy ();
+                    return false;
+                });
             });
             message_dialog.custom_bin.add (auto_close);
             MindiApp.settings.bind ("auto-close", auto_close, "active", GLib.SettingsBindFlags.DEFAULT);
