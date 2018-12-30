@@ -20,7 +20,7 @@
 */
 
 namespace Mindi {
-       public class MindiApp : Granite.Application {
+    public class MindiApp : Granite.Application {
         public static GLib.Settings settings;
         private Window window = null;
         public MindiApp () {
@@ -44,6 +44,11 @@ namespace Mindi {
         }
 
         public override void open (File[] files, string hint) {
+            var streampc = new StreamPc ();
+            streampc = StreamPc.instance;
+            if (MindiApp.settings.get_boolean ("stream-mode")) {
+                streampc.stream_button_click ();
+            }
             activate ();
             if (files [0].query_exists ()) {
                 window.selected_video = files [0];

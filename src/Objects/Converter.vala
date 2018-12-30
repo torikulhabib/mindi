@@ -111,20 +111,20 @@ namespace Mindi {
         private void get_folder_data (string cache, File file, string name = "") {
             var cache_dir = File.new_for_path (cache);
             if (cache_dir.query_exists ()) {
-            try {
-                var enumerator = file.enumerate_children ("", FileQueryInfoFlags.NOFOLLOW_SYMLINKS);
-                FileInfo info = null;
-                while ((info = enumerator.next_file ()) != null) {
-                    if (info.get_file_type () == FileType.DIRECTORY) {
-                       File subdir = file.resolve_relative_path (info.get_name ());
-                        get_folder_data (cache, subdir, name = "");
-                    } else {
-                        name_file_stream = info.get_name ();
+                try {
+                    var enumerator = file.enumerate_children ("", FileQueryInfoFlags.NOFOLLOW_SYMLINKS);
+                    FileInfo info = null;
+                    while ((info = enumerator.next_file ()) != null) {
+                        if (info.get_file_type () == FileType.DIRECTORY) {
+                           File subdir = file.resolve_relative_path (info.get_name ());
+                            get_folder_data (cache, subdir, name = "");
+                        } else {
+                            name_file_stream = info.get_name ();
+                        }
                     }
+                } catch (Error e) {
+                    GLib.warning (e.message);
                 }
-            } catch (Error e) {
-                GLib.warning (e.message);
-            }
             }
         }
 
@@ -151,7 +151,7 @@ namespace Mindi {
 	                    } catch (Error e) {
                             GLib.warning (e.message);
 	                    }
-	                    }
+	                }
 	                get_video_stream (uri, stream);
                 } else {
 	                get_video_stream (uri, stream);
@@ -164,16 +164,15 @@ namespace Mindi {
             string [] spawn_env = Environ.get ();
 
 	        if (stream) {
-            cache_dir_path = Path.build_path (Path.DIR_SEPARATOR_S, Environment.get_user_cache_dir (), Environment.get_application_name());
-            var cache_dir = File.new_for_path (cache_dir_path);
-            if (!cache_dir.query_exists ()) {
-                try {
-                    cache_dir.make_directory_with_parents ();
-                } catch (Error e) {
-                    warning (e.message);
+                cache_dir_path = Path.build_path (Path.DIR_SEPARATOR_S, Environment.get_user_cache_dir (), Environment.get_application_name());
+                var cache_dir = File.new_for_path (cache_dir_path);
+                if (!cache_dir.query_exists ()) {
+                    try {
+                        cache_dir.make_directory_with_parents ();
+                    } catch (Error e) {
+                        warning (e.message);
+                    }
                 }
-            }
-
 		        spawn_args = {"youtube-dl", "-f", "251", "-o", "%(title)s.%(ext)s" , uri};
 		    } else {
 		        spawn_args = {"youtube-dl", "-o", "%(title)s.%(ext)s" , uri};

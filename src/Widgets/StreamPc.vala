@@ -44,8 +44,24 @@ namespace Mindi {
             icon_stream = new Gtk.Image.from_icon_name ("internet-web-browser-symbolic", Gtk.IconSize.BUTTON);
 
             stream_button = new Button ();
-            var converter = new ObjectConverter ();
+
             stream_button.clicked.connect (() => {
+                stream_button_click ();
+            });
+            if (MindiApp.settings.get_boolean ("stream-mode")) {
+                stream_button.tooltip_text = _("Stream");
+                stream_button.set_image (icon_stream);
+                stream_active = true;
+            } else {
+                stream_button.tooltip_text = _("PC");
+                stream_button.set_image (icon_pc);
+                stream_active = false;
+            }
+        }
+
+        public void stream_button_click () {
+            var converter = new ObjectConverter ();
+            converter = ObjectConverter.instance;
                 if (!converter.is_running) {
                     signal_stream ();
                     if (stream_active) {
@@ -60,16 +76,6 @@ namespace Mindi {
                         MindiApp.settings.set_boolean ("stream-mode", true);
                     }
                 }
-            });
-            if (MindiApp.settings.get_boolean ("stream-mode")) {
-                stream_button.tooltip_text = _("Stream");
-                stream_button.set_image (icon_stream);
-                stream_active = true;
-            } else {
-                stream_button.tooltip_text = _("PC");
-                stream_button.set_image (icon_pc);
-                stream_active = false;
-            }
         }
     }
 }
