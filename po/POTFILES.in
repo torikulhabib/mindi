@@ -1,5 +1,5 @@
 data/com.github.torikulhabib.mindi.appdata.xml.in
-data/com.github.torikulhabib.mindi.desktop.in
+data/com.github.torikulhabib.mindi.desktop.in.in
 src/Widgets/Converter.vala
 src/Widgets/Dialog.vala
 src/Widgets/LightDark.vala
