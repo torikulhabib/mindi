@@ -380,6 +380,7 @@ namespace Mindi {
 
             var button = new Button.from_icon_name ("list-add-symbolic", IconSize.SMALL_TOOLBAR);
             button.tooltip_text = _("Add");
+            button.sensitive = false;
             var clip_button = new Button.from_icon_name ("edit-paste-symbolic", IconSize.SMALL_TOOLBAR);
             clip_button.tooltip_text = _("Paste");
             entry = new Gtk.Entry ();
@@ -406,6 +407,10 @@ namespace Mindi {
             button.clicked.connect (() => {
                 add_url_clicked (stream);
                 add_url_popover.hide ();
+            });
+
+            entry.changed.connect (() => {
+                button.sensitive = entry.text != "" ? true : false;
             });
 
             open_stream = new Gtk.Button.with_label (_ ("Add URL"));
