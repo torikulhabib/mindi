@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:7
-#: data/com.github.torikulhabib.mindi.desktop.in.in:3 src/Window.vala:215
+#: data/com.github.torikulhabib.mindi.desktop.in.in:3 src/Window.vala:169
 msgid "Mindi"
 msgstr ""
 
@@ -31,8 +31,12 @@ msgstr ""
 msgid "Option to quickly convert video to audio."
 msgstr ""
 
+#: data/com.github.torikulhabib.mindi.appdata.xml.in:11
+msgid "Features:"
+msgstr ""
+
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:13
-msgid "Get from youtube."
+msgid "Get from web stream base."
 msgstr ""
 
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:14
@@ -59,176 +63,257 @@ msgstr ""
 msgid "Converter to audio"
 msgstr ""
 
-#: src/Widgets/Dialog.vala:41
+#: src/Objects/Converter.vala:400
+#: src/Objects/Converter.vala:402
+#: src/Objects/Converter.vala:422
+msgid "Run:"
+msgstr ""
+
+#: src/Objects/Converter.vala:422
+msgid "Size:"
+msgstr ""
+
+#: src/Objects/Converter.vala:422
+msgid "Bitrate:"
+msgstr ""
+
+#: src/Widgets/Dialog.vala:31
+msgid "Warning"
+msgstr ""
+
+#: src/Widgets/Dialog.vala:39
+msgid "Are you sure want to cancel this process?"
+msgstr ""
+
+#: src/Widgets/Dialog.vala:40
 msgid "No"
 msgstr ""
 
-#: src/Widgets/Dialog.vala:42
+#: src/Widgets/Dialog.vala:41
 msgid "Yes"
 msgstr ""
 
-#: src/Window.vala:101
-msgid "Change"
+#: src/Widgets/LightDark.vala:63
+msgid "Dark"
 msgstr ""
 
-#: src/Window.vala:105
-msgid "Ready!"
+#: src/Widgets/LightDark.vala:68
+msgid "Light"
 msgstr ""
 
-#: src/Window.vala:107 src/Window.vala:498 src/Window.vala:500 src/Window.vala:392 src/Window.vala:732
-msgid "Open"
+#: src/Widgets/MessageDialog.vala:39
+msgid "_Close"
 msgstr ""
 
-#: src/Window.vala:144
-msgid "Background"
+#: src/Widgets/MessageDialog.vala:42
+#: src/Window.vala:299
+#: src/Window.vala:463
+#: src/Window.vala:885
+msgid "_Cancel"
 msgstr ""
 
-#: src/Window.vala:159
-msgid "Output location"
+#: src/Widgets/Notify.vala:47
+#: src/Widgets/Notify.vala:59
+msgid "Silent"
 msgstr ""
 
-#: src/Window.vala:365 src/Window.vala:366 src/Window.vala:539 src/Window.vala:541 src/Window.vala:749
-msgid "Location"
-msgstr ""
-
-#: src/Window.vala:175
+#: src/Widgets/Notify.vala:52
+#: src/Widgets/Notify.vala:64
 msgid "Notify"
 msgstr ""
 
-#: src/Window.vala:181
+#: src/Widgets/StreamPC.vala:52
+#: src/Widgets/StreamPC.vala:73
+#: src/Window.vala:365
+msgid "Stream"
+msgstr ""
+
+#: src/Widgets/StreamPC.vala:56
+#: src/Widgets/StreamPC.vala:68
+msgid "PC"
+msgstr ""
+
+#: src/Window.vala:91
+msgid "Change"
+msgstr ""
+
+#: src/Window.vala:95
+msgid "Ready!"
+msgstr ""
+
+#: src/Window.vala:97
+#: src/Window.vala:462
+msgid "Open"
+msgstr ""
+
+#: src/Window.vala:142
 msgid "Set location"
 msgstr ""
 
-#: src/Window.vala:193
+#: src/Window.vala:154
 msgid "Close"
 msgstr ""
 
-#: src/Window.vala:207
-msgid "Mode"
-msgstr ""
-
-#: src/Window.vala:368 src/Window.vala:789
-msgid "Where you want to save the audio file"
-msgstr ""
-
-#: src/Window.vala:391
-msgid "Choose a video file…"
-msgstr ""
-
-#: src/Window.vala:399
-msgid "Select Video"
-msgstr ""
-
-#: src/Window.vala:418
-msgid "Download now…"
-msgstr ""
-
-#: src/Window.vala:427
-msgid "Add"
-msgstr ""
-
-#: src/Window.vala:429
-msgid "Paste"
-msgstr ""
-
-#: src/Window.vala:413
-msgid "Paste URL here…"
-msgstr ""
-
-#: src/Window.vala:456
-msgid "Add URL"
-msgstr ""
-
-#: src/Window.vala:499 src/Window.vala:697
-msgid "Cancel"
-msgstr ""
-
-#: src/Window.vala:503
-msgid "All files"
-msgstr ""
-
-#: src/Window.vala:506
-msgid "Video files"
-msgstr ""
-
-#: src/Window.vala:512
-msgid "Audio files"
-msgstr ""
-
-#: src/Window.vala:619
-msgid "Audio"
-msgstr ""
-
-#: src/Window.vala:636
-msgid "Select"
-msgstr ""
-
-#: src/Window.vala:676
-msgid "No Video file choosen…"
-msgstr ""
-
-#: src/Window.vala:685
-msgid "Convert"
-msgstr ""
-
-#: src/Window.vala:580 src/Window.vala:588
-msgid "Audio folder location"
-msgstr ""
-
-#: src/Window.vala:720
-msgid "Location input"
-msgstr ""
-
-#: src/Window.vala:726
-msgid "Where you save the audio file"
-msgstr ""
-
-#: src/Window.vala:733
-msgid "Downloading…"
-msgstr ""
-
-#: src/Window.vala:777
-msgid "Please wait…"
-msgstr ""
-
-#: src/Window.vala:816
-msgid "Download succes"
-msgstr ""
-
-#: src/Window.vala:817
-msgid "Ready to convert!"
-msgstr ""
-
-#: src/Window.vala:822
-msgid "Download Error"
-msgstr ""
-
-#: src/Window.vala:824
-msgid "Failed retrieve…"
-msgstr ""
-
-#: src/Window.vala:825
-msgid "Not ready yet!"
-msgstr ""
-
-#: src/Window.vala:831 src/Window.vala:839
-#, c-format
-msgid "%s was convert into %s"
-msgstr ""
-
-#: src/Window.vala:833 src/Window.vala:841
-#, c-format
-msgid "Error while = convert %s into %s"
-msgstr ""
-
-#: src/Window.vala:257 src/Window.vala:853 src/Window.vala:867 src/Window.vala:880
+#: src/Window.vala:212
+#: src/Window.vala:821
+#: src/Window.vala:848
 msgid "Finished"
 msgstr ""
 
-#: src/Window.vala:860 src/Window.vala:869 src/Window.vala:897
+#: src/Window.vala:298
+#: src/Window.vala:884
+msgid "Select a folder."
+msgstr ""
+
+#: src/Window.vala:300
+#: src/Window.vala:464
+msgid "_Open"
+msgstr ""
+
+#: src/Window.vala:319
+#: src/Window.vala:321
+#: src/Window.vala:503
+#: src/Window.vala:505
+#: src/Window.vala:713
+msgid "Location : "
+msgstr ""
+
+#: src/Window.vala:323
+#: src/Window.vala:690
+#: src/Window.vala:756
+msgid "<i>Where you want to save the audio file</i>"
+msgstr ""
+
+#: src/Window.vala:346
+msgid "<i>Choose a video file…</i>"
+msgstr ""
+
+#: src/Window.vala:354
+msgid "Select Video"
+msgstr ""
+
+#: src/Window.vala:373
+msgid "Get now…"
+msgstr ""
+
+#: src/Window.vala:382
+msgid "Add"
+msgstr ""
+
+#: src/Window.vala:384
+msgid "Paste"
+msgstr ""
+
+#: src/Window.vala:386
+msgid "Paste URL here…"
+msgstr ""
+
+#: src/Window.vala:411
+msgid "Add URL"
+msgstr ""
+
+#: src/Window.vala:467
+msgid "All files"
+msgstr ""
+
+#: src/Window.vala:470
+msgid "Video files"
+msgstr ""
+
+#: src/Window.vala:476
+msgid "Audio files"
+msgstr ""
+
+#: src/Window.vala:583
+msgid "Audio"
+msgstr ""
+
+#: src/Window.vala:600
+msgid "Select"
+msgstr ""
+
+#: src/Window.vala:640
+msgid "<i>No Video file choosen…</i>"
+msgstr ""
+
+#: src/Window.vala:649
+msgid "Convert"
+msgstr ""
+
+#: src/Window.vala:661
+msgid "Cancel"
+msgstr ""
+
+#: src/Window.vala:684
+#: src/Window.vala:985
+msgid "Location input"
+msgstr ""
+
+#: src/Window.vala:687
+msgid "Selected audio location"
+msgstr ""
+
+#: src/Window.vala:697
+msgid "<i>Downloading…</i>"
+msgstr ""
+
+#: src/Window.vala:740
+msgid "Please wait…"
+msgstr ""
+
+#: src/Window.vala:744
+#: src/Window.vala:747
+msgid "Converting…"
+msgstr ""
+
+#: src/Window.vala:783
+msgid "Download succes"
+msgstr ""
+
+#: src/Window.vala:784
+msgid "Ready to convert!"
+msgstr ""*
+
+#: src/Window.vala:789
+msgid "Download Error"
+msgstr ""
+
+#: src/Window.vala:791
+msgid "Failed retrieve…"
+msgstr ""
+
+#: src/Window.vala:792
+msgid "<i>Not ready yet!</i>"
+msgstr ""
+
+#: src/Window.vala:798
+#: src/Window.vala:807
+msgid "%s was converted into %s"
+msgstr ""
+
+#: src/Window.vala:800
+#: src/Window.vala:809
+msgid "%s Error while convert into %s"
+msgstr ""
+
+#: src/Window.vala:837
+#: src/Window.vala:865
 msgid "Error"
 msgstr ""
 
-#: src/Window.vala:882 src/Window.vala:899
+#: src/Window.vala:850
+#: src/Window.vala:867
 msgid "Automatic Close"
+msgstr ""
+
+#: src/Window.vala:886
+msgid "OK"
+msgstr ""
+
+#: src/Window.vala:992
+msgid "Custom"
+msgstr ""
+
+#: src/Window.vala:999
+msgid "Ask"
 msgstr ""
