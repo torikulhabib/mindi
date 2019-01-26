@@ -1,7 +1,11 @@
 data/com.github.torikulhabib.mindi.appdata.xml.in
-data/com.github.torikulhabib.mindi.desktop.in
-src/Application.vala
-src/Window.vala
+data/com.github.torikulhabib.mindi.desktop.in.in
+src/Objects/Converter.vala
 src/Widgets/Audio.vala
 src/Widgets/Dialog.vala
-src/Widgets/Converter.vala
+src/Widgets/LightDark.vala
+src/Widgets/MessageDialog.vala
+src/Widgets/Notify.vala
+src/Widgets/StreamPc.vala
+src/Application.vala
+src/Window.vala
