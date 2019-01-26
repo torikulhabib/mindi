@@ -183,7 +183,6 @@ msgid "Location : "
 msgstr "Emplacement : "
 
 #: src/Window.vala:323
-#: src/Window.vala:690
 #: src/Window.vala:756
 msgid "<i>Where you want to save the audio file</i>"
 msgstr "<i>Où vous voulez enregistrer le fichier audio</i>"
@@ -257,6 +256,10 @@ msgstr "Emplacement d'entrée"
 msgid "Selected audio location"
 msgstr "Emplacement de l'audio sélectionné"
 
+#: src/Window.vala:690
+msgid "<i>Where you save the audio file</i>"
+msgstr "<i>Où vous enregistrez le fichier audio</i>"
+
 #: src/Window.vala:697
 msgid "<i>Downloading…</i>"
 msgstr "<i>Téléchargement…</i>"
@@ -292,11 +295,13 @@ msgstr "<i>Pas encore prêt !</i>"
 
 #: src/Window.vala:798
 #: src/Window.vala:807
+#, c-format
 msgid "%s was converted into %s"
 msgstr "%s a été converti en %s"
 
 #: src/Window.vala:800
 #: src/Window.vala:809
+#, c-format
 msgid "%s Error while convert into %s"
 msgstr "Erreur %s lors de la conversion en %s"
 
