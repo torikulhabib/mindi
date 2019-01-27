@@ -36,7 +36,7 @@ namespace Mindi {
         }
 
         construct {
-            var header = new Granite.HeaderLabel (_("Are you sure want to cancel this process"));
+            var header = new Granite.HeaderLabel (_("Are you sure want to cancel this process?"));
             var warning = new Granite.Widgets.ModeButton ();
             warning.append_text (_("No"));
             warning.append_text (_("Yes"));

@@ -1,7 +1,7 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# French translations for com.github.torikulhabib.mindi package.
+# Copyright (C) 2019 THE com.github.torikulhabib.mindi'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the com.github.torikulhabib.mindi package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# NathanBnm, 2019.
 #
 #, fuzzy
 msgid ""
@@ -9,10 +9,10 @@ msgstr ""
 "Project-Id-Version: com.github.torikulhabib.mindi\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-10-06 23:58-0600\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2019-01-26 13:15+0100\n"
+"Last-Translator: NathanBnm\n"
+"Language-Team: Français\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -20,159 +20,159 @@ msgstr ""
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:7
 #: data/com.github.torikulhabib.mindi.desktop.in.in:3 src/Window.vala:169
 msgid "Mindi"
-msgstr ""
+msgstr "Mindi"
 
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:8
 #: data/com.github.torikulhabib.mindi.desktop.in.in:5
 msgid "A simple Video to Audio converter"
-msgstr ""
+msgstr "Un simple convertisseur Vidéo vers Audio"
 
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:10
 msgid "Option to quickly convert video to audio."
-msgstr ""
+msgstr "Option pour convertir rapidement la vidéo en audio."
 
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:11
 msgid "Features:"
-msgstr ""
+msgstr "Fonctionnalités"
 
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:13
 msgid "Get from web stream base."
-msgstr ""
+msgstr "Téléchargez à partir du web."
 
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:14
 msgid "Use from context menu: right click on video, and select Convert to Audio."
-msgstr ""
+msgstr "Utilisation à partir du menu contextuel : faites un clic droit sur la vidéo et sélectionnez Convertir en audio."
 
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:15
 msgid "Use from Applications select video."
-msgstr ""
+msgstr "Utilisez à partir des applications et sélectionnez la vidéo."
 
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:16
 msgid "Dark and light."
-msgstr ""
+msgstr "Thème sombre et clair."
 
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:17
 msgid "New Style."
-msgstr ""
+msgstr "Nouveau style."
 
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:18
 msgid "Convert to MP3, M4A, OGG, WAV, WMA, FLAC, Etc."
-msgstr ""
+msgstr "Convertissez en MP3, M4A, OGG, WAV, WMA, FLAC, Etc."
 
 #: data/com.github.torikulhabib.mindi.desktop.in.in:4
 msgid "Converter to audio"
-msgstr ""
+msgstr "Convertisseur vers audio"
 
 #: src/Objects/Converter.vala:76
 msgid "Starting"
-msgstr ""
+msgstr "Démarrage"
 
 #: src/Objects/Converter.vala:400
 #: src/Objects/Converter.vala:402
 #: src/Objects/Converter.vala:422
 msgid "Run:"
-msgstr ""
+msgstr "Exécution :"
 
 #: src/Objects/Converter.vala:422
 msgid "Size:"
-msgstr ""
+msgstr "Taille :"
 
 #: src/Objects/Converter.vala:422
 msgid "Bitrate:"
-msgstr ""
+msgstr "Débit :"
 
 #: src/Widgets/Dialog.vala:31
 msgid "Warning"
-msgstr ""
+msgstr "Avertissement"
 
 #: src/Widgets/Dialog.vala:39
 msgid "Are you sure want to cancel this process?"
-msgstr ""
+msgstr "Êtes-vous sûr de vouloir annuler ce processus ?"
 
 #: src/Widgets/Dialog.vala:40
 msgid "No"
-msgstr ""
+msgstr "Non"
 
 #: src/Widgets/Dialog.vala:41
 msgid "Yes"
-msgstr ""
+msgstr "Oui"
 
 #: src/Widgets/LightDark.vala:63
 msgid "Dark"
-msgstr ""
+msgstr "Thème sombre"
 
 #: src/Widgets/LightDark.vala:68
 msgid "Light"
-msgstr ""
+msgstr "Thème clair"
 
 #: src/Widgets/MessageDialog.vala:39
 msgid "_Close"
-msgstr ""
+msgstr "_Fermer"
 
 #: src/Widgets/MessageDialog.vala:42
 #: src/Window.vala:299
 #: src/Window.vala:463
 #: src/Window.vala:885
 msgid "_Cancel"
-msgstr ""
+msgstr "_Annuler"
 
 #: src/Widgets/Notify.vala:47
 #: src/Widgets/Notify.vala:59
 msgid "Silent"
-msgstr ""
+msgstr "Silence"
 
 #: src/Widgets/Notify.vala:52
 #: src/Widgets/Notify.vala:64
 msgid "Notify"
-msgstr ""
+msgstr "Notifier"
 
 #: src/Widgets/StreamPC.vala:52
 #: src/Widgets/StreamPC.vala:73
 #: src/Window.vala:365
 msgid "Stream"
-msgstr ""
+msgstr "Flux"
 
 #: src/Widgets/StreamPC.vala:56
 #: src/Widgets/StreamPC.vala:68
 msgid "PC"
-msgstr ""
+msgstr "PC"
 
 #: src/Window.vala:91
 msgid "Change"
-msgstr ""
+msgstr "Changer"
 
 #: src/Window.vala:95
 msgid "Ready!"
-msgstr ""
+msgstr "Prêt !"
 
 #: src/Window.vala:97
 #: src/Window.vala:462
 msgid "Open"
-msgstr ""
+msgstr "Ouvrir"
 
 #: src/Window.vala:142
 msgid "Set location"
-msgstr ""
+msgstr "Définir l'emplacement"
 
 #: src/Window.vala:154
 msgid "Close"
-msgstr ""
+msgstr "Fermer"
 
 #: src/Window.vala:212
 #: src/Window.vala:821
 #: src/Window.vala:848
 msgid "Finished"
-msgstr ""
+msgstr "Terminé"
 
 #: src/Window.vala:298
 #: src/Window.vala:884
 msgid "Select a folder."
-msgstr ""
+msgstr "Sélectionnez un dossier."
 
 #: src/Window.vala:300
 #: src/Window.vala:464
 msgid "_Open"
-msgstr ""
+msgstr "_Ouvrir"
 
 #: src/Window.vala:319
 #: src/Window.vala:321
@@ -180,149 +180,149 @@ msgstr ""
 #: src/Window.vala:505
 #: src/Window.vala:713
 msgid "Location : "
-msgstr ""
+msgstr "Emplacement : "
 
 #: src/Window.vala:323
 #: src/Window.vala:756
 msgid "<i>Where you want to save the audio file</i>"
-msgstr ""
+msgstr "<i>Où vous voulez enregistrer le fichier audio</i>"
 
 #: src/Window.vala:346
 msgid "<i>Choose a video file…</i>"
-msgstr ""
+msgstr "<i>Choisir un fichier vidéo…</i>"
 
 #: src/Window.vala:354
 msgid "Select Video"
-msgstr ""
+msgstr "Sélectionner une vidéo"
 
 #: src/Window.vala:373
 msgid "Get now…"
-msgstr ""
+msgstr "Récuperer maintenant…"
 
 #: src/Window.vala:382
 msgid "Add"
-msgstr ""
+msgstr "Ajouter"
 
 #: src/Window.vala:384
 msgid "Paste"
-msgstr ""
+msgstr "Coller"
 
 #: src/Window.vala:386
 msgid "Paste URL here…"
-msgstr ""
+msgstr "Coller l'URL ici…"
 
 #: src/Window.vala:411
 msgid "Add URL"
-msgstr ""
+msgstr "Ajouter l'URL"
 
 #: src/Window.vala:467
 msgid "All files"
-msgstr ""
+msgstr "Tous les fichiers"
 
 #: src/Window.vala:470
 msgid "Video files"
-msgstr ""
+msgstr "Fichiers Vidéo"
 
 #: src/Window.vala:476
 msgid "Audio files"
-msgstr ""
+msgstr "Fichiers Audio"
 
 #: src/Window.vala:583
 msgid "Audio"
-msgstr ""
+msgstr "Audio"
 
 #: src/Window.vala:600
 msgid "Select"
-msgstr ""
+msgstr "Sélectionner"
 
 #: src/Window.vala:640
 msgid "<i>No Video file choosen…</i>"
-msgstr ""
+msgstr "<i>Aucun fichier vidéo sélectionné…</i>"
 
 #: src/Window.vala:649
 msgid "Convert"
-msgstr ""
+msgstr "Convertir"
 
 #: src/Window.vala:661
 msgid "Cancel"
-msgstr ""
+msgstr "Annuler"
 
 #: src/Window.vala:684
 #: src/Window.vala:985
 msgid "Location input"
-msgstr ""
+msgstr "Emplacement d'entrée"
 
 #: src/Window.vala:687
 msgid "Selected audio location"
-msgstr ""
+msgstr "Emplacement de l'audio sélectionné"
 
 #: src/Window.vala:690
 msgid "<i>Where you save the audio file</i>"
-msgstr ""
+msgstr "<i>Où vous enregistrez le fichier audio</i>"
 
 #: src/Window.vala:697
 msgid "<i>Downloading…</i>"
-msgstr ""
+msgstr "<i>Téléchargement…</i>"
 
 #: src/Window.vala:740
 msgid "Please wait…"
-msgstr ""
+msgstr "Veuillez patienter…"
 
 #: src/Window.vala:744
 #: src/Window.vala:747
 msgid "Converting…"
-msgstr ""
+msgstr "Conversion…"
 
 #: src/Window.vala:783
 msgid "Download succes"
-msgstr ""
+msgstr "Téléchargement réussi"
 
 #: src/Window.vala:784
 msgid "Ready to convert!"
-msgstr ""
+msgstr "Prêt à convertir !"
 
 #: src/Window.vala:789
 msgid "Download Error"
-msgstr ""
+msgstr "Erreur de téléchargement"
 
 #: src/Window.vala:791
 msgid "Failed retrieve…"
-msgstr ""
+msgstr "Échec de la récupération…"
 
 #: src/Window.vala:792
 msgid "<i>Not ready yet!</i>"
-msgstr ""
+msgstr "<i>Pas encore prêt !</i>"
 
 #: src/Window.vala:798
 #: src/Window.vala:807
 #, c-format
 msgid "%s was converted into %s"
-msgstr ""
+msgstr "%s a été converti en %s"
 
 #: src/Window.vala:800
 #: src/Window.vala:809
 #, c-format
 msgid "%s Error while convert into %s"
-msgstr ""
+msgstr "Erreur %s lors de la conversion en %s"
 
 #: src/Window.vala:837
 #: src/Window.vala:865
 msgid "Error"
-msgstr ""
+msgstr "Erreur"
 
 #: src/Window.vala:850
 #: src/Window.vala:867
 msgid "Automatic Close"
-msgstr ""
+msgstr "Fermeture automatique"
 
 #: src/Window.vala:886
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #: src/Window.vala:992
 msgid "Custom"
-msgstr ""
+msgstr "Personnalisé"
 
 #: src/Window.vala:999
 msgid "Ask"
-msgstr ""
+msgstr "Demander"

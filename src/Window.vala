@@ -989,7 +989,7 @@ namespace Mindi {
                     break;
                 case FolderMode.CUSTOM :
                     location_button.set_image (icon_folder);
-                    location_button.tooltip_text = _ ("Costum");
+                    location_button.tooltip_text = _ ("Custom");
                     ask_active = false;
                     choose_revealer.set_reveal_child (true);
                     stack.visible_child_name = "name_custom";
