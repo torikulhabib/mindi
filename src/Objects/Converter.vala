@@ -163,16 +163,17 @@ namespace Mindi {
 	    	string [] spawn_args;
             string [] spawn_env = Environ.get ();
 
-	        if (stream) {
-                cache_dir_path = Path.build_path (Path.DIR_SEPARATOR_S, Environment.get_user_cache_dir (), Environment.get_application_name());
-                var cache_dir = File.new_for_path (cache_dir_path);
-                if (!cache_dir.query_exists ()) {
-                    try {
-                        cache_dir.make_directory_with_parents ();
-                    } catch (Error e) {
-                        warning (e.message);
-                    }
+            cache_dir_path = Path.build_path (Path.DIR_SEPARATOR_S, Environment.get_user_cache_dir (), Environment.get_application_name());
+            var cache_dir = File.new_for_path (cache_dir_path);
+            if (!cache_dir.query_exists ()) {
+                try {
+                    cache_dir.make_directory_with_parents ();
+                } catch (Error e) {
+                    warning (e.message);
                 }
+            }
+
+            if (stream) {
 		        spawn_args = {"youtube-dl", "-f", "251", "-o", "%(title)s.%(ext)s" , uri};
 		    } else {
 		        spawn_args = {"youtube-dl", "-o", "%(title)s.%(ext)s" , uri};
