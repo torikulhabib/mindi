@@ -24,6 +24,7 @@ message ('Set our translation domain')
 
 add_global_arguments('-DGETTEXT_PACKAGE="@0@"'.format (meson.project_name()), language:'c')
 
+subdir('po')
 # Adding deps
 message ('Listing dependencies')
 
