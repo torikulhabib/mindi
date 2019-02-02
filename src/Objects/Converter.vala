@@ -73,7 +73,7 @@ namespace Mindi {
             box_name_progress = new Box (Orientation.VERTICAL, 0);
             progress_bar = new ProgressBar ();
             progress_bar.set_fraction (progress);
-            status = new Label ("Starting");
+            status = new Label (_("Starting"));
             status.halign = Align.START;
             box_name_progress.pack_start (progress_bar);
             box_name_progress.pack_start (status);
