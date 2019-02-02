@@ -598,7 +598,7 @@ namespace Mindi {
             format_logo = new Gtk.Image ();
             format_container.attach (format_logo, 0, 1, 1, 1);
 
-            format_name = new Gtk.Label (_(""));
+            format_name = new Gtk.Label (null);
             format_name.use_markup = true;
             format_container.attach (format_name, 0, 2, 1, 1);
 
