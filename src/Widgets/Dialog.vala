@@ -18,13 +18,15 @@
 *
 * Authored by: torikulhabib <torik.habib@gmail.com>
 */
-using Gtk;
+
 namespace Mindi {
-    public class Dialog : Gtk.Dialog {
-        public ComboBoxText warning;
+    public class Dialog : Granite.MessageDialog {
         public signal void dialog_cancel_convert ();
+
         public Dialog (Gtk.Window? parent) {
             Object (
+                image_icon: new ThemedIcon ("dialog-warning"),
+                primary_text: _("Are you sure want to quit this process?"),
                 border_width: 0,
                 deletable: false,
                 resizable: false,
@@ -36,42 +38,18 @@ namespace Mindi {
         }
 
         construct {
-            var header = new Granite.HeaderLabel (_("Are you sure want to cancel this process?"));
-            var warning = new Granite.Widgets.ModeButton ();
-            warning.append_text (_("No"));
-            warning.append_text (_("Yes"));
+            add_button (_("Cancel"), Gtk.ButtonsType.CANCEL);
 
-            warning.mode_changed.connect (() => {
-                switch (warning.selected) {
-                    case 0:
-                        destroy ();
-                        break;
-                    case 1:
-                        dialog_cancel_convert ();
-                        destroy ();
-                        break;
+            var quit_button = new Gtk.Button.with_label (_("Quit"));
+            quit_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
+            add_action_widget (quit_button, Gtk.ResponseType.YES);
+
+            response.connect ((response_id) => {
+                if (response_id == Gtk.ResponseType.YES) {
+                    dialog_cancel_convert ();
                 }
-            });
 
-            var main_grid = new Gtk.Grid ();
-            main_grid.margin_top = 0;
-            main_grid.column_spacing = 12;
-            main_grid.column_homogeneous = true;
-            main_grid.attach (header, 0, 0, 1, 1);
-            main_grid.attach (warning, 0, 1, 1, 1);
-
-            get_content_area ().margin = 6;
-
-            var content = this.get_content_area () as Gtk.Box;
-            content.margin = 6;
-            content.margin_top = 0;
-            content.add (main_grid);
-            button_press_event.connect ((e) => {
-                if (e.button == Gdk.BUTTON_PRIMARY) {
-                    begin_move_drag ((int) e.button, (int) e.x_root, (int) e.y_root, e.time);
-                    return true;
-                }
-                return false;
+                destroy ();
             });
         }
     }
