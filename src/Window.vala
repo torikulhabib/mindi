@@ -343,7 +343,7 @@ namespace Mindi {
             video_icon = new ThemedIcon ("applications-multimedia");
             video_container.attach (video_logo, 0, 1, 1, 1);
 
-            video_name = new Gtk.Label ("<i>%s</i>".printf ("Choose a video file…"));
+            video_name = new Gtk.Label ("<i>%s</i>".printf (_("Choose a video file…")));
             video_name.max_width_chars = 16;
             video_name.use_markup = true;
             video_name.ellipsize = Pango.EllipsizeMode.END;
@@ -642,7 +642,7 @@ namespace Mindi {
             convert_container.column_homogeneous = true;
             convert_container.sensitive = false;
 
-            convert_label = new Gtk.Label ("<i>%s</i>".printf ("No Video file choosen…"));
+            convert_label = new Gtk.Label ("<i>%s</i>".printf (_("No Video file choosen…")));
             convert_label.use_markup = true;
             convert_label.vexpand = true;
             convert_container.attach (convert_label, 0, 0, 2, 1);
@@ -692,14 +692,14 @@ namespace Mindi {
             output_name_location = new Gtk.LinkButton (_("Selected audio location"));
             output_name_location.valign = Gtk.Align.CENTER;
 
-            ask_location = new Gtk.Label ("<i>%s</i>".printf ("Where you save the audio file"));
+            ask_location = new Gtk.Label ("<i>%s</i>".printf (_("Where you save the audio file")));
             ask_location.ellipsize = Pango.EllipsizeMode.END;
             ask_location.max_width_chars = 16;
             ask_location.use_markup = true;
             ask_location.valign = Gtk.Align.CENTER;
             ask_location.wrap = true;
 
-            var label_download = new Gtk.Label ("<i>%s</i>".printf ("Downloading…"));
+            var label_download = new Gtk.Label ("<i>%s</i>".printf (_("Downloading…")));
             label_download.use_markup = true;
             label_download.valign = Gtk.Align.CENTER;
 
@@ -758,7 +758,7 @@ namespace Mindi {
             converter.finished.disconnect (notify_signal);
             progressbar_revealer.remove (converter);
             folder_symbol ();
-            ask_location.label = ("<i>%s</i>").printf ("Where you want to save the audio file");
+            ask_location.label = "<i>%s</i>".printf (_("Where you want to save the audio file"));
 
             Timeout.add_seconds (1, () => {
                 convert_revealer.set_reveal_child (true);
@@ -794,7 +794,7 @@ namespace Mindi {
                         app_notification.title = _("Download Error");
                         app_notification.send_notification ();
                         stream_name.label = _("Failed retrieve…");
-                        convert_label.label = "<i>%s</i>".printf ("Not ready yet!");
+                        convert_label.label = "<i>%s</i>".printf (_("Not ready yet!"));
                         convert_start.sensitive = false;
                         select_format.sensitive = false;
                     }
