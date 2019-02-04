@@ -26,7 +26,7 @@ namespace Mindi {
         public Dialog (Gtk.Window? parent) {
             Object (
                 image_icon: new ThemedIcon ("dialog-warning"),
-                primary_text: _("Are you sure want to quit this process?"),
+                primary_text: _("Are you sure you want to quit this process?"),
                 border_width: 0,
                 deletable: false,
                 resizable: false,
