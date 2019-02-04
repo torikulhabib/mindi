@@ -867,7 +867,7 @@ namespace Mindi {
         }
 
         private void create_dialog_error (string text) {
-            var message_dialog = new Mindi.MessageDialog.with_image_from_icon_name (this, "Error",text,"com.github.torikulhabib.mindi",
+            var message_dialog = new Mindi.MessageDialog.with_image_from_icon_name (this, _("Error"), text, "com.github.torikulhabib.mindi",
  Gtk.ButtonsType.CLOSE);
             var auto_close = new Gtk.CheckButton.with_label (_("Automatic Close"));
             auto_close.show ();
