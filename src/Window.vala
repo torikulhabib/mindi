@@ -320,7 +320,7 @@ namespace Mindi {
             } else {
                 output_name_location.label = ("Location : " + output_set);
             }
-            ask_location.label = ("<i>Where you want to save the audio file</i>");
+            ask_location.label = "<i>%s</i>".printf (_("Where you want to save the audio file"));
 
             Timeout.add_seconds (0,() => {
                 output_name_location.set_uri ("file://"+ output_set);
@@ -343,7 +343,7 @@ namespace Mindi {
             video_icon = new ThemedIcon ("applications-multimedia");
             video_container.attach (video_logo, 0, 1, 1, 1);
 
-            video_name = new Gtk.Label ("<i>Choose a video file…</i>");
+            video_name = new Gtk.Label ("<i>%s</i>".printf (_("Choose a video file…")));
             video_name.max_width_chars = 16;
             video_name.use_markup = true;
             video_name.ellipsize = Pango.EllipsizeMode.END;
@@ -362,7 +362,7 @@ namespace Mindi {
             stream_container.width_request = 16;
             stream_container.column_homogeneous = true;
 
-            var title_stream = new Gtk.Label ("Stream");
+            var title_stream = new Gtk.Label (_("Stream"));
             title_stream.get_style_context ().add_class (Granite.STYLE_CLASS_H2_LABEL);
             title_stream.hexpand = true;
             stream_container.attach (title_stream, 0, 0, 1, 1);
@@ -370,7 +370,7 @@ namespace Mindi {
             stream_logo = new Image.from_icon_name ("internet-web-browser", Gtk.IconSize.DIALOG);
             stream_container.attach (stream_logo, 0, 1, 1, 1);
 
-            stream_name = new Gtk.Label ("Get now…");
+            stream_name = new Gtk.Label (_("Get now…"));
             stream_name.max_width_chars = 16;
             stream_name.ellipsize = Pango.EllipsizeMode.END;
             stream_name.halign = Gtk.Align.CENTER;
@@ -598,7 +598,7 @@ namespace Mindi {
             format_logo = new Gtk.Image ();
             format_container.attach (format_logo, 0, 1, 1, 1);
 
-            format_name = new Gtk.Label (_(""));
+            format_name = new Gtk.Label (null);
             format_name.use_markup = true;
             format_container.attach (format_name, 0, 2, 1, 1);
 
@@ -642,7 +642,7 @@ namespace Mindi {
             convert_container.column_homogeneous = true;
             convert_container.sensitive = false;
 
-            convert_label = new Gtk.Label ("<i>No Video file choosen…</i>");
+            convert_label = new Gtk.Label ("<i>%s</i>".printf (_("No Video file choosen…")));
             convert_label.use_markup = true;
             convert_label.vexpand = true;
             convert_container.attach (convert_label, 0, 0, 2, 1);
@@ -692,14 +692,14 @@ namespace Mindi {
             output_name_location = new Gtk.LinkButton (_("Selected audio location"));
             output_name_location.valign = Gtk.Align.CENTER;
 
-            ask_location = new Gtk.Label ("<i>Where you save the audio file</i>");
+            ask_location = new Gtk.Label ("<i>%s</i>".printf (_("Where you save the audio file")));
             ask_location.ellipsize = Pango.EllipsizeMode.END;
             ask_location.max_width_chars = 16;
             ask_location.use_markup = true;
             ask_location.valign = Gtk.Align.CENTER;
             ask_location.wrap = true;
 
-            var label_download = new Gtk.Label ("<i>Downloading…</i>");
+            var label_download = new Gtk.Label ("<i>%s</i>".printf (_("Downloading…")));
             label_download.use_markup = true;
             label_download.valign = Gtk.Align.CENTER;
 
@@ -742,14 +742,14 @@ namespace Mindi {
                 if (!now_converting) {
                     Timeout.add_seconds (0,() => {
                         stack.visible_child_name = "download";
-                        stream_name.label = "Please wait…";
+                        stream_name.label = _("Please wait…");
                         return false;
                     });
                 } else {
-                    stream_name.label = "Converting…";
+                    stream_name.label = _("Converting…");
                 }
             } else {
-                video_name.label = "Converting…";
+                video_name.label = _("Converting…");
             }
         }
 
@@ -758,7 +758,7 @@ namespace Mindi {
             converter.finished.disconnect (notify_signal);
             progressbar_revealer.remove (converter);
             folder_symbol ();
-            ask_location.label = ("<i>Where you want to save the audio file</i>");
+            ask_location.label = "<i>%s</i>".printf (_("Where you want to save the audio file"));
 
             Timeout.add_seconds (1, () => {
                 convert_revealer.set_reveal_child (true);
@@ -785,16 +785,16 @@ namespace Mindi {
                     if (success) {
                         stream_name.label = converter.name_file_stream;
                         entry.set_text ("");
-                        app_notification.title = "Download succes";
-                        convert_label.label = ("Ready to convert!");
+                        app_notification.title = _("Download succes");
+                        convert_label.label = _("Ready to convert!");
                         app_notification.send_notification ();
                         convert_start.sensitive = true;
                         select_format.sensitive = true;
                     } else {
-                        app_notification.title = "Download Error";
+                        app_notification.title = _("Download Error");
                         app_notification.send_notification ();
-                        stream_name.label = ("Failed retrieve…");
-                        convert_label.label = ("<i>Not ready yet!</i>");
+                        stream_name.label = _("Failed retrieve…");
+                        convert_label.label = "<i>%s</i>".printf (_("Not ready yet!"));
                         convert_start.sensitive = false;
                         select_format.sensitive = false;
                     }
@@ -821,16 +821,16 @@ namespace Mindi {
             if (is_active) {
                 if (success) {
                     if (notifysilent.notify_active) {
-                        create_dialog_finish (_("%s").printf (message));
+                        create_dialog_finish ("%s".printf (message));
                     } else {
-                        app_notification.title = "Finished";
+                        app_notification.title = _("Finished");
                         app_notification.send_notification ();
                     }
                 } else {
                     if (notifysilent.notify_active) {
-                        create_dialog_error (_("%s").printf (message));
+                        create_dialog_error ("%s".printf (message));
                     } else {
-                        app_notification.title = "Error";
+                        app_notification.title = _("Error");
                         app_notification.send_notification ();
                     }
                     fail_convert ();
@@ -850,9 +850,9 @@ namespace Mindi {
         }
 
         private void create_dialog_finish (string text) {
-            var message_dialog = new Mindi.MessageDialog.with_image_from_icon_name (this, "Finished",text,"com.github.torikulhabib.mindi",
+            var message_dialog = new Mindi.MessageDialog.with_image_from_icon_name (this, _("Finished"), text, "com.github.torikulhabib.mindi",
  Gtk.ButtonsType.CLOSE);
-            var auto_close = new Gtk.CheckButton.with_label ("Automatic Close");
+            var auto_close = new Gtk.CheckButton.with_label (_("Automatic Close"));
             auto_close.show ();
             auto_close.toggled.connect (() => {
                 Timeout.add_seconds (1, () => {
@@ -867,9 +867,9 @@ namespace Mindi {
         }
 
         private void create_dialog_error (string text) {
-            var message_dialog = new Mindi.MessageDialog.with_image_from_icon_name (this, "Error",text,"com.github.torikulhabib.mindi",
+            var message_dialog = new Mindi.MessageDialog.with_image_from_icon_name (this, _("Error"), text, "com.github.torikulhabib.mindi",
  Gtk.ButtonsType.CLOSE);
-            var auto_close = new Gtk.CheckButton.with_label ("Automatic Close");
+            var auto_close = new Gtk.CheckButton.with_label (_("Automatic Close"));
             auto_close.show ();
             auto_close.toggled.connect (() => {
                 Timeout.add_seconds (1, () => {
