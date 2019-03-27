@@ -1,0 +1,307 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the com.github.torikulhabib.mindi package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: com.github.torikulhabib.mindi\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-10-06 23:58-0600\n"
+"PO-Revision-Date: 2019-03-17 17:28+0100\n"
+"Language-Team: Dutch <vistausss@outlook.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.1.1\n"
+"Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: nl_NL\n"
+
+#: data/com.github.torikulhabib.mindi.appdata.xml.in:7
+#: data/com.github.torikulhabib.mindi.desktop.in.in:3 src/Window.vala:169
+msgid "Mindi"
+msgstr "Mindi"
+
+#: data/com.github.torikulhabib.mindi.appdata.xml.in:8
+#: data/com.github.torikulhabib.mindi.desktop.in.in:5
+msgid "A simple Video to Audio converter"
+msgstr "Een eenvoudige app voor het omzetten van video naar audio"
+
+#: data/com.github.torikulhabib.mindi.appdata.xml.in:10
+msgid "Option to quickly convert video to audio."
+msgstr "Optie om video snel om te zetten naar audio."
+
+#: data/com.github.torikulhabib.mindi.appdata.xml.in:11
+msgid "Features:"
+msgstr "Mogelijkheden:"
+
+#: data/com.github.torikulhabib.mindi.appdata.xml.in:13
+msgid "Get from web stream base."
+msgstr "Voeg een externe link in."
+
+#: data/com.github.torikulhabib.mindi.appdata.xml.in:14
+msgid "Use from context menu: right click on video, and select Convert to Audio."
+msgstr "Gebruik het rechtermuisknopmenu: rechtsklik op een video en kies 'Converteren naar audio'."
+
+#: data/com.github.torikulhabib.mindi.appdata.xml.in:15
+msgid "Use from Applications select video."
+msgstr "Kies 'video' in applicaties."
+
+#: data/com.github.torikulhabib.mindi.appdata.xml.in:16
+msgid "Dark and light."
+msgstr "Donker en licht."
+
+#: data/com.github.torikulhabib.mindi.appdata.xml.in:17
+msgid "New Style."
+msgstr "Nieuwe stijl."
+
+#: data/com.github.torikulhabib.mindi.appdata.xml.in:18
+msgid "Convert to MP3, M4A, OGG, WAV, WMA, FLAC, Etc."
+msgstr "Converteer naar MP3, M4A, OGG, WAV, WMA, FLAC, etc."
+
+#: data/com.github.torikulhabib.mindi.desktop.in.in:4
+msgid "Converter to audio"
+msgstr "Converteren naar audio"
+
+#: src/Objects/Converter.vala:76
+msgid "Starting"
+msgstr "Bezig met starten"
+
+#: src/Objects/Converter.vala:400 src/Objects/Converter.vala:402
+#: src/Objects/Converter.vala:422
+msgid "Run:"
+msgstr "Uitvoeren:"
+
+#: src/Objects/Converter.vala:422
+msgid "Size:"
+msgstr "Grootte:"
+
+#: src/Objects/Converter.vala:422
+msgid "Bitrate:"
+msgstr "Bitsnelheid:"
+
+#: src/Widgets/Dialog.vala:31
+msgid "Warning"
+msgstr "Waarschuwing"
+
+#: src/Widgets/Dialog.vala:39
+msgid "Are you sure want to cancel this process?"
+msgstr "Weet je zeker dat je dit proces wilt afbreken?"
+
+#: src/Widgets/Dialog.vala:40
+msgid "No"
+msgstr "Nee"
+
+#: src/Widgets/Dialog.vala:41
+msgid "Yes"
+msgstr "Ja"
+
+#: src/Widgets/LightDark.vala:63
+msgid "Dark"
+msgstr "Donker"
+
+#: src/Widgets/LightDark.vala:68
+msgid "Light"
+msgstr "Licht"
+
+#: src/Widgets/MessageDialog.vala:39
+msgid "_Close"
+msgstr "_Sluiten"
+
+#: src/Widgets/MessageDialog.vala:42 src/Window.vala:299 src/Window.vala:463
+#: src/Window.vala:885
+msgid "_Cancel"
+msgstr "_Annuleren"
+
+#: src/Widgets/Notify.vala:47 src/Widgets/Notify.vala:59
+msgid "Silent"
+msgstr "Stil"
+
+#: src/Widgets/Notify.vala:52 src/Widgets/Notify.vala:64
+msgid "Notify"
+msgstr "Melden"
+
+#: src/Widgets/StreamPC.vala:52 src/Widgets/StreamPC.vala:73
+#: src/Window.vala:365
+msgid "Stream"
+msgstr "Stream"
+
+#: src/Widgets/StreamPC.vala:56 src/Widgets/StreamPC.vala:68
+msgid "PC"
+msgstr "Computer"
+
+#: src/Window.vala:91
+msgid "Change"
+msgstr "Wijzigen"
+
+#: src/Window.vala:95
+msgid "Ready!"
+msgstr "Klaar!"
+
+#: src/Window.vala:97 src/Window.vala:462
+msgid "Open"
+msgstr "Openen"
+
+#: src/Window.vala:142
+msgid "Set location"
+msgstr "Locatie instellen"
+
+#: src/Window.vala:154
+msgid "Close"
+msgstr "Sluiten"
+
+#: src/Window.vala:212 src/Window.vala:821 src/Window.vala:848
+msgid "Finished"
+msgstr "Voltooid"
+
+#: src/Window.vala:298 src/Window.vala:884
+msgid "Select a folder."
+msgstr "Kies een map."
+
+#: src/Window.vala:300 src/Window.vala:464
+msgid "_Open"
+msgstr "_Openen"
+
+#: src/Window.vala:319 src/Window.vala:321 src/Window.vala:503
+#: src/Window.vala:505 src/Window.vala:713
+msgid "Location : "
+msgstr "Locatie: "
+
+#: src/Window.vala:323 src/Window.vala:756
+msgid "<i>Where you want to save the audio file</i>"
+msgstr "<i>Waar wil je het audiobestand opslaan?</i>"
+
+#: src/Window.vala:346
+msgid "<i>Choose a video file…</i>"
+msgstr "<i>Kies een videobestand…</i>"
+
+#: src/Window.vala:354
+msgid "Select Video"
+msgstr "Video kiezen"
+
+#: src/Window.vala:373
+msgid "Get now…"
+msgstr "Nu ophalen…"
+
+#: src/Window.vala:382
+msgid "Add"
+msgstr "Toevoegen"
+
+#: src/Window.vala:384
+msgid "Paste"
+msgstr "Plakken"
+
+#: src/Window.vala:386
+msgid "Paste URL here…"
+msgstr "Plak de url hier…"
+
+#: src/Window.vala:411
+msgid "Add URL"
+msgstr "URL toevoegen"
+
+#: src/Window.vala:467
+msgid "All files"
+msgstr "Alle bestanden"
+
+#: src/Window.vala:470
+msgid "Video files"
+msgstr "Videobestanden"
+
+#: src/Window.vala:476
+msgid "Audio files"
+msgstr "Audiobestanden"
+
+#: src/Window.vala:583
+msgid "Audio"
+msgstr "Audio"
+
+#: src/Window.vala:600
+msgid "Select"
+msgstr "Kiezen"
+
+#: src/Window.vala:640
+msgid "<i>No Video file choosen…</i>"
+msgstr "<i>Geen videobestand gekozen…</i>"
+
+#: src/Window.vala:649
+msgid "Convert"
+msgstr "Converteren"
+
+#: src/Window.vala:661
+msgid "Cancel"
+msgstr "Annuleren"
+
+#: src/Window.vala:684 src/Window.vala:985
+msgid "Location input"
+msgstr "Locatie instellen"
+
+#: src/Window.vala:687
+msgid "Selected audio location"
+msgstr "Gekozen audiolocatie"
+
+#: src/Window.vala:690
+msgid "<i>Where you save the audio file</i>"
+msgstr "<i>Waar het audiobestand moet worden opgeslagen</i>"
+
+#: src/Window.vala:697
+msgid "<i>Downloading…</i>"
+msgstr "<i>Bezig met downloaden…</i>"
+
+#: src/Window.vala:740
+msgid "Please wait…"
+msgstr "Even geduld…"
+
+#: src/Window.vala:744 src/Window.vala:747
+msgid "Converting…"
+msgstr "Bezig met converteren…"
+
+#: src/Window.vala:783
+msgid "Download succes"
+msgstr "Download voltooid"
+
+#: src/Window.vala:784
+msgid "Ready to convert!"
+msgstr "Klaar om te converteren!"
+
+#: src/Window.vala:789
+msgid "Download Error"
+msgstr "Downloadfout"
+
+#: src/Window.vala:791
+msgid "Failed retrieve…"
+msgstr "Ophalen mislukt…"
+
+#: src/Window.vala:792
+msgid "<i>Not ready yet!</i>"
+msgstr "<i>Nog niet klaar!</i>"
+
+#: src/Window.vala:798 src/Window.vala:807
+#, c-format
+msgid "%s was converted into %s"
+msgstr "%s is geconverteerd naar %s"
+
+#: src/Window.vala:800 src/Window.vala:809
+#, c-format
+msgid "%s Error while convert into %s"
+msgstr "%s Fout tijdens converteren naar %s"
+
+#: src/Window.vala:837 src/Window.vala:865
+msgid "Error"
+msgstr "Fout"
+
+#: src/Window.vala:850 src/Window.vala:867
+msgid "Automatic Close"
+msgstr "Automatisch sluiten"
+
+#: src/Window.vala:886
+msgid "OK"
+msgstr "Oké"
+
+#: src/Window.vala:992
+msgid "Custom"
+msgstr "Aangepast"
+
+#: src/Window.vala:999
+msgid "Ask"
+msgstr "Vragen"
