@@ -1,16 +1,16 @@
 # French translations for com.github.torikulhabib.mindi package.
 # Copyright (C) 2019 THE com.github.torikulhabib.mindi'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the com.github.torikulhabib.mindi package.
-# Automatically generated, 2019.
+# NathanBnm, 2019.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.torikulhabib.mindi\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-01 17:41+0200\n"
+"POT-Creation-Date: 2019-04-01 18:54+0200\n"
 "PO-Revision-Date: 2019-04-01 17:41+0200\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"Last-Translator: NathanBnm\n"
+"Language-Team: Français\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,221 +19,243 @@ msgstr ""
 
 #: src/Objects/Converter.vala:76
 msgid "Starting"
-msgstr ""
+msgstr "Démarrage"
+
+#: src/Objects/Converter.vala:401 src/Objects/Converter.vala:403
+#: src/Objects/Converter.vala:423
+msgid "Run: "
+msgstr "Exécution : "
+
+#: src/Objects/Converter.vala:423
+msgid "Size: "
+msgstr "Taille : "
+
+#: src/Objects/Converter.vala:423
+msgid "Bitrate: "
+msgstr "Débit : "
 
 #: src/Widgets/Dialog.vala:29
 msgid "Are you sure you want to quit this process?"
-msgstr ""
+msgstr "Êtes-vous sûr de vouloir annuler ce processus ?"
 
 #: src/Widgets/Dialog.vala:33
 msgid "Warning"
-msgstr ""
+msgstr "Avertissement"
 
 #: src/Widgets/Dialog.vala:41 src/Window.vala:666
 msgid "Cancel"
-msgstr ""
+msgstr "Annuler"
 
 #: src/Widgets/Dialog.vala:43
 msgid "Quit"
-msgstr ""
+msgstr "Quitter"
 
 #: src/Widgets/LightDark.vala:47 src/Widgets/LightDark.vala:68
 msgid "Light"
-msgstr ""
+msgstr "Thème clair"
 
 #: src/Widgets/LightDark.vala:53 src/Widgets/LightDark.vala:63
 msgid "Dark"
-msgstr ""
+msgstr "Thème sombre"
 
 #: src/Widgets/MessageDialog.vala:39
 msgid "_Close"
-msgstr ""
+msgstr "_Fermer"
 
 #: src/Widgets/MessageDialog.vala:42 src/Window.vala:299 src/Window.vala:468
 #: src/Window.vala:890
 msgid "_Cancel"
-msgstr ""
+msgstr "_Annuler"
 
 #: src/Widgets/Notify.vala:47 src/Widgets/Notify.vala:64
 msgid "Silent"
-msgstr ""
+msgstr "Silence"
 
 #: src/Widgets/Notify.vala:52 src/Widgets/Notify.vala:59
 msgid "Notify"
-msgstr ""
+msgstr "Notifier"
 
 #: src/Widgets/StreamPc.vala:52 src/Widgets/StreamPc.vala:73
 #: src/Window.vala:365
 msgid "Stream"
-msgstr ""
+msgstr "Flux"
 
 #: src/Widgets/StreamPc.vala:56 src/Widgets/StreamPc.vala:68
 msgid "PC"
-msgstr ""
+msgstr "PC"
 
 #: src/Window.vala:91
 msgid "Change"
-msgstr ""
+msgstr "Modifier"
+
+#: src/Window.vala:95
+msgid "Ready!"
+msgstr "Prêt !"
 
 #: src/Window.vala:97 src/Window.vala:467
 msgid "Open"
-msgstr ""
+msgstr "Ouvrir"
 
 #: src/Window.vala:142
 msgid "Set location"
-msgstr ""
+msgstr "Définir l'emplacement"
 
 #: src/Window.vala:154
 msgid "Close"
-msgstr ""
+msgstr "Fermer"
 
 #: src/Window.vala:212 src/Window.vala:826 src/Window.vala:840
 #: src/Window.vala:853
 msgid "Finished"
-msgstr ""
+msgstr "Terminé"
 
 #: src/Window.vala:298 src/Window.vala:889
 msgid "Select a folder."
-msgstr ""
+msgstr "Sélectionnez un dossier."
 
 #: src/Window.vala:300 src/Window.vala:469
 msgid "_Open"
-msgstr ""
+msgstr "_Ouvrir"
+
+#: src/Window.vala:319 src/Window.vala:321 src/Window.vala:508
+#: src/Window.vala:510 src/Window.vala:718
+msgid "Location : "
+msgstr "Emplacement : "
 
 #: src/Window.vala:323 src/Window.vala:761
 msgid "Where you want to save the audio file"
-msgstr ""
+msgstr "Où vous voulez enregistrer le fichier audio"
 
 #: src/Window.vala:337
 msgid "A / V"
-msgstr ""
+msgstr "A / V"
 
 #: src/Window.vala:346
 msgid "Choose a video file…"
-msgstr ""
+msgstr "Choisir une vidéo…"
 
 #: src/Window.vala:354
 msgid "Select Video"
-msgstr ""
+msgstr "Sélectionner une vidéo"
 
 #: src/Window.vala:373
 msgid "Get now…"
-msgstr ""
+msgstr "Récuperer…"
 
 #: src/Window.vala:382
 msgid "Add"
-msgstr ""
+msgstr "Ajouter"
 
 #: src/Window.vala:385
 msgid "Paste"
-msgstr ""
+msgstr "Coller"
 
 #: src/Window.vala:387
 msgid "Paste URL here…"
-msgstr ""
+msgstr "Coller l'URL ici…"
 
 #: src/Window.vala:416
 msgid "Add URL"
-msgstr ""
+msgstr "Ajouter l'URL"
 
 #: src/Window.vala:472
 msgid "All files"
-msgstr ""
+msgstr "Tous les fichiers"
 
 #: src/Window.vala:475
 msgid "Video files"
-msgstr ""
+msgstr "Fichiers Vidéo"
 
 #: src/Window.vala:481
 msgid "Audio files"
-msgstr ""
+msgstr "Fichiers Audio"
 
 #: src/Window.vala:588
 msgid "Audio"
-msgstr ""
+msgstr "Audio"
 
 #: src/Window.vala:605
 msgid "Select"
-msgstr ""
+msgstr "Sélectionner"
 
 #: src/Window.vala:645
 msgid "No Video file choosen…"
-msgstr ""
+msgstr "Aucun fichier vidéo sélectionné…"
 
 #: src/Window.vala:654
 msgid "Convert"
-msgstr ""
+msgstr "Convertir"
 
 #: src/Window.vala:689 src/Window.vala:990
 msgid "Location input"
-msgstr ""
+msgstr "Emplacement d'entrée"
 
 #: src/Window.vala:692
 msgid "Selected audio location"
-msgstr ""
+msgstr "Emplacement de l'audio sélectionné"
 
 #: src/Window.vala:695
 msgid "Where you save the audio file"
-msgstr ""
+msgstr "Où vous enregistrez le fichier audio"
 
 #: src/Window.vala:702
 msgid "Downloading…"
-msgstr ""
+msgstr "Téléchargement…"
 
 #: src/Window.vala:745
 msgid "Please wait…"
-msgstr ""
+msgstr "Veuillez patienter…"
 
 #: src/Window.vala:749 src/Window.vala:752
 msgid "Converting…"
-msgstr ""
+msgstr "Conversion…"
 
 #: src/Window.vala:788
 msgid "Download succes"
-msgstr ""
+msgstr "Téléchargement réussi"
 
 #: src/Window.vala:789
 msgid "Ready to convert!"
-msgstr ""
+msgstr "Prêt à convertir !"
 
 #: src/Window.vala:794
 msgid "Download Error"
-msgstr ""
+msgstr "Erreur de téléchargement"
 
 #: src/Window.vala:796
 msgid "Failed retrieve…"
-msgstr ""
+msgstr "Échec de la récupération…"
 
 #: src/Window.vala:797
 msgid "Not ready yet!"
-msgstr ""
+msgstr "Pas encore prêt !"
 
 #: src/Window.vala:803 src/Window.vala:812
 #, c-format
 msgid "%s was converted into %s"
-msgstr ""
+msgstr "%s a été converti en %s"
 
 #: src/Window.vala:805 src/Window.vala:814
 #, c-format
 msgid "%s Error while convert into %s"
-msgstr ""
+msgstr "Erreur %s lors de la conversion en %s"
 
 #: src/Window.vala:833 src/Window.vala:842 src/Window.vala:870
 msgid "Error"
-msgstr ""
+msgstr "Erreur"
 
 #: src/Window.vala:855 src/Window.vala:872
 msgid "Automatic Close"
-msgstr ""
+msgstr "Fermeture automatique"
 
 #: src/Window.vala:891
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #: src/Window.vala:997
 msgid "Custom"
-msgstr ""
+msgstr "Personnalisé"
 
 #: src/Window.vala:1004
 msgid "Ask"
-msgstr ""
+msgstr "Demander"
