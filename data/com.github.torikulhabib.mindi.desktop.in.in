@@ -1,9 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=Mindi
-GenericName=Converter to audio
-Comment=A simple Video to Audio converter
-Exec=@EXEC_NAME@ %U
-Icon=@EXEC_NAME@
-Terminal=false
-Categories=Utility;
