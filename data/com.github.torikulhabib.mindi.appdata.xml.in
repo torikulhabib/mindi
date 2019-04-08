@@ -22,7 +22,7 @@
   <provides>
     <binary>com.github.torikulhabib.mindi</binary>
   </provides>
-  ​<releases>
+​  <releases>
     <release version="1.5.5" date="2018-12-11">
       <description>
         <p>Fix and add feature</p>
@@ -129,4 +129,3 @@
     <value key="x-appcenter-suggested-price">6</value>
   </custom>
 </component>
-

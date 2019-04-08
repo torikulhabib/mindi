@@ -1,0 +1,260 @@
+# Igbo translations for com.github.torikulhabib.mindi package.
+# Copyright (C) 2019 THE com.github.torikulhabib.mindi'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the com.github.torikulhabib.mindi package.
+# Automatically generated, 2019.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: com.github.torikulhabib.mindi\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-04-01 18:54+0200\n"
+"PO-Revision-Date: 2019-04-01 17:41+0200\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: ig\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/Objects/Converter.vala:76
+msgid "Starting"
+msgstr ""
+
+#: src/Objects/Converter.vala:401 src/Objects/Converter.vala:403
+#: src/Objects/Converter.vala:423
+msgid "Run: "
+msgstr ""
+
+#: src/Objects/Converter.vala:423
+msgid "Size: "
+msgstr ""
+
+#: src/Objects/Converter.vala:423
+msgid "Bitrate: "
+msgstr ""
+
+#: src/Widgets/Dialog.vala:29
+msgid "Are you sure you want to quit this process?"
+msgstr ""
+
+#: src/Widgets/Dialog.vala:33
+msgid "Warning"
+msgstr ""
+
+#: src/Widgets/Dialog.vala:41 src/Window.vala:666
+msgid "Cancel"
+msgstr ""
+
+#: src/Widgets/Dialog.vala:43
+msgid "Quit"
+msgstr ""
+
+#: src/Widgets/LightDark.vala:47 src/Widgets/LightDark.vala:68
+msgid "Light"
+msgstr ""
+
+#: src/Widgets/LightDark.vala:53 src/Widgets/LightDark.vala:63
+msgid "Dark"
+msgstr ""
+
+#: src/Widgets/MessageDialog.vala:39
+msgid "_Close"
+msgstr ""
+
+#: src/Widgets/MessageDialog.vala:42 src/Window.vala:299 src/Window.vala:468
+#: src/Window.vala:890
+msgid "_Cancel"
+msgstr ""
+
+#: src/Widgets/Notify.vala:47 src/Widgets/Notify.vala:64
+msgid "Silent"
+msgstr ""
+
+#: src/Widgets/Notify.vala:52 src/Widgets/Notify.vala:59
+msgid "Notify"
+msgstr ""
+
+#: src/Widgets/StreamPc.vala:52 src/Widgets/StreamPc.vala:73
+#: src/Window.vala:365
+msgid "Stream"
+msgstr ""
+
+#: src/Widgets/StreamPc.vala:56 src/Widgets/StreamPc.vala:68
+msgid "PC"
+msgstr ""
+
+#: src/Window.vala:91
+msgid "Change"
+msgstr ""
+
+#: src/Window.vala:95
+msgid "Ready!"
+msgstr ""
+
+#: src/Window.vala:97 src/Window.vala:467
+msgid "Open"
+msgstr ""
+
+#: src/Window.vala:142
+msgid "Set location"
+msgstr ""
+
+#: src/Window.vala:154
+msgid "Close"
+msgstr ""
+
+#: src/Window.vala:212 src/Window.vala:826 src/Window.vala:840
+#: src/Window.vala:853
+msgid "Finished"
+msgstr ""
+
+#: src/Window.vala:298 src/Window.vala:889
+msgid "Select a folder."
+msgstr ""
+
+#: src/Window.vala:300 src/Window.vala:469
+msgid "_Open"
+msgstr ""
+
+#: src/Window.vala:319 src/Window.vala:321 src/Window.vala:508
+#: src/Window.vala:510 src/Window.vala:718
+msgid "Location : "
+msgstr ""
+
+#: src/Window.vala:323 src/Window.vala:761
+msgid "Where you want to save the audio file"
+msgstr ""
+
+#: src/Window.vala:337
+msgid "A / V"
+msgstr ""
+
+#: src/Window.vala:346
+msgid "Choose a video file…"
+msgstr ""
+
+#: src/Window.vala:354
+msgid "Select Video"
+msgstr ""
+
+#: src/Window.vala:373
+msgid "Get now…"
+msgstr ""
+
+#: src/Window.vala:382
+msgid "Add"
+msgstr ""
+
+#: src/Window.vala:385
+msgid "Paste"
+msgstr ""
+
+#: src/Window.vala:387
+msgid "Paste URL here…"
+msgstr ""
+
+#: src/Window.vala:416
+msgid "Add URL"
+msgstr ""
+
+#: src/Window.vala:472
+msgid "All files"
+msgstr ""
+
+#: src/Window.vala:475
+msgid "Video files"
+msgstr ""
+
+#: src/Window.vala:481
+msgid "Audio files"
+msgstr ""
+
+#: src/Window.vala:588
+msgid "Audio"
+msgstr ""
+
+#: src/Window.vala:605
+msgid "Select"
+msgstr ""
+
+#: src/Window.vala:645
+msgid "No Video file choosen…"
+msgstr ""
+
+#: src/Window.vala:654
+msgid "Convert"
+msgstr ""
+
+#: src/Window.vala:689 src/Window.vala:990
+msgid "Location input"
+msgstr ""
+
+#: src/Window.vala:692
+msgid "Selected audio location"
+msgstr ""
+
+#: src/Window.vala:695
+msgid "Where you save the audio file"
+msgstr ""
+
+#: src/Window.vala:702
+msgid "Downloading…"
+msgstr ""
+
+#: src/Window.vala:745
+msgid "Please wait…"
+msgstr ""
+
+#: src/Window.vala:749 src/Window.vala:752
+msgid "Converting…"
+msgstr ""
+
+#: src/Window.vala:788
+msgid "Download succes"
+msgstr ""
+
+#: src/Window.vala:789
+msgid "Ready to convert!"
+msgstr ""
+
+#: src/Window.vala:794
+msgid "Download Error"
+msgstr ""
+
+#: src/Window.vala:796
+msgid "Failed retrieve…"
+msgstr ""
+
+#: src/Window.vala:797
+msgid "Not ready yet!"
+msgstr ""
+
+#: src/Window.vala:803 src/Window.vala:812
+#, c-format
+msgid "%s was converted into %s"
+msgstr ""
+
+#: src/Window.vala:805 src/Window.vala:814
+#, c-format
+msgid "%s Error while convert into %s"
+msgstr ""
+
+#: src/Window.vala:833 src/Window.vala:842 src/Window.vala:870
+msgid "Error"
+msgstr ""
+
+#: src/Window.vala:855 src/Window.vala:872
+msgid "Automatic Close"
+msgstr ""
+
+#: src/Window.vala:891
+msgid "OK"
+msgstr ""
+
+#: src/Window.vala:997
+msgid "Custom"
+msgstr ""
+
+#: src/Window.vala:1004
+msgid "Ask"
+msgstr ""

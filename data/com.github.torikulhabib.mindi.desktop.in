@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Mindi
+GenericName=Converter to audio
+Comment=A simple Video to Audio converter
+Exec=com.github.torikulhabib.mindi %U
+Icon=com.github.torikulhabib.mindi
+Terminal=false
+Categories=Utility;

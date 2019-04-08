@@ -17,22 +17,22 @@
 		<value nick="custom" value="1" />
 		<value nick="ask" value="2" />
 	</enum>
-  <schema id="com.github.torikulhabib.mindi" path="/com/github/torikulhabib/mindi/">
-    <key name="dark-light" type="b">
-      <default>false</default>
-      <summary>If the dark Gtk stylesheet should be used</summary>
-      <description>If the dark Gtk stylesheet should be used</description>
-    </key>
+	<schema id="com.github.torikulhabib.mindi" path="/com/github/torikulhabib/mindi/">
+		<key name="dark-light" type="b">
+			<default>false</default>
+			<summary>If the dark Gtk stylesheet should be used</summary>
+			<description>If the dark Gtk stylesheet should be used</description>
+		</key>
 		<key name="format-audios" enum="com.github.torikulhabib.nino.format-audios">
 			<default>"AAC"</default>
 			<summary>Format audio.</summary>
 			<description>Format audio.</description>
 		</key>
-    <key name="auto-close" type="b">
-      <default>false</default>
-      <summary>Automatic close should be used</summary>
-      <description>Automatic close should be used</description>
-    </key> 
+		<key name="auto-close" type="b">
+			<default>false</default>
+			<summary>Automatic close should be used</summary>
+			<description>Automatic close should be used</description>
+		</key>
 		<key name="folder-mode" enum="com.github.torikulhabib.nino.folder-mode">
 			<default>"place"</default>
 			<summary>folder mode.</summary>
@@ -63,15 +63,15 @@
 			<summary>Name output file</summary>
 			<description>Name output file</description>
 		</key>
-    <key name="notify-silent" type="b">
-      <default>false</default>
-      <summary>Button notify</summary>
-      <description>Button notify</description>
-    </key> 
-    <key name="stream-mode" type="b">
-      <default>false</default>
-      <summary>Button stream</summary>
-      <description>Button stream</description>
-    </key> 
-  </schema>
+		<key name="notify-silent" type="b">
+			<default>false</default>
+			<summary>Button notify</summary>
+			<description>Button notify</description>
+		</key>
+		<key name="stream-mode" type="b">
+			<default>false</default>
+			<summary>Button stream</summary>
+			<description>Button stream</description>
+		</key>
+	</schema>
 </schemalist>

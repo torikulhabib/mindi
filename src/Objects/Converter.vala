@@ -398,9 +398,9 @@ namespace Mindi {
 	            int link_longchar = progress_msg.char_count ();
 	            if (link_longchar > 39) {
 	                string string_limit = progress_msg.substring (0, 38 - 0);
-                    status.label = ("Run:" + string_limit);
+                    status.label = (_("Run: ") + string_limit);
                 } else {
-                    status.label = ("Run:" + progress_msg);
+                    status.label = (_("Run: ") + progress_msg);
                 }
             }
 
@@ -420,7 +420,7 @@ namespace Mindi {
                 size            = str_return.substring ( index_size + 5, 11);
                 int index_bitrate = str_return.index_of ("bitrate=");
                 bitrate           = str_return.substring ( index_bitrate + 8, 11);
-                string converting = "Run: " + progress.to_string () + " % " + " Size: " + size.strip () + " Bitrate: " + bitrate.strip ();
+                string converting = _("Run: ") + progress.to_string () + " % " + _("Size: ") + size.strip () + " " + _("Bitrate: ") + bitrate.strip ();
                 int link_longchar = converting.char_count ();
 	            if (link_longchar > 43) {
 	                string string_limit = converting.substring (0, 42 - 0);

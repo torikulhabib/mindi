@@ -88,13 +88,13 @@ namespace Mindi {
                 convert_container.sensitive = selected_video != null;
 
                 if (selected_video != null) {
-                    open_video.label = _ ("Change");
+                    open_video.label = _("Change");
                     video_name.label = (selected_video.get_basename ());
                     status_location ();
                     input_find_location ();
-                    convert_label.label = ("Ready!");
+                    convert_label.label = _("Ready!");
                 } else {
-                    open_video.label = _ ("Open");
+                    open_video.label = _("Open");
                 }
             }
         }
@@ -316,9 +316,9 @@ namespace Mindi {
 	        int longchar = output_set.char_count ();
 	        if (longchar > 26) {
 	            string string_limited = output_set.substring (0, 25 - 0);
-                output_name_location.label = ("Location : " + string_limited + "…");
+                output_name_location.label = (_("Location : ") + string_limited + "…");
             } else {
-                output_name_location.label = ("Location : " + output_set);
+                output_name_location.label = (_("Location : ") + output_set);
             }
             ask_location.label = "<i>%s</i>".printf (_("Where you want to save the audio file"));
 
@@ -505,9 +505,9 @@ namespace Mindi {
 	        int link_longchar = set_link.char_count ();
 	        if (link_longchar > 26) {
 	            string string_limit = set_link.substring (0, 25 - 0);
-                output_name.label = ("Location : " + string_limit + "…");
+                output_name.label = (_("Location : ") + string_limit + "…");
             } else {
-                output_name.label = ("Location : " + set_link);
+                output_name.label = (_("Location : ") + set_link);
             }
             Timeout.add_seconds (0,() => {
                 output_name.set_uri ("file://" + set_link);
@@ -715,7 +715,7 @@ namespace Mindi {
 
         private void on_converter_started (bool now_converting) {
             string ask_location_set =  MindiApp.settings.get_string ("ask-location");
-            ask_location.label = ("Location : " + ask_location_set);
+            ask_location.label = (_("Location : ") + ask_location_set);
 
             open_video.sensitive = false;
             open_stream.sensitive = false;
