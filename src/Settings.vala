@@ -39,7 +39,6 @@ namespace Mindi.Configs {
     }
     public class Settings : Granite.Services.Settings {
         private static Settings? settings;
-        public FormatAudios format_audios  { get; set; }
         public FolderMode folder_mode  { get; set; }
         public string output_folder    { get; set; }
         public string ask_location    { get; set; }
@@ -49,41 +48,6 @@ namespace Mindi.Configs {
 
         private Settings () {
             base ("com.github.torikulhabib.mindi");
-        }
-
-        public void update_formataudio (Mindi.Formataudios formataudio) {
-            switch (formataudio) {
-                case Mindi.Formataudios.AC3:
-                    settings.format_audios = FormatAudios.AC3;
-                    break;
-                case Mindi.Formataudios.AIFF:
-                    settings.format_audios = FormatAudios.AIFF;
-                    break;
-                case Mindi.Formataudios.FLAC:
-                    settings.format_audios = FormatAudios.FLAC;
-                    break;
-                case Mindi.Formataudios.MMF:
-                    settings.format_audios = FormatAudios.MMF;
-                    break;
-                case Mindi.Formataudios.MP3:
-                    settings.format_audios = FormatAudios.MP3;
-                    break;
-                case Mindi.Formataudios.M4A:
-                    settings.format_audios = FormatAudios.M4A;
-                    break;
-                case Mindi.Formataudios.OGG:
-                    settings.format_audios = FormatAudios.OGG;
-                    break;
-                case Mindi.Formataudios.WMA:
-                    settings.format_audios = FormatAudios.WMA;
-                    break;
-                case Mindi.Formataudios.WAV:
-                    settings.format_audios = FormatAudios.WAV;
-                    break;
-                default:
-                    settings.format_audios = FormatAudios.AAC;
-                    break;
-            }
         }
 
         public void folder_switch () {

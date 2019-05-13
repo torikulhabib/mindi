@@ -233,38 +233,8 @@ namespace Mindi {
             });
 
             if (selected_formataudio == null) {
-                switch (MindiApp.settings.get_enum ("format-audios")) {
-                    case 1:
-                        selected_formataudio = format_list.get_child_at_index(1) as Mindi.Formataudio;
-                        break;
-                    case 2:
-                        selected_formataudio = format_list.get_child_at_index(2) as Mindi.Formataudio;
-                        break;
-                    case 3:
-                        selected_formataudio = format_list.get_child_at_index(3) as Mindi.Formataudio;
-                        break;
-                    case 4:
-                        selected_formataudio = format_list.get_child_at_index(4) as Mindi.Formataudio;
-                        break;
-                    case 5:
-                        selected_formataudio = format_list.get_child_at_index(5) as Mindi.Formataudio;
-                        break;
-                    case 6:
-                        selected_formataudio = format_list.get_child_at_index(6) as Mindi.Formataudio;
-                        break;
-                    case 7:
-                        selected_formataudio = format_list.get_child_at_index(7) as Mindi.Formataudio;
-                        break;
-                    case 8:
-                        selected_formataudio = format_list.get_child_at_index(8) as Mindi.Formataudio;
-                        break;
-                    case 9:
-                        selected_formataudio = format_list.get_child_at_index(9) as Mindi.Formataudio;
-                        break;
-                    default:
-                        selected_formataudio = format_list.get_child_at_index(0) as Mindi.Formataudio;
-                        break;
-                }
+                int default_audio = MindiApp.settings.get_enum ("format-audios");
+                selected_formataudio = format_list.get_child_at_index(default_audio) as Mindi.Formataudio;
             }
         }
 
@@ -477,6 +447,7 @@ namespace Mindi {
             video_filter.add_mime_type ("video/mp4");
             video_filter.add_mime_type ("video/webm");
             video_filter.add_mime_type ("video/flv");
+            video_filter.add_mime_type ("video/mkv");
             var audio_filter = new Gtk.FileFilter ();
             audio_filter.set_filter_name (_ ("Audio files"));
             audio_filter.add_mime_type ("audio/mp3");
@@ -632,6 +603,7 @@ namespace Mindi {
 
         private void on_select_fileformat (Gtk.FlowBoxChild item) {
             selected_formataudio = item as Mindi.Formataudio;
+            MindiApp.settings.set_enum ("format-audios", (int) selected_formataudio.formataudio);
             format_popover.hide ();
         }
 
@@ -932,8 +904,6 @@ namespace Mindi {
         }
 
         private void update_formataudio_label () {
-            var settings = Mindi.Configs.Settings.get_settings ();
-            settings.update_formataudio (selected_formataudio.formataudio);
             switch (selected_formataudio.formataudio) {
                 case Mindi.Formataudios.AC3:
                     format_icon = new ThemedIcon ("com.github.torikulhabib.mindi.ac3");
