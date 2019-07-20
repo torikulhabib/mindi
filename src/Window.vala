@@ -193,6 +193,7 @@ namespace Mindi {
             streampc.signal_stream.connect (button_stream);
 
             show_all();
+            event.connect (listen_to_window_events);
         }
 
         void build_ui () {
@@ -950,6 +951,19 @@ namespace Mindi {
             if (MindiApp.settings.get_boolean ("stream-mode")) {
                 stream_stack.visible_child_name = "stream";
             }
+        }
+
+        private bool listen_to_window_events (Gdk.Event event) {
+            if (is_active) {
+                converter.unitylauncher.progress_visible = false;
+                converter.unitylauncher.count_visible = false;
+            } else {
+                if (converter.is_running) {
+                    converter.unitylauncher.progress_visible = true;
+                    converter.unitylauncher.count_visible = true;
+                }
+            }
+            return false;
         }
 
         private void folder_symbol () {

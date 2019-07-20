@@ -22,6 +22,7 @@
 using Gtk;
 using Mindi.Configs;
 using GLib;
+using Unity;
 
 namespace Mindi {
     public class ObjectConverter : Grid {
@@ -39,6 +40,7 @@ namespace Mindi {
         private ProgressBar progress_bar;
         private Label status;
         private double progress;
+        private int64 unityprogress;
 
         public bool is_running {get;set;}
         public bool is_downloading {get;set;}
@@ -65,14 +67,15 @@ namespace Mindi {
         public string name_file_stream;
         private string cache_dir_path;
         private Subprocess? subprocess;
+        public Unity.LauncherEntry unitylauncher;
         public ObjectConverter () {}
 
         construct {
+            unitylauncher = Unity.LauncherEntry.get_for_desktop_id ("com.github.torikulhabib.mindi.desktop");
             container = new Box (Orientation.HORIZONTAL, 0);
             container.margin = 5;
             box_name_progress = new Box (Orientation.VERTICAL, 0);
             progress_bar = new ProgressBar ();
-            progress_bar.set_fraction (progress);
             status = new Label (_("Starting"));
             status.halign = Align.START;
             box_name_progress.pack_start (progress_bar);
@@ -199,6 +202,8 @@ namespace Mindi {
                                 GLib.warning (e.message);
                                 finished (false);
                                 progress_bar.set_fraction (0);
+                                unitylauncher.progress = 0;
+                                unitylauncher.count = 0;
                         }
                     });
             } catch (Error e) {
@@ -225,6 +230,8 @@ namespace Mindi {
 	                    }
 	                }  else {
                         progress_bar.set_fraction (0);
+                        unitylauncher.progress = 0;
+                        unitylauncher.count = 0;
 	                    finished (true);
 	                    break;
 	                }
@@ -350,6 +357,8 @@ namespace Mindi {
                                 subprocess.get_successful ();
                                 Timeout.add_seconds (1,() => {
                                     progress_bar.set_fraction (0);
+                                    unitylauncher.progress = 0;
+                                    unitylauncher.count = 0;
                                     return false;
                                 });
                             }
@@ -357,6 +366,8 @@ namespace Mindi {
                             GLib.warning (e.message);
                             finished (false);
                             progress_bar.set_fraction (0);
+                            unitylauncher.progress = 0;
+                            unitylauncher.count = 0;
                         }
                     });
                 } catch (Error e) {
@@ -393,7 +404,10 @@ namespace Mindi {
 
             if (str_return.contains ("[download]")) {
                 double progress_value = double.parse(str_return.slice(str_return.index_of(" "), str_return.index_of("%")).strip());
+                int64 unityprogress_value = int64.parse(str_return.slice(str_return.index_of(" "), str_return.index_of("%")).strip());
                 progress_bar.set_fraction (progress_value / 100);
+                unitylauncher.progress = progress_value / 100;
+                unitylauncher.count = unityprogress_value;
                 string progress_msg = str_return.substring (str_return.index_of (" "));
 	            int link_longchar = progress_msg.char_count ();
 	            if (link_longchar > 39) {
@@ -414,8 +428,11 @@ namespace Mindi {
                 int index_time  = str_return.index_of ("time=");
                 time            = str_return.substring ( index_time + 5, 11);
                 int loading     = TimeUtil.duration_in_seconds (time);
-                double progress = (100 * loading) / total;
+                progress = (100 * loading) / total;
+                unityprogress = (100 * loading) / total;
                 progress_bar.set_fraction (progress / 100);
+                unitylauncher.progress = progress / 100;
+                unitylauncher.count = unityprogress;
                 int index_size  = str_return.index_of ("size=");
                 size            = str_return.substring ( index_size + 5, 11);
                 int index_bitrate = str_return.index_of ("bitrate=");
