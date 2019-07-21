@@ -156,7 +156,7 @@ namespace Mindi {
                 signal_close ();
             });
 
-            Timeout.add_seconds (0,() => {
+            Timeout.add (50,() => {
                 folder_symbol ();
                 stack_stream ();
                 return false;
@@ -293,7 +293,7 @@ namespace Mindi {
             }
             ask_location.label = "<i>%s</i>".printf (_("Where you want to save the audio file"));
 
-            Timeout.add_seconds (0,() => {
+            Timeout.add (50,() => {
                 output_name_location.set_uri ("file://"+ output_set);
                 return false;
             });
@@ -481,7 +481,7 @@ namespace Mindi {
             } else {
                 output_name.label = (_("Location : ") + set_link);
             }
-            Timeout.add_seconds (0,() => {
+            Timeout.add (50,() => {
                 output_name.set_uri ("file://" + set_link);
                 return false;
             });
@@ -713,7 +713,7 @@ namespace Mindi {
             convert_container.sensitive = true;
             format_container.sensitive = true;
                 if (!now_converting) {
-                    Timeout.add_seconds (0,() => {
+                    Timeout.add (50,() => {
                         stack.visible_child_name = "download";
                         stream_name.label = _("Please wait…");
                         return false;
