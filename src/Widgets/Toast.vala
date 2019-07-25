@@ -91,9 +91,9 @@ namespace Mindi.Widgets {
                 uint duration;
 
                 if (default_action_button.visible) {
-                    duration = 3500;
+                    duration = 10;
                 } else {
-                    duration = 2000;
+                    duration = 4500;
                 }
 
                 timeout_id = GLib.Timeout.add (duration, () => {

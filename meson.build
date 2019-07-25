@@ -18,7 +18,6 @@ dependencies = [
     dependency('gio-unix-2.0', version: '>=2.20'),
     dependency('granite'),
     dependency('gtk+-3.0'),
-    dependency('unity')
 ]
 
 # Add source files
@@ -34,7 +33,9 @@ code_files = files(
     'src/Widgets/LightDark.vala',
     'src/Widgets/Notify.vala',
     'src/Widgets/StreamPc.vala',
-    'src/Objects/Converter.vala'
+    'src/Objects/Converter.vala',
+    'src/Objects/Remover.vala',
+    'src/Objects/CheckLink.vala'
 )
 
 # Define executable

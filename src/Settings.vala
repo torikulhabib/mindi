@@ -40,12 +40,6 @@ namespace Mindi.Configs {
     public class Settings : Granite.Services.Settings {
         private static Settings? settings;
         public FolderMode folder_mode  { get; set; }
-        public string output_folder    { get; set; }
-        public string ask_location    { get; set; }
-        public string folder_link    { get; set; }
-        public string name_link    { get; set; }
-        public string name_cache    { get; set; }
-
         private Settings () {
             base ("com.github.torikulhabib.mindi");
         }

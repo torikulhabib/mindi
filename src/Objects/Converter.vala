@@ -22,7 +22,6 @@
 using Gtk;
 using Mindi.Configs;
 using GLib;
-using Unity;
 
 namespace Mindi {
     public class ObjectConverter : Grid {
@@ -34,31 +33,25 @@ namespace Mindi {
                 return _instance;
             }
         }
-
-        private Box container;
-        private Box box_name_progress;
         private ProgressBar progress_bar;
         private Label status;
-        private double progress;
-        private int64 unityprogress;
-
-        public bool is_running {get;set;}
-        public bool is_downloading {get;set;}
-        public bool is_converting {get;set;}
+        public bool is_running {get;set;default = false;}
+        public bool is_downloading {get;set;default = false;}
+        public bool is_converting {get;set;default = false;}
         public signal void downloading ();
         public signal void converting ();
         public signal void begin (bool now_converting);
         public signal void finished (bool success);
-        private string ac3_path;
-        private string aiff_path;
-        private string flac_path;
-        private string mmf_path;
-        private string mp3_path;
-        private string m4a_path;
-        private string ogg_path;
-        private string wma_path;
-        private string wav_path;
-        private string aac_path;
+        public string ac3_path;
+        public string aiff_path;
+        public string flac_path;
+        public string mmf_path;
+        public string mp3_path;
+        public string m4a_path;
+        public string ogg_path;
+        public string wma_path;
+        public string wav_path;
+        public string aac_path;
         private string inputvideo;
         private string outputvideo;
         private string outputname;
@@ -67,14 +60,12 @@ namespace Mindi {
         public string name_file_stream;
         private string cache_dir_path;
         private Subprocess? subprocess;
-        public Unity.LauncherEntry unitylauncher;
         public ObjectConverter () {}
 
         construct {
-            unitylauncher = Unity.LauncherEntry.get_for_desktop_id ("com.github.torikulhabib.mindi.desktop");
-            container = new Box (Orientation.HORIZONTAL, 0);
+            var container = new Box (Orientation.HORIZONTAL, 0);
             container.margin = 5;
-            box_name_progress = new Box (Orientation.VERTICAL, 0);
+            var box_name_progress = new Box (Orientation.VERTICAL, 0);
             progress_bar = new ProgressBar ();
             status = new Label (_("Starting"));
             status.halign = Align.START;
@@ -87,9 +78,6 @@ namespace Mindi {
             add(container);
             show_all ();
 
-            is_running = false;
-            is_converting = false;
-            is_downloading = false;
             converting.connect (() => {
                 is_converting = true;
                 begin (true);
@@ -134,17 +122,17 @@ namespace Mindi {
         public async void read_name () {
             cache_dir_path = Path.build_path (Path.DIR_SEPARATOR_S, Environment.get_user_cache_dir (), Environment.get_application_name());
             File cache_dir_source = File.new_for_path (cache_dir_path);
-            get_folder_data (cache_dir_path, cache_dir_source, "");
+            get_folder_data (cache_dir_path, cache_dir_source, " ");
         }
 
-        public async void get_video (string uri, bool stream) {
+        public async void get_video (string uri, bool stream, bool finish) {
             downloading ();
             cache_dir_path = Path.build_path (Path.DIR_SEPARATOR_S, Environment.get_user_cache_dir (), Environment.get_application_name());
             string ignore_name = "" + name_file_stream;
             string up = ignore_name.up ();
             if (up.contains ("")) {
                if (up.contains ("PART")) {
-                get_video_stream (uri, stream);
+                get_video_stream (uri, stream, finish);
                 } else if (up.contains (".")) {
                     string check_file = Path.build_path (Path.DIR_SEPARATOR_S, cache_dir_path, ignore_name);
                     if (File.new_for_path (check_file).query_exists ()) {
@@ -155,14 +143,14 @@ namespace Mindi {
                             GLib.warning (e.message);
 	                    }
 	                }
-	                get_video_stream (uri, stream);
+	                get_video_stream (uri, stream, finish);
                 } else {
-	                get_video_stream (uri, stream);
+	                get_video_stream (uri, stream, finish);
 	            }
             }
         }
 
-	    private void get_video_stream (string uri, bool stream) {
+	    private void get_video_stream (string uri, bool stream, bool finish) {
 	    	string [] spawn_args;
             string [] spawn_env = Environ.get ();
 
@@ -176,8 +164,10 @@ namespace Mindi {
                 }
             }
 
-            if (stream) {
+            if (stream && finish) {
 		        spawn_args = {"youtube-dl", "-f", "251", "-o", "%(title)s.%(ext)s" , uri};
+		    } else if (stream && !finish) {
+		        spawn_args = {"youtube-dl", "-f", "140", "-o", "%(title)s.%(ext)s" , uri};
 		    } else {
 		        spawn_args = {"youtube-dl", "-o", "%(title)s.%(ext)s" , uri};
 		    }
@@ -191,7 +181,6 @@ namespace Mindi {
                     convert_async.begin (input_stream, (obj, async_res) => {
                         try {
                             if (subprocess.wait_check ()) {
-
                                 subprocess.get_successful ();
                                 Timeout.add_seconds (1,() => {
                                     remove_part.begin ();
@@ -202,8 +191,7 @@ namespace Mindi {
                                 GLib.warning (e.message);
                                 finished (false);
                                 progress_bar.set_fraction (0);
-                                unitylauncher.progress = 0;
-                                unitylauncher.count = 0;
+                                mindi_desktop (0, 0);
                         }
                     });
             } catch (Error e) {
@@ -230,8 +218,7 @@ namespace Mindi {
 	                    }
 	                }  else {
                         progress_bar.set_fraction (0);
-                        unitylauncher.progress = 0;
-                        unitylauncher.count = 0;
+                        mindi_desktop (0, 0);
 	                    finished (true);
 	                    break;
 	                }
@@ -244,30 +231,25 @@ namespace Mindi {
         }
 
         public async void set_folder (File video, bool stream_active) {
-            var settings = Mindi.Configs.Settings.get_settings ();
             cache_dir_path = Path.build_path (Path.DIR_SEPARATOR_S, Environment.get_user_cache_dir (), Environment.get_application_name());
                 if (stream_active) {
                     inputvideo = cache_dir_path + "/" + name_file_stream;
 	                int i = name_file_stream.last_index_of (".");
-                    string out_last = name_file_stream.substring (i + 1);
-	                string [] inputbase = name_file_stream.split ("." + out_last);
+	                string [] inputbase = name_file_stream.split ("." + name_file_stream.substring (i + 1));
                     outputname = inputbase [0];
-                    string set_link =  MindiApp.settings.get_string ("folder-link");
-                    outputvideo = set_link + outputname;
+                    outputvideo = MindiApp.settings.get_string ("folder-link") + inputbase [0];
                 } else {
                     inputvideo = video.get_path ();
-                    string inputname = video.get_basename ();
-	                int i = inputname.last_index_of (".");
-                    string out_last = inputname.substring (i + 1);
-	                string [] inputbase = inputname.split ("." + out_last);
+	                int i = video.get_basename ().last_index_of (".");
+	                string [] inputbase = video.get_basename ().split ("." + video.get_basename ().substring (i + 1));
                     outputname = inputbase [0];
-	                string [] input = inputvideo.split ("." + out_last);
+	                string [] input = inputvideo.split ("." + video.get_basename ().substring (i + 1));
                     outputvideo = input [0];
                 }
 
                 foldersave = MindiApp.settings.get_string ("output-folder");
                 ask_location = MindiApp.settings.get_string ("ask-location");
-                switch (settings.folder_mode) {
+                switch (Mindi.Configs.Settings.get_settings ().folder_mode) {
                 case FolderMode.PLACE :
                     ac3_path = GLib.Path.build_filename (outputvideo +".ac3");
                     aiff_path = GLib.Path.build_filename (outputvideo +".aif");
@@ -357,8 +339,7 @@ namespace Mindi {
                                 subprocess.get_successful ();
                                 Timeout.add_seconds (1,() => {
                                     progress_bar.set_fraction (0);
-                                    unitylauncher.progress = 0;
-                                    unitylauncher.count = 0;
+                                    mindi_desktop (0, 0);
                                     return false;
                                 });
                             }
@@ -366,8 +347,7 @@ namespace Mindi {
                             GLib.warning (e.message);
                             finished (false);
                             progress_bar.set_fraction (0);
-                            unitylauncher.progress = 0;
-                            unitylauncher.count = 0;
+                            mindi_desktop (0, 0);
                         }
                     });
                 } catch (Error e) {
@@ -398,23 +378,20 @@ namespace Mindi {
         }
 
         private void process_line (string str_return, ref int total) {
-            string time = "";
-            string size = "";
-            string bitrate = "";
-
-            if (str_return.contains ("[download]")) {
+            if (str_return.contains ("[download]") && str_return.contains ("of ") && str_return.contains ("at") ) {
                 double progress_value = double.parse(str_return.slice(str_return.index_of(" "), str_return.index_of("%")).strip());
-                int64 unityprogress_value = int64.parse(str_return.slice(str_return.index_of(" "), str_return.index_of("%")).strip());
+                int64 progress_badge = int64.parse(str_return.slice(str_return.index_of(" "), str_return.index_of("%")).strip());
                 progress_bar.set_fraction (progress_value / 100);
-                unitylauncher.progress = progress_value / 100;
-                unitylauncher.count = unityprogress_value;
-                string progress_msg = str_return.substring (str_return.index_of (" "));
-	            int link_longchar = progress_msg.char_count ();
-	            if (link_longchar > 39) {
-	                string string_limit = progress_msg.substring (0, 38 - 0);
-                    status.label = (_("Run: ") + string_limit);
+                mindi_desktop (progress_badge, progress_value / 100);
+                int index_size  = str_return.index_of ("of");
+                string size            = str_return.substring ( index_size + 2, 9);
+                int index_speed = str_return.index_of ("at");
+                string speed           = str_return.substring ( index_speed + 2, 12);
+                string downloading = _("Run: ") + progress_badge.to_string () + " % " + _("Size: ") + size.strip () + " " + _("Rate: ") + speed.strip ();
+	            if (downloading.char_count () > 43) {
+                    status.label = (downloading.substring (0, 42 - 0));
                 } else {
-                    status.label = (_("Run: ") + progress_msg);
+                    status.label = (downloading);
                 }
             }
 
@@ -426,68 +403,41 @@ namespace Mindi {
 
             if (str_return.contains ("time=") && str_return.contains ("size=") && str_return.contains ("bitrate=") ) {
                 int index_time  = str_return.index_of ("time=");
-                time            = str_return.substring ( index_time + 5, 11);
+                string time            = str_return.substring ( index_time + 5, 11);
                 int loading     = TimeUtil.duration_in_seconds (time);
-                progress = (100 * loading) / total;
-                unityprogress = (100 * loading) / total;
-                progress_bar.set_fraction (progress / 100);
-                unitylauncher.progress = progress / 100;
-                unitylauncher.count = unityprogress;
+                double progress = (100 * loading) / total;
+                int64 progress_badge = (100 * loading) / total;
+                double progress_value = progress / 100;
+                progress_bar.set_fraction (progress_value);
+                mindi_desktop (progress_badge, progress_value);
                 int index_size  = str_return.index_of ("size=");
-                size            = str_return.substring ( index_size + 5, 11);
+                string size            = str_return.substring ( index_size + 5, 11);
                 int index_bitrate = str_return.index_of ("bitrate=");
-                bitrate           = str_return.substring ( index_bitrate + 8, 11);
+                string bitrate           = str_return.substring ( index_bitrate + 8, 11);
                 string converting = _("Run: ") + progress.to_string () + " % " + _("Size: ") + size.strip () + " " + _("Bitrate: ") + bitrate.strip ();
-                int link_longchar = converting.char_count ();
-	            if (link_longchar > 43) {
-	                string string_limit = converting.substring (0, 42 - 0);
-                    status.label = (string_limit);
+	            if (converting.char_count () > 43) {
+                    status.label = (converting.substring (0, 42 - 0));
                 } else {
                     status.label = (converting);
                 }
             }
         }
 
-        public async void remove_failed (Mindi.Formataudios formataudio) {
-            string failed_removed;
-            switch (formataudio) {
-                case Mindi.Formataudios.AC3:
-                    failed_removed = ac3_path;
-                    break;
-                case Mindi.Formataudios.AIFF:
-                    failed_removed = aiff_path;
-                    break;
-                case Mindi.Formataudios.FLAC:
-                    failed_removed = flac_path;
-                    break;
-                case Mindi.Formataudios.MMF:
-                    failed_removed = mmf_path;
-                    break;
-                case Mindi.Formataudios.MP3:
-                    failed_removed = mp3_path;
-                    break;
-                case Mindi.Formataudios.M4A:
-                    failed_removed = m4a_path;
-                    break;
-                case Mindi.Formataudios.OGG:
-                    failed_removed = ogg_path;
-                    break;
-                case Mindi.Formataudios.WMA:
-                    failed_removed = wma_path;
-                    break;
-                case Mindi.Formataudios.WAV:
-                    failed_removed = wav_path;
-                    break;
-                default:
-                    failed_removed = aac_path;
-                    break;
-            }
-            File file = File.new_for_path (failed_removed);
-	            try {
-		            file.delete ();
-	            } catch (Error e) {
-                    GLib.warning ( e.message);
-	            }
+        private void mindi_desktop (int64 badge, double progress) {
+            Granite.Services.Application.set_progress.begin (progress, (obj, res) => {
+                try {
+                    Granite.Services.Application.set_progress.end (res);
+                } catch (GLib.Error e) {
+                    critical (e.message);
+                }
+            });
+            Granite.Services.Application.set_badge.begin (badge, (obj, res) => {
+                try {
+                    Granite.Services.Application.set_badge.end (res);
+                } catch (GLib.Error e) {
+                    critical (e.message);
+                }
+            });
         }
     }
 }

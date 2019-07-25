@@ -5,8 +5,12 @@ namespace Mindi {
     public class Window : Gtk.ApplicationWindow {
         private Dialog? dialog = null;
         private ObjectConverter? converter;
+        private CheckLink? checklink;
         private NotifySilent? notifysilent;
+        private LightDark? light_dark;
         private StreamPc? streampc;
+        private Remover? remover;
+
         private Grid content;
         private Button open_video;
         private Image video_logo;
@@ -26,20 +30,14 @@ namespace Mindi {
         private Button convert_start;
         private Button convert_cancel;
 
-        private Button close_button;
         private LinkButton output_name;
-        private LinkButton output_name_location;
+        private LinkButton output_custom_location;
         private Label ask_location;
 
         private Revealer choose_revealer;
         private Revealer convert_revealer;
         private Revealer cancel_revealer;
         private Revealer progressbar_revealer;
-
-        private Image ask_icon_folder;
-        private Image icon_folder_open;
-        private Image icon_folder;
-        private Button open_button;
         private Button location_button;
 
         private Stack stack;
@@ -48,15 +46,12 @@ namespace Mindi {
         private Label stream_name;
         private Grid stream_container;
         private Button open_stream;
-        private Popover add_url_popover;
         private Entry entry;
 
         private string message;
-        private string selected_location;
-        private string ask_location_folder;
-        private string set_link;
         private bool ask_active {get;set;}
         private bool stream {get;set;}
+        private bool other {get;set;}
 
         Notification desktop_notification;
         Mindi.Widgets.Toast app_notification;
@@ -121,24 +116,18 @@ namespace Mindi {
         }
 
         construct {
-            var settings = Mindi.Configs.Settings.get_settings ();
-
-		    settings.notify["folder-mode"].connect (() => {
+		    Mindi.Configs.Settings.get_settings ().notify["folder-mode"].connect (() => {
                 folder_symbol ();
 		    });
-
-            icon_folder_open = new Gtk.Image.from_icon_name ("document-save-symbolic", Gtk.IconSize.BUTTON);
-            icon_folder = new Gtk.Image.from_icon_name ("document-save-as-symbolic", Gtk.IconSize.BUTTON);
-            ask_icon_folder = new Gtk.Image.from_icon_name ("system-help-symbolic", Gtk.IconSize.BUTTON);
 
             location_button = new Gtk.Button ();
             location_button.clicked.connect (() => {
                 if (!converter.is_running) {
-                    settings.folder_switch ();
+                    Mindi.Configs.Settings.get_settings ().folder_switch ();
                 }
             });
 
-            open_button =  new Button.from_icon_name ("folder-open-symbolic", IconSize.SMALL_TOOLBAR);
+            var open_button =  new Button.from_icon_name ("folder-open-symbolic", IconSize.SMALL_TOOLBAR);
             open_button.tooltip_text = _("Set location");
             open_button.clicked.connect (() => {
                 if (!converter.is_running) {
@@ -150,7 +139,7 @@ namespace Mindi {
             choose_revealer.add (open_button);
             choose_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT;
 
-            close_button = new Button.from_icon_name ("window-close-symbolic", IconSize.SMALL_TOOLBAR);
+            var close_button = new Button.from_icon_name ("window-close-symbolic", IconSize.SMALL_TOOLBAR);
             close_button.tooltip_text = _("Close");
             close_button.clicked.connect (() => {
                 signal_close ();
@@ -158,10 +147,12 @@ namespace Mindi {
 
             Timeout.add (50,() => {
                 folder_symbol ();
-                stack_stream ();
+                if (MindiApp.settings.get_boolean ("stream-mode")) {
+                    stream_stack.visible_child_name = "stream";
+                }
                 return false;
             });
-            var light_dark = new LightDark ();
+
             light_dark = LightDark.instance;
             notifysilent = NotifySilent.instance;
             streampc = StreamPc.instance;
@@ -189,10 +180,13 @@ namespace Mindi {
             build_ui();
 
             converter = ObjectConverter.instance;
+            checklink = CheckLink.instance;
             converter.begin.connect (on_converter_started);
+            checklink.begin.connect (begin_check);
             streampc.signal_stream.connect (button_stream);
+            remover = Remover.instance;
 
-            show_all();
+            show_all ();
             event.connect (listen_to_window_events);
         }
 
@@ -264,7 +258,6 @@ namespace Mindi {
         }
 
        private void costum_location () {
-            var settings = Mindi.Configs.Settings.get_settings ();
             var location = new Gtk.FileChooserDialog (
                 _ ("Select a folder."), this, Gtk.FileChooserAction.SELECT_FOLDER,
                 _ ("_Cancel"), Gtk.ResponseType.CANCEL,
@@ -275,26 +268,22 @@ namespace Mindi {
             location.set_filter (folder);
 
             if (location.run () == Gtk.ResponseType.ACCEPT) {
-                selected_location = location.get_file ().get_path ();
-                settings.output_folder = selected_location;
+                MindiApp.settings.set_string ("output-folder", location.get_file ().get_path ());
                 status_location ();
             }
             location.destroy ();
         }
 
         private void status_location () {
-            string output_set = MindiApp.settings.get_string ("output-folder");
-	        int longchar = output_set.char_count ();
-	        if (longchar > 26) {
-	            string string_limited = output_set.substring (0, 25 - 0);
-                output_name_location.label = (_("Location : ") + string_limited + "…");
+	        if (MindiApp.settings.get_string ("output-folder").char_count () > 26) {
+                output_custom_location.label = (MindiApp.settings.get_string ("output-folder").substring (0, 25 - 0) + "…");
             } else {
-                output_name_location.label = (_("Location : ") + output_set);
+                output_custom_location.label = (MindiApp.settings.get_string ("output-folder"));
             }
             ask_location.label = "<i>%s</i>".printf (_("Where you want to save the audio file"));
 
             Timeout.add (50,() => {
-                output_name_location.set_uri ("file://"+ output_set);
+                output_custom_location.set_uri ("file://"+ MindiApp.settings.get_string ("output-folder"));
                 return false;
             });
         }
@@ -375,24 +364,21 @@ namespace Mindi {
                 entry.set_text (text);
             });
 
-            button.clicked.connect (() => {
-                add_url_clicked (stream);
-                add_url_popover.hide ();
-            });
-
             entry.changed.connect (() => {
                 button.sensitive = entry.text != "" ? true : false;
             });
 
             open_stream = new Gtk.Button.with_label (_ ("Add URL"));
             open_stream.valign = Gtk.Align.END;
-            open_stream.clicked.connect (() => {
-                    add_url_popover.visible = !add_url_popover.visible;
-            });
 
-            add_url_popover = new Gtk.Popover (open_stream);
+            var add_url_popover = new Gtk.Popover (open_stream);
             add_url_popover.position = Gtk.PositionType.TOP;
             add_url_popover.add (stream_grid);
+            open_stream.clicked.connect (() => { add_url_popover.visible = !add_url_popover.visible;});
+            button.clicked.connect (() => {
+                check_clicked ();
+                add_url_popover.hide ();
+            });
 
             stream_container.attach (open_stream, 0, 3, 1, 1);
         }
@@ -404,32 +390,86 @@ namespace Mindi {
             content.attach (stream_stack, 0, 0, 1, 1);
         }
 
-        private void add_url_clicked (bool stream) {
+        private void check_clicked () {
             string url = entry.get_text().strip ();
             if (url.contains ("youtu")) {
-            stream = true;
-            if (url.contains ("&" + "list")) {
-                string [] link = url.split ("&");
-                string result = link [0];
-                add_download (result, stream);
-            } else if (url.contains ("?" + "list")) {
-                string [] link = url.split ("?list");
-                string result = link [0];
-                add_download (result, stream);
+                other = true;
+                if (url.contains ("&" + "list")) {
+                    string [] link = url.split ("&");
+                    check_link (link [0], other);
+                } else if (url.contains ("?" + "list")) {
+                    string [] link = url.split ("?list");
+                    check_link (link [0], other);
+                } else {
+                    check_link (url, other);
+                }
             } else {
-                add_download (url, stream);
-            }
-            } else {
-                stream = false;
-                add_download (url, stream);
+                other = false;
+                check_link (url, other);
             }
         }
 
-        private void add_download (string url, bool stream) {
+        private void check_link (string url, bool other) {
+            checklink.check_link.begin (url, other);
+            checklink.finished.connect (checklink_finished);
+            checklink.notif.connect (send_notify);
+        }
+
+        private void begin_check () {
+            stream_name.label = _("Check Link…");
+            open_stream.sensitive = false;
+            video_logo.sensitive = false;
+            select_format.sensitive = false;
+            format_logo.sensitive = false;
+            format_name.sensitive = false;
+            convert_start.sensitive = false;
+            stream_logo.sensitive = false;
+
+        }
+
+        private void send_notify () {
+            stream_name.label = _("Get now…");
+            open_stream.sensitive = true;
+            video_logo.sensitive = true;
+            select_format.sensitive = true;
+            format_logo.sensitive = true;
+            format_name.sensitive = true;
+            stream_logo.sensitive = true;
+            Timeout.add (50,() => {
+                app_notification.title = checklink.status;
+                app_notification.send_notification ();
+                return false;
+            });
+        }
+
+        private void checklink_finished (bool finish) {
+            add_url_clicked (stream, finish);
+        }
+
+        private void add_url_clicked (bool stream, bool finish) {
+            string url = entry.get_text().strip ();
+            if (url.contains ("youtu")) {
+                stream = true;
+                if (url.contains ("&" + "list")) {
+                    string [] link = url.split ("&");
+                    add_download (link [0], stream, finish);
+                } else if (url.contains ("?" + "list")) {
+                    string [] link = url.split ("?list");
+                    add_download (link [0], stream, finish);
+                } else {
+                    add_download (url, stream, finish);
+                }
+            } else {
+                stream = false;
+                add_download (url, stream, finish);
+            }
+        }
+
+        private void add_download (string url, bool stream, bool finish) {
             if (!converter.is_running) {
                 converter.finished.connect (on_converter_finished);
                 converter.finished.connect (notify_signal);
-                converter.get_video.begin (url, stream);
+                converter.get_video.begin (url, stream, finish);
             }
         }
 
@@ -448,7 +488,6 @@ namespace Mindi {
             video_filter.add_mime_type ("video/mp4");
             video_filter.add_mime_type ("video/webm");
             video_filter.add_mime_type ("video/flv");
-            video_filter.add_mime_type ("video/mkv");
             var audio_filter = new Gtk.FileFilter ();
             audio_filter.set_filter_name (_ ("Audio files"));
             audio_filter.add_mime_type ("audio/mp3");
@@ -467,32 +506,23 @@ namespace Mindi {
         }
 
         private void input_find_location () {
-            var settings = Mindi.Configs.Settings.get_settings ();
-            string input = selected_video.get_basename ();
-            string video = selected_video.get_path ();
-            string [] output = video.split (input);
-            string result = output [0];
-            settings.folder_link = result;
-            set_link =  MindiApp.settings.get_string ("folder-link");
-	        int link_longchar = set_link.char_count ();
-	        if (link_longchar > 26) {
-	            string string_limit = set_link.substring (0, 25 - 0);
-                output_name.label = (_("Location : ") + string_limit + "…");
+            string [] output = selected_video.get_path ().split ("/" + selected_video.get_basename ());
+            MindiApp.settings.set_string ("folder-link", output [0]);
+	        if (MindiApp.settings.get_string ("folder-link").char_count () > 26) {
+                output_name.label = (MindiApp.settings.get_string ("folder-link").substring (0, 25 - 0) + "…");
             } else {
-                output_name.label = (_("Location : ") + set_link);
+                output_name.label = (MindiApp.settings.get_string ("folder-link"));
             }
             Timeout.add (50,() => {
-                output_name.set_uri ("file://" + set_link);
+                output_name.set_uri ("file://" + MindiApp.settings.get_string ("folder-link"));
                 return false;
             });
             input_type ();
         }
 
         private void input_type () {
-            string input_video = selected_video.get_basename ();
-	        int i = input_video.last_index_of (".");
-            string out_last = input_video.substring (i + 1);
-            string up = out_last.up ();
+	        int i = selected_video.get_basename ().last_index_of (".");
+            string up = selected_video.get_basename ().substring (i + 1).up ();
             if (up.contains ("MP4")) {
                 video_icon = new ThemedIcon ("com.github.torikulhabib.mindi.mp4");
                 title_video.label = ("Video");
@@ -577,10 +607,7 @@ namespace Mindi {
             select_format = new Gtk.Button.with_label (_ ("Select"));
             select_format.valign = Gtk.Align.END;
             select_format.vexpand = true;
-            select_format.clicked.connect (
-                () => {
-                    format_popover.visible = !format_popover.visible;
-                });
+            select_format.clicked.connect (() => { format_popover.visible = !format_popover.visible;});
             format_container.attach (select_format, 0, 3, 1, 1);
 
             format_popover = new Gtk.Popover (select_format);
@@ -659,11 +686,21 @@ namespace Mindi {
             cancel_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
             convert_container.attach (cancel_revealer, 0, 4, 2,1);
 
+            var string_location = new Label ("Location : ");
             output_name = new Gtk.LinkButton (_("Location input"));
-            output_name.valign = Gtk.Align.CENTER;
+            var grid_location = new Grid ();
+            grid_location.orientation = Gtk.Orientation.HORIZONTAL;
+            grid_location.halign = Gtk.Align.CENTER;
+            grid_location.add (string_location);
+            grid_location.add (output_name);
 
-            output_name_location = new Gtk.LinkButton (_("Selected audio location"));
-            output_name_location.valign = Gtk.Align.CENTER;
+            var string_custom_location = new Label ("Location : ");
+            output_custom_location = new Gtk.LinkButton (_("Selected audio location"));
+            var grid_custom_location = new Grid ();
+            grid_custom_location.orientation = Gtk.Orientation.HORIZONTAL;
+            grid_custom_location.halign = Gtk.Align.CENTER;
+            grid_custom_location.add (string_custom_location);
+            grid_custom_location.add (output_custom_location);
 
             ask_location = new Gtk.Label ("<i>%s</i>".printf (_("Where you save the audio file")));
             ask_location.ellipsize = Pango.EllipsizeMode.END;
@@ -677,8 +714,8 @@ namespace Mindi {
             label_download.valign = Gtk.Align.CENTER;
 
             stack = new Stack ();
-            stack.add_named (output_name, "name");
-            stack.add_named (output_name_location, "name_custom");
+            stack.add_named (grid_location, "name");
+            stack.add_named (grid_custom_location, "name_custom");
             stack.add_named (ask_location, "ask");
             stack.add_named (label_download, "download");
             convert_container.attach (stack, 0, 3, 2, 1);
@@ -687,8 +724,7 @@ namespace Mindi {
         }
 
         private void on_converter_started (bool now_converting) {
-            string ask_location_set =  MindiApp.settings.get_string ("ask-location");
-            ask_location.label = (_("Location : ") + ask_location_set);
+            ask_location.label = (_("Location : ") + MindiApp.settings.get_string ("ask-location"));
 
             open_video.sensitive = false;
             open_stream.sensitive = false;
@@ -791,35 +827,38 @@ namespace Mindi {
         }
 
         private void notify_signal (bool success) {
-            if (is_active) {
-                if (success) {
-                    if (notifysilent.notify_active) {
-                        create_dialog_finish ("%s".printf (message));
+            Timeout.add (50,() => {
+                if (is_active) {
+                    if (success) {
+                        if (notifysilent.notify_active) {
+                            create_dialog_finish ("%s".printf (message));
+                        } else {
+                            app_notification.title = _("Finished");
+                            app_notification.send_notification ();
+                        }
                     } else {
-                        app_notification.title = _("Finished");
-                        app_notification.send_notification ();
+                        if (notifysilent.notify_active) {
+                            create_dialog_error ("%s".printf (message));
+                        } else {
+                            app_notification.title = _("Error");
+                            app_notification.send_notification ();
+                        }
+                        fail_convert ();
                     }
                 } else {
-                    if (notifysilent.notify_active) {
-                        create_dialog_error ("%s".printf (message));
+                    if (success) {
+                        desktop_notification.set_title (_("Finished"));
                     } else {
-                        app_notification.title = _("Error");
-                        app_notification.send_notification ();
+                        desktop_notification.set_title (_("Error"));
+                        fail_convert ();
                     }
-                    fail_convert ();
+                    if (notifysilent.notify_active) {
+                        desktop_notification.set_body (message);
+                        application.send_notification ("notify.app", desktop_notification);
+                    }
                 }
-            } else {
-                if (success) {
-                    desktop_notification.set_title (_("Finished"));
-                } else {
-                    desktop_notification.set_title (_("Error"));
-                    fail_convert ();
-                }
-                if (notifysilent.notify_active) {
-                    desktop_notification.set_body (message);
-                    application.send_notification ("notify.app", desktop_notification);
-                }
-            }
+            return false;
+            });
         }
 
         private void create_dialog_finish (string text) {
@@ -857,7 +896,6 @@ namespace Mindi {
         }
 
        private void ask_costum_location () {
-            var settings = Mindi.Configs.Settings.get_settings ();
             var ask_location = new Gtk.FileChooserDialog (
                 _ ("Select a folder."), this, Gtk.FileChooserAction.SELECT_FOLDER,
                 _ ("_Cancel"), Gtk.ResponseType.CANCEL,
@@ -868,8 +906,7 @@ namespace Mindi {
             ask_location.set_filter (folder_ask);
 
             if (ask_location.run () == Gtk.ResponseType.ACCEPT) {
-                ask_location_folder = ask_location.get_file ().get_path ();
-                settings.ask_location = ask_location_folder;
+                MindiApp.settings.set_string ("ask-location", ask_location.get_file ().get_path ());
                 converter.finished.connect (on_converter_finished);
                 converter.finished.connect (notify_signal);
                 converter.set_folder.begin (selected_video, streampc.stream_active);
@@ -900,7 +937,7 @@ namespace Mindi {
         private void fail_convert () {
             if (!converter.is_running) {
                 converter.set_folder.begin (selected_video, streampc.stream_active);
-                converter.remove_failed.begin (selected_formataudio.formataudio);
+                remover.remove_failed.begin (selected_formataudio.formataudio);
             }
         }
 
@@ -947,44 +984,45 @@ namespace Mindi {
             }
         }
 
-        private void stack_stream () {
-            if (MindiApp.settings.get_boolean ("stream-mode")) {
-                stream_stack.visible_child_name = "stream";
-            }
-        }
-
         private bool listen_to_window_events (Gdk.Event event) {
-            if (is_active) {
-                converter.unitylauncher.progress_visible = false;
-                converter.unitylauncher.count_visible = false;
-            } else {
-                if (converter.is_running) {
-                    converter.unitylauncher.progress_visible = true;
-                    converter.unitylauncher.count_visible = true;
-                }
-            }
+            Timeout.add (500,() => {
+                    Granite.Services.Application.set_progress_visible.begin (!is_active && converter.is_running, (obj, res) => {
+                        try {
+                            Granite.Services.Application.set_progress_visible.end (res);
+                        } catch (GLib.Error e) {
+                            critical (e.message);
+                        }
+                    });
+                    Granite.Services.Application.set_badge_visible.begin (!is_active && converter.is_running, (obj, res) => {
+                        try {
+                            Granite.Services.Application.set_badge_visible.end (res);
+                        } catch (GLib.Error e) {
+                            critical (e.message);
+                        }
+                    });
+                return false;
+            });
             return false;
         }
 
         private void folder_symbol () {
-            var settings = Mindi.Configs.Settings.get_settings ();
-            switch (settings.folder_mode) {
+            switch (Mindi.Configs.Settings.get_settings ().folder_mode) {
                 case FolderMode.PLACE :
-                    location_button.set_image (icon_folder_open);
+                    location_button.set_image (new Gtk.Image.from_icon_name ("document-save-symbolic", Gtk.IconSize.BUTTON));
                     location_button.tooltip_text = _ ("Location input");
                     ask_active = false;
                     choose_revealer.set_reveal_child (false);
                     stack.visible_child_name = "name";
                     break;
                 case FolderMode.CUSTOM :
-                    location_button.set_image (icon_folder);
+                    location_button.set_image (new Gtk.Image.from_icon_name ("document-save-as-symbolic", Gtk.IconSize.BUTTON));
                     location_button.tooltip_text = _ ("Custom");
                     ask_active = false;
                     choose_revealer.set_reveal_child (true);
                     stack.visible_child_name = "name_custom";
                     break;
                 case FolderMode.ASK :
-                    location_button.set_image (ask_icon_folder);
+                    location_button.set_image (new Gtk.Image.from_icon_name ("system-help-symbolic", Gtk.IconSize.BUTTON));
                     location_button.tooltip_text = _ ("Ask");
                     ask_active = true;
                     choose_revealer.set_reveal_child (false);

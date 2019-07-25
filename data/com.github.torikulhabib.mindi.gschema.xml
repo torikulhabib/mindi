@@ -53,16 +53,6 @@
 			<summary>Select the output folder</summary>
 			<description>Select the output folder</description>
 		</key>
-		<key name="name-cache" type="s">
-			<default>''</default>
-			<summary>Select the output folder</summary>
-			<description>Select the output folder</description>
-		</key>
-		<key name="name-link" type="s">
-			<default>''</default>
-			<summary>Name output file</summary>
-			<description>Name output file</description>
-		</key>
 		<key name="notify-silent" type="b">
 			<default>false</default>
 			<summary>Button notify</summary>

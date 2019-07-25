@@ -1,4 +1,5 @@
 src/Objects/Converter.vala
+src/Objects/CheckLink.vala
 src/Widgets/Dialog.vala
 src/Widgets/LightDark.vala
 src/Widgets/MessageDialog.vala

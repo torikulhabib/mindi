@@ -98,7 +98,6 @@ public class Mindi.MessageDialog : Gtk.Dialog {
         primary_label.xalign = 0;
 
         secondary_label = new Gtk.Label (null);
-        secondary_label.ellipsize = Pango.EllipsizeMode.MIDDLE;
         secondary_label.max_width_chars = 50;
         secondary_label.wrap = true;
         secondary_label.xalign = 0;
