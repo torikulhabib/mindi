@@ -35,6 +35,7 @@ namespace Mindi {
         }
         private ProgressBar progress_bar;
         private Label status;
+        public string notify_string;
         public bool is_running {get;set;default = false;}
         public bool is_downloading {get;set;default = false;}
         public bool is_converting {get;set;default = false;}
@@ -42,6 +43,7 @@ namespace Mindi {
         public signal void converting ();
         public signal void begin (bool now_converting);
         public signal void finished (bool success);
+        public signal void warning_notif (bool notify);
         public string ac3_path;
         public string aiff_path;
         public string flac_path;
@@ -68,6 +70,8 @@ namespace Mindi {
             var box_name_progress = new Box (Orientation.VERTICAL, 0);
             progress_bar = new ProgressBar ();
             status = new Label (_("Starting"));
+            status.ellipsize = Pango.EllipsizeMode.END;
+            status.max_width_chars = 42;
             status.halign = Align.START;
             box_name_progress.pack_start (progress_bar);
             box_name_progress.pack_start (status);
@@ -107,7 +111,7 @@ namespace Mindi {
                     FileInfo info = null;
                     while ((info = enumerator.next_file ()) != null) {
                         if (info.get_file_type () == FileType.DIRECTORY) {
-                           File subdir = file.resolve_relative_path (info.get_name ());
+                            File subdir = file.resolve_relative_path (info.get_name ());
                             get_folder_data (cache, subdir, name = "");
                         } else {
                             name_file_stream = info.get_name ();
@@ -121,8 +125,7 @@ namespace Mindi {
 
         public async void read_name () {
             cache_dir_path = Path.build_path (Path.DIR_SEPARATOR_S, Environment.get_user_cache_dir (), Environment.get_application_name());
-            File cache_dir_source = File.new_for_path (cache_dir_path);
-            get_folder_data (cache_dir_path, cache_dir_source, " ");
+            get_folder_data (cache_dir_path, File.new_for_path (cache_dir_path), " ");
         }
 
         public async void get_video (string uri, bool stream, bool finish) {
@@ -296,34 +299,34 @@ namespace Mindi {
 
             switch (formataudio) {
                 case Mindi.Formataudios.AC3:
-                    spawn_args = {"ffmpeg", "-y", "-i", inputvideo, "-f", "ac3", "-acodec", "ac3", "-b:a", "192k", "-ar", "48000", "-ac", "2", ac3_path};
+                    spawn_args = {"ffmpeg", "-i", inputvideo, "-f", "ac3", "-acodec", "ac3", "-b:a", "192k", "-ar", "48000", "-ac", "2", ac3_path};
                     break;
                 case Mindi.Formataudios.AIFF:
-                    spawn_args = {"ffmpeg", "-y", "-i", inputvideo, aiff_path};
+                    spawn_args = {"ffmpeg", "-i", inputvideo, aiff_path};
                     break;
                 case Mindi.Formataudios.FLAC:
-                    spawn_args = {"ffmpeg", "-y", "-i", inputvideo, "-c:a", "flac", flac_path};
+                    spawn_args = {"ffmpeg", "-i", inputvideo, "-c:a", "flac", flac_path};
                     break;
                 case Mindi.Formataudios.MMF:
-                    spawn_args = {"ffmpeg", "-y", "-i", inputvideo,  "-strict", "-2", "-ar", "44100", mmf_path};
+                    spawn_args = {"ffmpeg", "-i", inputvideo,  "-strict", "-2", "-ar", "44100", mmf_path};
                     break;
                 case Mindi.Formataudios.MP3:
-                    spawn_args = {"ffmpeg", "-y", "-i", inputvideo, "-acodec", "libmp3lame", "-b:a", "160k", "-ac", "2", "-ar", "44100", mp3_path};
+                    spawn_args = {"ffmpeg", "-i", inputvideo, "-acodec", "libmp3lame", "-b:a", "160k", "-ac", "2", "-ar", "44100", mp3_path};
                     break;
                 case Mindi.Formataudios.M4A:
-                    spawn_args = {"ffmpeg", "-y", "-i", inputvideo, "-vn", "-acodec", "aac", "-strict", "experimental", "-b:a", "112k", "-ac", "2", "-ar", "48000", m4a_path};
+                    spawn_args = {"ffmpeg", "-i", inputvideo, "-vn", "-acodec", "aac", "-strict", "experimental", "-b:a", "112k", "-ac", "2", "-ar", "48000", m4a_path};
                     break;
                 case Mindi.Formataudios.OGG:
-                    spawn_args = {"ffmpeg", "-y", "-i", inputvideo, "-acodec", "libvorbis", "-aq", "3", "-vn", "-ac", "2", ogg_path};
+                    spawn_args = {"ffmpeg", "-i", inputvideo, "-acodec", "libvorbis", "-aq", "3", "-vn", "-ac", "2", ogg_path};
                     break;
                 case Mindi.Formataudios.WMA:
-                    spawn_args = {"ffmpeg", "-y", "-i", inputvideo, "-vn", "-acodec", "wmav2", "-b:a", "160k", "-ac", "2", wma_path};
+                    spawn_args = {"ffmpeg", "-i", inputvideo, "-vn", "-acodec", "wmav2", "-b:a", "160k", "-ac", "2", wma_path};
                     break;
                 case Mindi.Formataudios.WAV:
-                    spawn_args = {"ffmpeg", "-y", "-i", inputvideo, "-vn", "-ar", "44100", wav_path};
+                    spawn_args = {"ffmpeg", "-i", inputvideo, "-vn", "-ar", "44100", wav_path};
                     break;
                 default:
-                    spawn_args = {"ffmpeg", "-y", "-i", inputvideo, "-strict", "experimental", "-c:a", "aac", "-b:a", "128k", aac_path};
+                    spawn_args = {"ffmpeg", "-i", inputvideo, "-strict", "experimental", "-c:a", "aac", "-b:a", "128k", aac_path};
                     break;
                  }
             try {
@@ -345,9 +348,12 @@ namespace Mindi {
                             }
                         } catch (Error e) {
                             GLib.warning (e.message);
-                            finished (false);
                             progress_bar.set_fraction (0);
                             mindi_desktop (0, 0);
+                                Timeout.add (500,() => {
+                                    finished (false);
+                                    return false;
+                                });
                         }
                     });
                 } catch (Error e) {
@@ -378,21 +384,26 @@ namespace Mindi {
         }
 
         private void process_line (string str_return, ref int total) {
+            if (str_return.contains ("already exists. Overwrite ? [y/N]")) {
+                int index_first_name    = str_return.index_of ("File '");
+                int index_end_name      = str_return.index_of ("' already exists. Overwrite ? [y/N]");
+                notify_string           = str_return.substring ( index_first_name + 6, index_end_name - 6);
+                warning_notif (true);
+            } else {
+                warning_notif (false);
+            }
+
             if (str_return.contains ("[download]") && str_return.contains ("of ") && str_return.contains ("at") ) {
-                double progress_value = double.parse(str_return.slice(str_return.index_of(" "), str_return.index_of("%")).strip());
-                int64 progress_badge = int64.parse(str_return.slice(str_return.index_of(" "), str_return.index_of("%")).strip());
+                double progress_value   = double.parse(str_return.slice(str_return.index_of(" "), str_return.index_of("%")).strip());
+                int64 progress_badge    = int64.parse(str_return.slice(str_return.index_of(" "), str_return.index_of("%")).strip());
+                int index_size          = str_return.index_of ("of");
+                int index_speed         = str_return.index_of ("at");
+                string size             = str_return.substring ( index_size + 3, index_speed - (index_size + 3));
+                int index_end           = str_return.index_of ("ETA");
+                string speed            = str_return.substring ( index_speed + 2, index_end - (index_speed + 2));
+                status.label = _("Run: ") + progress_badge.to_string () + " % " + _("Size: ") + size.strip () + " " + _("Rate: ") + speed.strip ();
                 progress_bar.set_fraction (progress_value / 100);
                 mindi_desktop (progress_badge, progress_value / 100);
-                int index_size  = str_return.index_of ("of");
-                string size            = str_return.substring ( index_size + 2, 9);
-                int index_speed = str_return.index_of ("at");
-                string speed           = str_return.substring ( index_speed + 2, 12);
-                string downloading = _("Run: ") + progress_badge.to_string () + " % " + _("Size: ") + size.strip () + " " + _("Rate: ") + speed.strip ();
-	            if (downloading.char_count () > 43) {
-                    status.label = (downloading.substring (0, 42 - 0));
-                } else {
-                    status.label = (downloading);
-                }
             }
 
             if (str_return.contains ("Duration:")) {
@@ -402,24 +413,19 @@ namespace Mindi {
             }
 
             if (str_return.contains ("time=") && str_return.contains ("size=") && str_return.contains ("bitrate=") ) {
-                int index_time  = str_return.index_of ("time=");
-                string time            = str_return.substring ( index_time + 5, 11);
-                int loading     = TimeUtil.duration_in_seconds (time);
-                double progress = (100 * loading) / total;
-                int64 progress_badge = (100 * loading) / total;
-                double progress_value = progress / 100;
+                int index_time          = str_return.index_of ("time=");
+                string time             = str_return.substring ( index_time + 5, 11);
+                int loading             = TimeUtil.duration_in_seconds (time);
+                double progress         = (100 * loading) / total;
+                int64 progress_badge    = (100 * loading) / total;
+                double progress_value   = progress / 100;
+                int index_size          = str_return.index_of ("size=");
+                string size             = str_return.substring ( index_size + 5, 11);
+                int index_bitrate       = str_return.index_of ("bitrate=");
+                string bitrate          = str_return.substring ( index_bitrate + 8, 11);
+                status.label            = _("Run: ") + progress.to_string () + " % " + _("Size: ") + size.strip () + " " + _("Bitrate: ") + bitrate.strip ();
                 progress_bar.set_fraction (progress_value);
                 mindi_desktop (progress_badge, progress_value);
-                int index_size  = str_return.index_of ("size=");
-                string size            = str_return.substring ( index_size + 5, 11);
-                int index_bitrate = str_return.index_of ("bitrate=");
-                string bitrate           = str_return.substring ( index_bitrate + 8, 11);
-                string converting = _("Run: ") + progress.to_string () + " % " + _("Size: ") + size.strip () + " " + _("Bitrate: ") + bitrate.strip ();
-	            if (converting.char_count () > 43) {
-                    status.label = (converting.substring (0, 42 - 0));
-                } else {
-                    status.label = (converting);
-                }
             }
         }
 

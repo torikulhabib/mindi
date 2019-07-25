@@ -4,6 +4,7 @@ using Mindi.Configs;
 namespace Mindi {
     public class Window : Gtk.ApplicationWindow {
         private Dialog? dialog = null;
+        private DialogOverwrite? dialogoverwrite = null;
         private ObjectConverter? converter;
         private CheckLink? checklink;
         private NotifySilent? notifysilent;
@@ -52,6 +53,7 @@ namespace Mindi {
         private bool ask_active {get;set;}
         private bool stream {get;set;}
         private bool other {get;set;}
+        private bool warning_notify {get;set; default = false;}
 
         Notification desktop_notification;
         Mindi.Widgets.Toast app_notification;
@@ -671,6 +673,7 @@ namespace Mindi {
                     dialog = new Dialog (this);
                     dialog.show_all ();
                     dialog.dialog_cancel_convert.connect ( () => {
+                        warning_notify = false;
                         cancel_convert ();
                         });
                     dialog.destroy.connect (() => {
@@ -827,38 +830,40 @@ namespace Mindi {
         }
 
         private void notify_signal (bool success) {
-            Timeout.add (50,() => {
-                if (is_active) {
-                    if (success) {
-                        if (notifysilent.notify_active) {
-                            create_dialog_finish ("%s".printf (message));
+            if (!warning_notify) {
+                Timeout.add (50,() => {
+                    if (is_active) {
+                        if (success) {
+                            if (notifysilent.notify_active) {
+                                create_dialog_finish ("%s".printf (message));
+                            } else {
+                                app_notification.title = _("Finished");
+                                app_notification.send_notification ();
+                            }
                         } else {
-                            app_notification.title = _("Finished");
-                            app_notification.send_notification ();
+                            if (notifysilent.notify_active) {
+                                create_dialog_error ("%s".printf (message));
+                            } else {
+                                app_notification.title = _("Error");
+                                app_notification.send_notification ();
+                            }
+                            fail_convert ();
                         }
                     } else {
-                        if (notifysilent.notify_active) {
-                            create_dialog_error ("%s".printf (message));
+                        if (success) {
+                            desktop_notification.set_title (_("Finished"));
                         } else {
-                            app_notification.title = _("Error");
-                            app_notification.send_notification ();
+                            desktop_notification.set_title (_("Error"));
+                            fail_convert ();
                         }
-                        fail_convert ();
+                        if (notifysilent.notify_active) {
+                            desktop_notification.set_body (message);
+                            application.send_notification ("notify.app", desktop_notification);
+                        }
                     }
-                } else {
-                    if (success) {
-                        desktop_notification.set_title (_("Finished"));
-                    } else {
-                        desktop_notification.set_title (_("Error"));
-                        fail_convert ();
-                    }
-                    if (notifysilent.notify_active) {
-                        desktop_notification.set_body (message);
-                        application.send_notification ("notify.app", desktop_notification);
-                    }
-                }
-            return false;
-            });
+                return false;
+                });
+            }
         }
 
         private void create_dialog_finish (string text) {
@@ -909,6 +914,7 @@ namespace Mindi {
                 MindiApp.settings.set_string ("ask-location", ask_location.get_file ().get_path ());
                 converter.finished.connect (on_converter_finished);
                 converter.finished.connect (notify_signal);
+                converter.warning_notif.connect (warning_notif);
                 converter.set_folder.begin (selected_video, streampc.stream_active);
                 converter.converter_now.begin (selected_formataudio.formataudio);
             }
@@ -916,15 +922,46 @@ namespace Mindi {
         }
 
         private void convert_video () {
+            warning_notify = false;
             if (!converter.is_running) {
                 if (ask_active) {
                     ask_costum_location ();
                 } else {
                     converter.finished.connect (on_converter_finished);
                     converter.finished.connect (notify_signal);
+                    converter.warning_notif.connect (warning_notif);
                     converter.set_folder.begin (selected_video, streampc.stream_active);
                     converter.converter_now.begin (selected_formataudio.formataudio);
                 }
+            }
+        }
+
+        private void warning_notif (bool notif) {
+            if (notif) {
+                warning_notify = true;
+                if (dialogoverwrite == null) {
+                    dialogoverwrite = new DialogOverwrite (this, converter.notify_string);
+                    dialogoverwrite.show_all ();
+                    dialogoverwrite.dialog_overwrite_convert.connect (() => {
+                        converter.set_folder.begin (selected_video, streampc.stream_active);
+                        remover.remove_file.begin (selected_formataudio.formataudio);
+                            Timeout.add_seconds (1, () => {
+                                if (!converter.is_running) {
+                                    converter.finished.connect (on_converter_finished);
+                                    converter.finished.connect (notify_signal);
+                                    converter.set_folder.begin (selected_video, streampc.stream_active);
+                                    converter.converter_now.begin (selected_formataudio.formataudio);
+                                }
+                                return false;
+                            });
+                    });
+                    dialogoverwrite.destroy.connect (() => {
+                        dialogoverwrite = null;
+                    });
+                }
+                dialogoverwrite.present ();
+            } else {
+                warning_notify = false;
             }
         }
 
@@ -937,7 +974,7 @@ namespace Mindi {
         private void fail_convert () {
             if (!converter.is_running) {
                 converter.set_folder.begin (selected_video, streampc.stream_active);
-                remover.remove_failed.begin (selected_formataudio.formataudio);
+                remover.remove_file.begin (selected_formataudio.formataudio);
             }
         }
 
@@ -986,20 +1023,20 @@ namespace Mindi {
 
         private bool listen_to_window_events (Gdk.Event event) {
             Timeout.add (500,() => {
-                    Granite.Services.Application.set_progress_visible.begin (!is_active && converter.is_running, (obj, res) => {
-                        try {
-                            Granite.Services.Application.set_progress_visible.end (res);
-                        } catch (GLib.Error e) {
-                            critical (e.message);
-                        }
-                    });
-                    Granite.Services.Application.set_badge_visible.begin (!is_active && converter.is_running, (obj, res) => {
-                        try {
-                            Granite.Services.Application.set_badge_visible.end (res);
-                        } catch (GLib.Error e) {
-                            critical (e.message);
-                        }
-                    });
+                Granite.Services.Application.set_progress_visible.begin (!is_active && converter.is_running, (obj, res) => {
+                    try {
+                        Granite.Services.Application.set_progress_visible.end (res);
+                    } catch (GLib.Error e) {
+                        critical (e.message);
+                    }
+                });
+                Granite.Services.Application.set_badge_visible.begin (!is_active && converter.is_running, (obj, res) => {
+                    try {
+                        Granite.Services.Application.set_badge_visible.end (res);
+                    } catch (GLib.Error e) {
+                        critical (e.message);
+                    }
+                });
                 return false;
             });
             return false;

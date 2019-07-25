@@ -28,6 +28,7 @@ code_files = files(
     'src/Utils/TimeUtil.vala',
     'src/Widgets/Audio.vala',
     'src/Widgets/Dialog.vala',
+    'src/Widgets/DialogOverwrite.vala',
     'src/Widgets/MessageDialog.vala',
     'src/Widgets/Toast.vala',
     'src/Widgets/LightDark.vala',

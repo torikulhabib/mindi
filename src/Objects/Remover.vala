@@ -31,7 +31,7 @@ namespace Mindi {
         }
         private ObjectConverter? converter;
         public Remover () {}
-        public async void remove_failed (Mindi.Formataudios formataudio) {
+        public async void remove_file (Mindi.Formataudios formataudio) {
             converter = ObjectConverter.instance;
             string failed_removed;
             switch (formataudio) {

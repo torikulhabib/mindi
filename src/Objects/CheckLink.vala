@@ -33,11 +33,9 @@ namespace Mindi {
         }
 
         public string status;
-        public bool is_running {get;set; default = false;}
         public signal void notif ();
         public signal void finished (bool finish);
         public signal void begin ();
-        public string progress_msg;
         private Subprocess? subprocess;
         public CheckLink () {}
 
@@ -88,14 +86,12 @@ namespace Mindi {
                 var data_input_stream   = new DataInputStream (costream);
                 data_input_stream.set_newline_type (DataStreamNewlineType.ANY);
 
-                int total = 0;
-
                 while (true) {
                     string str_return = yield data_input_stream.read_line_utf8_async ();
                     if (str_return == null) {
                         break;
                     } else {
-                        process_line (str_return, ref total);
+                        process_line (str_return);
                     }
                 }
             } catch (Error e) {
@@ -103,27 +99,20 @@ namespace Mindi {
             }
         }
 
-        private void process_line (string str_return, ref int total) {
-            if (str_return.contains ("")) {
-                if (str_return.has_prefix ("ERROR:") && str_return.index_of ("Unsupported URL") > -1) {
-                    notif ();
-                    status = ("Unsupported website");
-                } else if (str_return.has_prefix ("ERROR:") && str_return.index_of ("requested format not available") > -1) {
-                    notif ();
-                    finished (false);
-                    status = ("Download second format");
-                } else if (str_return.has_prefix ("ERROR:") && str_return.index_of ("is not a valid URL.") > -1) {
-                    notif ();
-                    status = ("Not a valid URL");
-                } else if (str_return.has_prefix ("ERROR:")) {
-                    notif ();
-                    progress_msg = str_return.substring (str_return.index_of (" "));
-	                if (progress_msg.char_count () > 43) {
-                        status = (progress_msg.substring (0, 42 - 0));
-                    } else {
-                        status = (progress_msg);
-                    }
-                }
+        private void process_line (string str_return) {
+            if (str_return.has_prefix ("ERROR:") && str_return.index_of ("Unsupported URL") > -1) {
+                notif ();
+                status = ("Unsupported website");
+            } else if (str_return.has_prefix ("ERROR:") && str_return.index_of ("requested format not available") > -1) {
+                notif ();
+                finished (false);
+                status = ("Download second format");
+            } else if (str_return.has_prefix ("ERROR:") && str_return.index_of ("is not a valid URL.") > -1) {
+                notif ();
+                status = ("Not a valid URL");
+            } else if (str_return.has_prefix ("ERROR:")) {
+                notif ();
+                status = str_return.substring (str_return.index_of (" "));
             }
         }
     }

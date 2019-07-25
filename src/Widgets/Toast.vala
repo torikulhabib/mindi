@@ -60,6 +60,8 @@ namespace Mindi.Widgets {
             });
 
             notification_label = new Gtk.Label (title);
+            notification_label.ellipsize = Pango.EllipsizeMode.END;
+            notification_label.max_width_chars = 42;
 
             var notification_box = new Gtk.Grid ();
             notification_box.column_spacing = 12;
