@@ -22,7 +22,7 @@
 using Gtk;
 using Mindi.Configs;
 using GLib;
-
+using Granite;
 namespace Mindi {
     public class ObjectConverter : Grid {
         static ObjectConverter _instance = null;
