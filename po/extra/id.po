@@ -73,76 +73,80 @@ msgstr "Mengkonversi ke MP3, M4A, OGG, WAV, WMA, FLAC, dll."
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:55
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:64
 msgid "Fix and add feature"
-msgstr ""
+msgstr "Perbaikan dan penambahan fitur"
 
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:30
 msgid "Warning exist notify.<"
-msgstr ""
+msgstr "Peringatan berkas ada"
 
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:31
 msgid "Reload"
-msgstr ""
+msgstr "Muat ulang"
 
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:32
 msgid "Progress in aplication."
-msgstr ""
+msgstr "Kemajuan aplikasi"
 
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:33
 msgid "Check link."
-msgstr ""
+msgstr "Mengecek link"
 
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:34
 msgid "Fix."
-msgstr ""
+msgstr "Perbaikan"
 
-#: data/com.github.torikulhabib.mindi.appdata.xml.in:42
-msgid "Download from web stream base."
-msgstr ""
+#: data/com.github.torikulhabib.mindi.appdata.xml.in:34
+msgid "Updated Dutch translation bt Heimen Stoffels."
+msgstr "Perbaharuan terjemahan belan oleh Heiman Stoffels"
 
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:43
-msgid "Change find folder from icon location."
-msgstr ""
+msgid "Download from web stream base."
+msgstr "Download dari tautan"
 
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:44
-msgid "Change switch to button."
-msgstr ""
+msgid "Change find folder from icon location."
+msgstr "Ubah pencarian icon lokasi"
 
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:45
-msgid "Status download and converting."
-msgstr ""
+msgid "Change switch to button."
+msgstr "Ubah swit baten"
 
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:46
-msgid "Icon input."
-msgstr ""
+msgid "Status download and converting."
+msgstr "Status unduh dan konversi"
 
-#: data/com.github.torikulhabib.mindi.appdata.xml.in:54
-msgid "Info Location converted."
-msgstr ""
+#: data/com.github.torikulhabib.mindi.appdata.xml.in:47
+msgid "Icon input."
+msgstr "Ikon masukan"
 
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:55
-msgid "Fix close warning."
-msgstr ""
+msgid "Info Location converted."
+msgstr "Informasi lokasi"
 
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:56
-msgid "Fix stop warning."
-msgstr ""
+msgid "Fix close warning."
+msgstr "Perbaikan tutup dan peringatan"
 
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:57
-msgid "Add silent notify."
-msgstr ""
+msgid "Fix stop warning."
+msgstr "Perbaikan peringatan berhenti"
 
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:58
-msgid "Find location converted."
-msgstr ""
+msgid "Add silent notify."
+msgstr "Tambahkan notifikasi bisu"
 
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:59
-msgid "Ask converter location."
-msgstr ""
+msgid "Find location converted."
+msgstr "Temukan lokasi"
 
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:60
-msgid "Fix input name as output name."
-msgstr ""
+msgid "Ask converter location."
+msgstr "Bertanya lokasi conversi"
 
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:61
+msgid "Fix input name as output name."
+msgstr "Perbaikan masukan nama sebagai keluaran nama"
+
+#: data/com.github.torikulhabib.mindi.appdata.xml.in:62
 msgid "Change spiner to Progress."
-msgstr ""
+msgstr "Ubah spiner menjadi progres"
