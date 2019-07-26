@@ -20,18 +20,7 @@
 */
 
 namespace Mindi.Configs {
-    public enum FormatAudios {
-        AAC = 0,
-        AC3 = 1,
-        AIFF = 2,
-        FLAC = 3,
-        MMF = 4,
-        MP3 = 5,
-        M4A = 6,
-        OGG = 7,
-        WMA = 8,
-        WAV = 9
-    }
+
     public enum FolderMode {
         PLACE = 0,
         CUSTOM = 1,

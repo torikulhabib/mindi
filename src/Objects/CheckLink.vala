@@ -65,6 +65,8 @@ namespace Mindi {
                             if (subprocess.wait_check ()) {
                                 subprocess.get_successful ();
                                 finished (true);
+                                notif ();
+                                status = (_("Starting… "));
                             }
                         } catch (Error e) {
                                 GLib.warning (e.message);
@@ -77,6 +79,8 @@ namespace Mindi {
 
         public async void cancel_now () {
             subprocess.force_exit ();
+            notif ();
+            status = (_("Cancel by User "));
         }
 
         private async void convert_async (InputStream input_stream) {

@@ -35,7 +35,9 @@ namespace Mindi {
         }
         private ProgressBar progress_bar;
         private Label status;
+        private uint timer;
         public string notify_string;
+        private bool is_active {get;set;}
         public bool is_running {get;set;default = false;}
         public bool is_downloading {get;set;default = false;}
         public bool is_converting {get;set;default = false;}
@@ -71,7 +73,7 @@ namespace Mindi {
             progress_bar = new ProgressBar ();
             status = new Label (_("Starting"));
             status.ellipsize = Pango.EllipsizeMode.END;
-            status.max_width_chars = 42;
+            status.max_width_chars = 36;
             status.halign = Align.START;
             box_name_progress.pack_start (progress_bar);
             box_name_progress.pack_start (status);
@@ -98,6 +100,7 @@ namespace Mindi {
                 Timeout.add_seconds (1,() => {
                     is_converting = false;
                     is_downloading = false;
+                    Source.remove (timer);
                     return false;
 	            });
             });
@@ -130,6 +133,7 @@ namespace Mindi {
 
         public async void get_video (string uri, bool stream, bool finish) {
             downloading ();
+            mindi_desktop_visible ();
             cache_dir_path = Path.build_path (Path.DIR_SEPARATOR_S, Environment.get_user_cache_dir (), Environment.get_application_name());
             string ignore_name = "" + name_file_stream;
             string up = ignore_name.up ();
@@ -223,6 +227,10 @@ namespace Mindi {
                         progress_bar.set_fraction (0);
                         mindi_desktop (0, 0);
 	                    finished (true);
+                        Timeout.add_seconds (1,() => {
+                            Source.remove (timer);
+                            return false;
+                        });
 	                    break;
 	                }
                 }
@@ -294,6 +302,7 @@ namespace Mindi {
 
         public async void converter_now (Mindi.Formataudios formataudio) {
             converting ();
+            mindi_desktop_visible ();
             string [] spawn_args;
 		    string [] spawn_env = Environ.get ();
 
@@ -342,6 +351,7 @@ namespace Mindi {
                                 subprocess.get_successful ();
                                 Timeout.add_seconds (1,() => {
                                     progress_bar.set_fraction (0);
+                                    Source.remove (timer);
                                     mindi_desktop (0, 0);
                                     return false;
                                 });
@@ -389,10 +399,10 @@ namespace Mindi {
                 int index_end_name      = str_return.index_of ("' already exists. Overwrite ? [y/N]");
                 notify_string           = str_return.substring ( index_first_name + 6, index_end_name - 6);
                 warning_notif (true);
+                Source.remove (timer);
             } else {
                 warning_notif (false);
             }
-
             if (str_return.contains ("[download]") && str_return.contains ("of ") && str_return.contains ("at") ) {
                 double progress_value   = double.parse(str_return.slice(str_return.index_of(" "), str_return.index_of("%")).strip());
                 int64 progress_badge    = int64.parse(str_return.slice(str_return.index_of(" "), str_return.index_of("%")).strip());
@@ -443,6 +453,30 @@ namespace Mindi {
                 } catch (GLib.Error e) {
                     critical (e.message);
                 }
+            });
+        }
+
+        public void is_active_signal (bool is_actived) {
+            is_active = is_running == true ?  is_actived : true;
+        }
+
+        public void mindi_desktop_visible () {
+            timer = Timeout.add (400, () => {
+                Granite.Services.Application.set_progress_visible.begin (!is_active, (obj, res) => {
+                    try {
+                        Granite.Services.Application.set_progress_visible.end (res);
+                    } catch (GLib.Error e) {
+                        critical (e.message);
+                    }
+                });
+                Granite.Services.Application.set_badge_visible.begin (!is_active, (obj, res) => {
+                    try {
+                        Granite.Services.Application.set_badge_visible.end (res);
+                    } catch (GLib.Error e) {
+                        critical (e.message);
+                    }
+               });
+                return true;
             });
         }
     }
