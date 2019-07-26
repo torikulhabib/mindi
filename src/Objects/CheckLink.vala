@@ -80,7 +80,7 @@ namespace Mindi {
         public async void cancel_now () {
             subprocess.force_exit ();
             notif ();
-            status = (_("Cancel by User "));
+            status = (_("Cancel by User"));
         }
 
         private async void convert_async (InputStream input_stream) {

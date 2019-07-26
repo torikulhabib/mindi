@@ -3,6 +3,8 @@ src/Objects/CheckLink.vala
 src/Widgets/Dialog.vala
 src/Widgets/LightDark.vala
 src/Widgets/MessageDialog.vala
+src/Widgets/DialogOverwrite.vala
+src/Widgets/Dialog.vala
 src/Widgets/Notify.vala
 src/Widgets/StreamPc.vala
 src/Window.vala

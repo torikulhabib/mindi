@@ -97,8 +97,6 @@ namespace Mindi {
                     status_location ();
                     input_find_location ();
                     convert_label.label = _("Ready!");
-                } else {
-                    open_video.label = _("Open");
                 }
             }
         }
@@ -231,7 +229,7 @@ namespace Mindi {
             overlay.add (content);
             overlay.add_overlay (app_notification);
 
-            desktop_notification = new Notification (_ ("Finished"));
+            desktop_notification = new Notification ("");
 
             build_video_area ();
             build_stream_area ();
@@ -288,9 +286,9 @@ namespace Mindi {
 
        private void costum_location () {
             var location = new Gtk.FileChooserDialog (
-                _ ("Select a folder."), this, Gtk.FileChooserAction.SELECT_FOLDER,
-                _ ("_Cancel"), Gtk.ResponseType.CANCEL,
-                _ ("_Open"), Gtk.ResponseType.ACCEPT);
+                _("Select a folder."), this, Gtk.FileChooserAction.SELECT_FOLDER,
+                _("Cancel"), Gtk.ResponseType.CANCEL,
+                _("Open"), Gtk.ResponseType.ACCEPT);
 
             var folder = new Gtk.FileFilter ();
             folder.add_mime_type ("inode/directory");
@@ -319,7 +317,7 @@ namespace Mindi {
             video_container.width_request = 16;
             video_container.column_homogeneous = true;
 
-            title_video = new Gtk.Label (_ ("A / V"));
+            title_video = new Gtk.Label (_ ("Offline"));
             title_video.get_style_context ().add_class (Granite.STYLE_CLASS_H2_LABEL);
             title_video.hexpand = true;
             video_container.attach (title_video, 0, 0, 1, 1);
@@ -347,7 +345,7 @@ namespace Mindi {
             stream_container.width_request = 16;
             stream_container.column_homogeneous = true;
 
-            var title_stream = new Gtk.Label (_("Stream"));
+            var title_stream = new Gtk.Label (_("Online"));
             title_stream.get_style_context ().add_class (Granite.STYLE_CLASS_H2_LABEL);
             title_stream.hexpand = true;
             stream_container.attach (title_stream, 0, 0, 1, 1);
@@ -526,8 +524,8 @@ namespace Mindi {
         private void select_video () {
             var file = new Gtk.FileChooserDialog (
                 _ ("Open"), this, Gtk.FileChooserAction.OPEN,
-                _ ("_Cancel"), Gtk.ResponseType.CANCEL,
-                _ ("_Open"), Gtk.ResponseType.ACCEPT);
+                _ ("Cancel"), Gtk.ResponseType.CANCEL,
+                _ ("Open"), Gtk.ResponseType.ACCEPT);
 
             var all_files_filter = new Gtk.FileFilter ();
             all_files_filter.set_filter_name (_("All files"));
@@ -782,7 +780,7 @@ namespace Mindi {
             grid_custom_location.add (string_custom_location);
             grid_custom_location.add (output_custom_location);
 
-            ask_location = new Gtk.Label ("<i>%s</i>".printf (_("Where you save the audio file")));
+            ask_location = new Gtk.Label ("<i>%s</i>".printf (_("Where you want to save the audio file")));
             ask_location.ellipsize = Pango.EllipsizeMode.END;
             ask_location.max_width_chars = 15;
             ask_location.use_markup = true;
@@ -989,7 +987,7 @@ namespace Mindi {
        private void ask_costum_location () {
             var ask_location = new Gtk.FileChooserDialog (
                 _ ("Select a folder."), this, Gtk.FileChooserAction.SELECT_FOLDER,
-                _ ("_Cancel"), Gtk.ResponseType.CANCEL,
+                _ ("Cancel"), Gtk.ResponseType.CANCEL,
                 _ ("OK"), Gtk.ResponseType.ACCEPT);
 
             var folder_ask = new Gtk.FileFilter ();
