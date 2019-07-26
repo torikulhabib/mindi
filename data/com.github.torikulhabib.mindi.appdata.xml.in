@@ -10,7 +10,7 @@
     <p>Option to quickly convert to audio.</p>
     <p>Features:</p>
     <ul>
-      <li>Get from web stream base.</li>
+      <li>Get from web streaming base.</li>
       <li>Use from context menu: right click on video or audio file, and select Convert to Audio.</li>
       <li>Use from Applications select video.</li>
       <li>Dark and light.</li>
@@ -23,6 +23,18 @@
     <binary>com.github.torikulhabib.mindi</binary>
   </provides>
 ​  <releases>
+    <release version="2.0.1" date="2019-07-26">
+      <description>
+        <p>Fix and add feature</p>
+        <ul>
+          <li>Warning exist notify.</li>
+          <li>Reload.</li>
+          <li>Progress in aplication.</li>
+          <li>Check link.</li>
+          <li>Fix.</li>
+        </ul>
+      </description>
+    </release>
     <release version="1.5.5" date="2018-12-11">
       <description>
         <p>Fix and add feature</p>
@@ -88,6 +100,9 @@
     </screenshot>
     <screenshot>
       <image>https://raw.githubusercontent.com/torikulhabib/mindi/master/Screenshot3.png</image>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/torikulhabib/mindi/master/Screenshot4.png</image>
     </screenshot>
   </screenshots>
   <content_rating type="oars-1.1">
