@@ -22,7 +22,7 @@
 using Gtk;
 using Mindi.Configs;
 using GLib;
-using Granite;
+
 namespace Mindi {
     public class ObjectConverter : Grid {
         static ObjectConverter _instance = null;
@@ -440,16 +440,16 @@ namespace Mindi {
         }
 
         private void mindi_desktop (int64 badge, double progress) {
-            Granite.Services.Application.set_progress.begin (progress, (obj, res) => {
+            Mindi.Services.Application.set_progress.begin (progress, (obj, res) => {
                 try {
-                    Granite.Services.Application.set_progress.end (res);
+                    Mindi.Services.Application.set_progress.end (res);
                 } catch (GLib.Error e) {
                     critical (e.message);
                 }
             });
-            Granite.Services.Application.set_badge.begin (badge, (obj, res) => {
+            Mindi.Services.Application.set_badge.begin (badge, (obj, res) => {
                 try {
-                    Granite.Services.Application.set_badge.end (res);
+                    Mindi.Services.Application.set_badge.end (res);
                 } catch (GLib.Error e) {
                     critical (e.message);
                 }
@@ -461,17 +461,17 @@ namespace Mindi {
         }
 
         public void mindi_desktop_visible () {
-            timer = Timeout.add (400, () => {
-                Granite.Services.Application.set_progress_visible.begin (!is_active, (obj, res) => {
+            timer = Timeout.add (100, () => {
+                Mindi.Services.Application.set_progress_visible.begin (!is_active, (obj, res) => {
                     try {
-                        Granite.Services.Application.set_progress_visible.end (res);
+                        Mindi.Services.Application.set_progress_visible.end (res);
                     } catch (GLib.Error e) {
                         critical (e.message);
                     }
                 });
-                Granite.Services.Application.set_badge_visible.begin (!is_active, (obj, res) => {
+                Mindi.Services.Application.set_badge_visible.begin (!is_active, (obj, res) => {
                     try {
-                        Granite.Services.Application.set_badge_visible.end (res);
+                        Mindi.Services.Application.set_badge_visible.end (res);
                     } catch (GLib.Error e) {
                         critical (e.message);
                     }

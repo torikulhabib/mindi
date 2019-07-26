@@ -326,7 +326,7 @@ namespace Mindi {
             video_icon = new ThemedIcon ("applications-multimedia");
             video_container.attach (video_logo, 0, 1, 1, 1);
 
-            video_name = new Gtk.Label ("<i>%s</i>".printf (_("Choose a video file…")));
+            video_name = new Gtk.Label ("<i>%s</i>".printf (_("Video file…")));
             video_name.max_width_chars = 15;
             video_name.use_markup = true;
             video_name.ellipsize = Pango.EllipsizeMode.END;

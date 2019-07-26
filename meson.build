@@ -34,6 +34,7 @@ code_files = files(
     'src/Widgets/Toast.vala',
     'src/Widgets/LightDark.vala',
     'src/Widgets/Notify.vala',
+    'src/Widgets/AplicaitonView.vala',
     'src/Widgets/StreamPc.vala',
     'src/Objects/Converter.vala',
     'src/Objects/Remover.vala',

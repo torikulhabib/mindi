@@ -135,8 +135,8 @@ msgid "Where you want to save the audio file"
 msgstr "Dimana kamu ingin menyimpan file suara"
 
 #: src/Window.vala:329
-msgid "Choose a video file…"
-msgstr "Pilih sebuah berkas vidio"
+msgid "Video file…"
+msgstr "Berkas vidio"
 
 #: src/Window.vala:337
 msgid "Select Video"
