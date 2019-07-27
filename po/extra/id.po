@@ -22,6 +22,7 @@ msgid "Mindi"
 msgstr "Mindi"
 
 #: data/com.github.torikulhabib.mindi.desktop.in:5
+#: data/com.github.torikulhabib.mindi.Contract:3
 msgid "Converter to audio"
 msgstr "Konversi ke suara"
 

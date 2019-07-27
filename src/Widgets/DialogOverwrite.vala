@@ -26,12 +26,12 @@ namespace Mindi {
         public DialogOverwrite (Gtk.Window? parent, string secondary) {
             Object (
                 image_icon: new ThemedIcon ("dialog-warning"),
-                primary_text: _("Already exists. Overwrite?"),
+                primary_text: Mindi.StringPot.Exist,
                 secondary_text: secondary,
                 border_width: 0,
                 deletable: false,
                 resizable: false,
-                title: _("Warning"),
+                title: Mindi.StringPot.Warning,
                 transient_for: parent,
                 destroy_with_parent: true,
                 window_position: Gtk.WindowPosition.CENTER_ON_PARENT
@@ -40,8 +40,9 @@ namespace Mindi {
 
         construct {
             add_button (_("No"), Gtk.ButtonsType.CANCEL);
+            add_button (Mindi.StringPot.No, Gtk.ButtonsType.CANCEL);
 
-            var yes_button = new Gtk.Button.with_label (_("Yes"));
+            var yes_button = new Gtk.Button.with_label (Mindi.StringPot.Yes);
             yes_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
             add_action_widget (yes_button, Gtk.ResponseType.YES);
 

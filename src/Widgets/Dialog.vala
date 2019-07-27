@@ -26,11 +26,11 @@ namespace Mindi {
         public Dialog (Gtk.Window? parent) {
             Object (
                 image_icon: new ThemedIcon ("dialog-warning"),
-                primary_text: _("Are you sure you want to quit this process?"),
+                primary_text: Mindi.StringPot.WarningProses,
                 border_width: 0,
                 deletable: false,
                 resizable: false,
-                title: _("Warning"),
+                title: Mindi.StringPot.Warning,
                 transient_for: parent,
                 destroy_with_parent: true,
                 window_position: Gtk.WindowPosition.CENTER_ON_PARENT
@@ -38,9 +38,9 @@ namespace Mindi {
         }
 
         construct {
-            add_button (_("Cancel"), Gtk.ButtonsType.CANCEL);
+            add_button (Mindi.StringPot.Cancel, Gtk.ButtonsType.CANCEL);
 
-            var quit_button = new Gtk.Button.with_label (_("Quit"));
+            var quit_button = new Gtk.Button.with_label (Mindi.StringPot.Quit);
             quit_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
             add_action_widget (quit_button, Gtk.ResponseType.YES);
 

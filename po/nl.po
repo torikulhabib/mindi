@@ -17,273 +17,287 @@ msgstr ""
 "Language-Team: \n"
 "X-Generator: Poedit 2.2.3\n"
 
-#: src/Widgets/Notify.vala:47 src/Widgets/Notify.vala:64
+#: src/Utils/StringPot.vala:24
 msgid "Silent"
 msgstr "Stil"
 
-#: src/Widgets/Notify.vala:52 src/Widgets/Notify.vala:59
+#: src/Utils/StringPot.vala:25
 msgid "Notify"
 msgstr "Melding tonen"
 
-#: src/Widgets/StreamPc.vala:52 src/Widgets/StreamPc.vala:73
-#: src/Window.vala:348
+#: src/Utils/StringPot.vala:26
 msgid "Online"
 msgstr "Online"
 
-#: src/Widgets/StreamPc.vala:56 src/Widgets/StreamPc.vala:68
-#: src/Window.vala:320
+#: src/Utils/StringPot.vala:27
 msgid "Offline"
 msgstr "Offline"
 
-#: src/Widgets/LightDark.vala:47 src/Widgets/LightDark.vala:68
+#: src/Utils/StringPot.vala:28
 msgid "Light"
 msgstr "Licht"
 
-#: src/Widgets/LightDark.vala:53 src/Widgets/LightDark.vala:63
+#: src/Utils/StringPot.vala:29
 msgid "Dark"
 msgstr "Donker"
 
-#: src/Widgets/DialogOverwrite.vala:29
+#: src/Utils/StringPot.vala:30
 msgid "Already exists. Overwrite?"
 msgstr "Bestaat al. Overschrijven?"
 
-#: src/Widgets/DialogOverwrite.vala:42
+#: src/Utils/StringPot.vala:31
 msgid "No"
 msgstr "Nee"
 
-#: src/Widgets/DialogOverwrite.vala:44
+#: src/Utils/StringPot.vala:32
 msgid "Yes"
 msgstr "Ja"
 
-#: src/Widgets/Dialog.vala:29
+#: src/Utils/StringPot.vala:33
 msgid "Are you sure you want to quit this process?"
 msgstr "Weet je zeker dat je het proces wilt afbreken?"
 
-#: src/Widgets/DialogOverwrite.vala:42 src/Widgets/Dialog.vala:41
-#: src/Window.vala:290 src/Window.vala:527 src/Window.vala:743
-#: src/Window.vala:990
+#: src/Utils/StringPot.vala:34
 msgid "Cancel"
 msgstr "Afbreken"
 
-#: src/Widgets/DialogOverwrite.vala:44
+#: src/Utils/StringPot.vala:35
 msgid "Quit"
 msgstr "Afsluiten"
 
-#: src/Objects/CheckLink.vala:69
+#: src/Utils/StringPot.vala:36
 msgid "Starting…"
 msgstr "Bezig met starten…"
 
-#: src/Objects/CheckLink.vala:83
+#: src/Utils/StringPot.vala:37
 msgid "Cancel by User"
 msgstr "Afgebroken door gebruiker"
 
-#: src/Objects/CheckLink.vala:109
+#: src/Utils/StringPot.vala:38
 msgid "Unsupported website"
 msgstr "Niet-ondersteunde website"
 
-#: src/Objects/CheckLink.vala:113
+#: src/Utils/StringPot.vala:39
 msgid "Download second format"
 msgstr "Tweede formaat downloaden"
 
-#: src/Objects/CheckLink.vala:116
+#: src/Utils/StringPot.vala:40
 msgid "Not a valid URL"
 msgstr "Geen geldige url"
 
-#: src/Objects/Converter.vala:76
-msgid "Starting"
-msgstr "Bezig met starten"
-
-#: src/Objects/Converter.vala:414 src/Objects/Converter.vala:436
+#: src/Utils/StringPot.vala:41
 msgid "Run: "
 msgstr "Uitvoeren: "
 
-#: src/Objects/Converter.vala:414 src/Objects/Converter.vala:436
+#: src/Utils/StringPot.vala:42
 msgid "Size: "
 msgstr "Grootte: "
 
-#: src/Objects/Converter.vala:414
+#: src/Utils/StringPot.vala:43
+msgid "Transfer Rate: "
+msgstr ""
+
+#: src/Utils/StringPot.vala:44
 msgid "Rate: "
 msgstr "Snelheid: "
 
-#: src/Objects/Converter.vala:436
+#: src/Utils/StringPot.vala:45
 msgid "Bitrate: "
 msgstr "Bitsnelheid: "
 
-#: src/Window.vala:95 src/Window.vala:692
+#: src/Utils/StringPot.vala:46
+msgid "Time: "
+msgstr ""
+
+#: src/Utils/StringPot.vala:47
+msgid "Speed: "
+msgstr ""
+
+#: src/Utils/StringPot.vala:48
 msgid "Change"
 msgstr "Aanpassen"
 
-#: src/Window.vala:99
+#: src/Utils/StringPot.vala:49
 msgid "Ready!"
 msgstr "Klaar!"
 
-#: src/Window.vala:138
+#: src/Utils/StringPot.vala:50
 msgid "Set location"
 msgstr "Locatie instellen"
 
-#: src/Window.vala:146
+#: src/Utils/StringPot.vala:51
 msgid "Stop"
 msgstr "Stoppen"
 
-#: src/Window.vala:166 src/Window.vala:291 src/Window.vala:528
+#: src/Utils/StringPot.vala:52
+msgid "Close"
+
+#: src/Utils/StringPot.vala:53
 msgid "Open"
 msgstr "Openen"
 
-#: src/Window.vala:306 src/Window.vala:761 src/Window.vala:783
-#: src/Window.vala:852
+#: src/Utils/StringPot.vala:54
 msgid "Where you want to save the audio file"
 msgstr "Waar wil je het audiobestand opslaan?"
 
-#: src/Window.vala:329
+#: src/Utils/StringPot.vala:55
 msgid "Video file…"
 msgstr "Videobestand…"
 
-#: src/Window.vala:337
+#: src/Utils/StringPot.vala:56
 msgid "Select Video"
 msgstr "Kies een video"
 
-#: src/Window.vala:356 src/Window.vala:474
+#: src/Utils/StringPot.vala:57
 msgid "Get now…"
 msgstr "Nu ophalen…"
 
-#: src/Window.vala:365
+#: src/Utils/StringPot.vala:58
 msgid "Add"
 msgstr "Toevoegen"
 
-#: src/Window.vala:368
+#: src/Utils/StringPot.vala:59
 msgid "Paste"
 msgstr "Plakken"
 
-#: src/Window.vala:370
+#: src/Utils/StringPot.vala:60
 msgid "Paste URL here…"
 msgstr "Plak hier een url…"
 
-#: src/Window.vala:394
+#: src/Utils/StringPot.vala:61
 msgid "Add URL"
 msgstr "URL toevoegen"
 
-#: src/Window.vala:397
+#: src/Utils/StringPot.vala:62
 msgid "Reload"
 msgstr "Herladen"
 
-#: src/Window.vala:453
+#: src/Utils/StringPot.vala:63
 msgid "Check Link…"
 msgstr "Link controleren…"
 
-#: src/Window.vala:467
+#: src/Utils/StringPot.vala:64
 msgid "Checking…"
 msgstr "Bezig met controleren…"
 
-#: src/Window.vala:531
+#: src/Utils/StringPot.vala:65
 msgid "All files"
 msgstr "Alle bestanden"
 
-#: src/Window.vala:534
+#: src/Utils/StringPot.vala:66
 msgid "Video files"
 msgstr "Videobestanden"
 
-#: src/Window.vala:540
+#: src/Utils/StringPot.vala:67
 msgid "Audio files"
 msgstr "Audiobestanden"
 
-#: src/Window.vala:634
+#: src/Utils/StringPot.vala:68
 msgid "Audio"
 msgstr "Audio"
 
-#: src/Window.vala:651
+#: src/Utils/StringPot.vala:69
 msgid "Select"
 msgstr "Kiezen"
 
-#: src/Window.vala:680
+#: src/Utils/StringPot.vala:70
 msgid "Link"
 msgstr "Link"
 
-#: src/Window.vala:688
+#: src/Utils/StringPot.vala:71
 msgid "Change link"
 msgstr "Andere link"
 
-#: src/Window.vala:727
+#: src/Utils/StringPot.vala:72
 msgid "No Video file choosen…"
 msgstr "Geen videobestand gekozen…"
 
-#: src/Window.vala:731
+#: src/Utils/StringPot.vala:73
 msgid "Convert"
 msgstr "Converteren"
 
-#: src/Window.vala:767 src/Window.vala:775 src/Window.vala:805
-msgid "Location :"
-msgstr "Locatie:"
+#: src/Utils/StringPot.vala:74
+msgid "Location: "
+msgstr "Locatie: "
 
-#: src/Window.vala:768
+#: src/Utils/StringPot.vala:75
 msgid "Input"
 msgstr "Invoer"
 
-#: src/Window.vala:776
+#: src/Utils/StringPot.vala:76
 msgid "Selected audio location"
 msgstr "Gekozen audiolocatie"
 
-#: src/Window.vala:790
+#: src/Utils/StringPot.vala:77
 msgid "Downloading…"
 msgstr "Bezig met downloaden…"
 
-#: src/Window.vala:832
+#: src/Utils/StringPot.vala:78
 msgid "Please wait…"
 msgstr "Even geduld…"
 
-#: src/Window.vala:840 src/Window.vala:843
+#: src/Utils/StringPot.vala:79
 msgid "Converting…"
 msgstr "Bezig met converteren…"
 
-#: src/Window.vala:880
+#: src/Utils/StringPot.vala:80
 msgid "Download succes"
 msgstr "Downloaden voltooid"
 
-#: src/Window.vala:881
+#: src/Utils/StringPot.vala:81
 msgid "Ready to convert!"
 msgstr "Klaar voor conversie!"
 
-#: src/Window.vala:888
+#: src/Utils/StringPot.vala:82
 msgid "Download Error"
 msgstr "Downloadfout"
 
-#: src/Window.vala:890
+#: src/Utils/StringPot.vala:83
 msgid "Failed retrieve…"
 msgstr "Ophalen mislukt…"
 
-#: src/Window.vala:891
+#: src/Utils/StringPot.vala:84
 msgid "Not ready yet!"
 msgstr "Nog niet klaar!"
 
-#: src/Window.vala:899 src/Window.vala:908
+#: src/Utils/StringPot.vala:85
 #, c-format
 msgid "%s was converted into %s"
 msgstr "%s is geconverteerd naar %s"
 
-#: src/Window.vala:901 src/Window.vala:910
+#: src/Utils/StringPot.vala:86
 #, c-format
 msgid "%s Error while convert into %s"
 msgstr "%s Fout tijdens converteren naar %s"
 
-#: src/Window.vala:924 src/Window.vala:938 src/Window.vala:954
+#: src/Utils/StringPot.vala:87
+msgid "Automatic close"
+msgstr ""
+
+#: src/Utils/StringPot.vala:88
 msgid "Finished"
 msgstr "Voltooid"
 
-#: src/Window.vala:931 src/Window.vala:940 src/Window.vala:971
+#: src/Utils/StringPot.vala:89
 msgid "Error"
 msgstr "Fout"
 
-#: src/Window.vala:991
+#: src/Utils/StringPot.vala:90
 msgid "OK"
 msgstr "Oké"
 
-#: src/Window.vala:1117
+#: src/Utils/StringPot.vala:91
 msgid "Location input"
 msgstr "Locatie invoeren"
 
-#: src/Window.vala:1124
+#: src/Utils/StringPot.vala:92
 msgid "Custom"
 msgstr "Aangepast"
 
-#: src/Window.vala:1131
+#: src/Utils/StringPot.vala:93
 msgid "Ask"
 msgstr "Vragen"
+
+#: src/Utils/StringPot.vala:94
+msgid "Warning"
+msgstr ""

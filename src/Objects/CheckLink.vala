@@ -66,7 +66,7 @@ namespace Mindi {
                                 subprocess.get_successful ();
                                 finished (true);
                                 notif ();
-                                status = (_("Starting… "));
+                                status = Mindi.StringPot.Starting;
                             }
                         } catch (Error e) {
                                 GLib.warning (e.message);
@@ -80,7 +80,7 @@ namespace Mindi {
         public async void cancel_now () {
             subprocess.force_exit ();
             notif ();
-            status = (_("Cancel by User"));
+            status = Mindi.StringPot.CancelUser;
         }
 
         private async void convert_async (InputStream input_stream) {
@@ -106,14 +106,14 @@ namespace Mindi {
         private void process_line (string str_return) {
             if (str_return.has_prefix ("ERROR:") && str_return.index_of ("Unsupported URL") > -1) {
                 notif ();
-                status = ("Unsupported website");
+                status = Mindi.StringPot.Unsupported;
             } else if (str_return.has_prefix ("ERROR:") && str_return.index_of ("requested format not available") > -1) {
                 notif ();
                 finished (false);
-                status = ("Download second format");
+                status = Mindi.StringPot.DownloadSecond;
             } else if (str_return.has_prefix ("ERROR:") && str_return.index_of ("is not a valid URL.") > -1) {
                 notif ();
-                status = ("Not a valid URL");
+                status = Mindi.StringPot.NotValid;
             } else if (str_return.has_prefix ("ERROR:")) {
                 notif ();
                 status = str_return.substring (str_return.index_of (" "));

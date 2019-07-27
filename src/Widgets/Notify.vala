@@ -44,24 +44,24 @@ namespace Mindi {
             notify_button = new Gtk.Button ();
             notify_button.clicked.connect (() => {
                 if (notify_active) {
-                    notify_button.tooltip_text = _("Silent");
+                    notify_button.tooltip_text = Mindi.StringPot.Silent;
                     notify_button.set_image (icon_silent);
                     notify_active = false;
                     MindiApp.settings.set_boolean ("notify-silent", false);
                 } else {
-                    notify_button.tooltip_text = _("Notify");
+                    notify_button.tooltip_text = Mindi.StringPot.Notify;
                     notify_button.set_image (icon_notify);
                     notify_active = true;
                     MindiApp.settings.set_boolean ("notify-silent", true);
                 }
             });
             if (MindiApp.settings.get_boolean ("notify-silent")) {
-                notify_button.tooltip_text = _("Notify");
+                notify_button.tooltip_text = Mindi.StringPot.Notify;
                 notify_button.set_image (icon_notify);
                 notify_active = true;
             } else {
                 notify_button.set_image (icon_silent);
-                notify_button.tooltip_text = _("Silent");
+                notify_button.tooltip_text = Mindi.StringPot.Silent;
                 notify_active = false;
             }
         }

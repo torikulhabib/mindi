@@ -49,11 +49,11 @@ namespace Mindi {
                 stream_button_click ();
             });
             if (MindiApp.settings.get_boolean ("stream-mode")) {
-                stream_button.tooltip_text = _("Online");
+                stream_button.tooltip_text = Mindi.StringPot.Online;
                 stream_button.set_image (icon_stream);
                 stream_active = true;
             } else {
-                stream_button.tooltip_text = _("Offline");
+                stream_button.tooltip_text = Mindi.StringPot.Offline;
                 stream_button.set_image (icon_pc);
                 stream_active = false;
             }
@@ -65,12 +65,12 @@ namespace Mindi {
                 if (!converter.is_running) {
                     signal_stream ();
                     if (stream_active) {
-                        stream_button.tooltip_text = _("Offline");
+                        stream_button.tooltip_text = Mindi.StringPot.Offline;
                         stream_button.set_image (icon_pc);
                         stream_active = false;
                         MindiApp.settings.set_boolean ("stream-mode", false);
                     } else {
-                        stream_button.tooltip_text = _("Online");
+                        stream_button.tooltip_text = Mindi.StringPot.Online;
                         stream_button.set_image (icon_stream);
                         stream_active = true;
                         MindiApp.settings.set_boolean ("stream-mode", true);

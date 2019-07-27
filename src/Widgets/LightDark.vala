@@ -44,13 +44,13 @@ namespace Mindi {
             light_dark_button = new Button ();
             light_dark_button.clicked.connect (() => {
                 if (background_active) {
-                    light_dark_button.tooltip_text = _("Light");
+                    light_dark_button.tooltip_text = Mindi.StringPot.Light;
                     light_dark_button.set_image (icon_light);
                     background_active = false;
                     Gtk.Settings.get_default().gtk_application_prefer_dark_theme = false;
                     MindiApp.settings.set_boolean ("dark-light", false);
                 } else {
-                    light_dark_button.tooltip_text = _("Dark");
+                    light_dark_button.tooltip_text = Mindi.StringPot.Dark;
                     light_dark_button.set_image (icon_dark);
                     background_active = true;
                     Gtk.Settings.get_default().gtk_application_prefer_dark_theme = true;
@@ -60,12 +60,12 @@ namespace Mindi {
             if (MindiApp.settings.get_boolean ("dark-light")) {
                 Gtk.Settings.get_default().gtk_application_prefer_dark_theme = true;
                 light_dark_button.set_image (icon_dark);
-                light_dark_button.tooltip_text = _("Dark");
+                light_dark_button.tooltip_text = Mindi.StringPot.Dark;
                 background_active = true;
             } else {
                 Gtk.Settings.get_default().gtk_application_prefer_dark_theme = false;
                 light_dark_button.set_image (icon_light);
-                light_dark_button.tooltip_text = _("Light");
+                light_dark_button.tooltip_text = Mindi.StringPot.Light;
                 background_active = false;
             }
         }

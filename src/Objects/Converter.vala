@@ -71,7 +71,7 @@ namespace Mindi {
             container.margin = 5;
             var box_name_progress = new Box (Orientation.VERTICAL, 0);
             progress_bar = new ProgressBar ();
-            status = new Label (_("Starting"));
+            status = new Label (Mindi.StringPot.Starting);
             status.ellipsize = Pango.EllipsizeMode.END;
             status.max_width_chars = 36;
             status.halign = Align.START;
@@ -137,7 +137,7 @@ namespace Mindi {
             string ignore_name = "" + name_file_stream;
             string up = ignore_name.up ();
             if (up.contains ("")) {
-               if (up.has_suffix (".PART") == true) {
+               if (up.has_suffix (".PART")) {
                 get_video_stream (uri, stream, finish);
                 } else if (up.contains (".")) {
                     string check_file = Path.build_path (Path.DIR_SEPARATOR_S, cache_dir_path, ignore_name);
@@ -216,7 +216,7 @@ namespace Mindi {
                 string ignore_name = "" + name_file_stream;
                 string up = ignore_name.up ();
                 if (up.contains ("")) {
-                   if (up.has_suffix (".PART") == true) {
+                   if (up.has_suffix (".PART")) {
                         string check_file = Path.build_path (Path.DIR_SEPARATOR_S, cache_dir_path, ignore_name);
                         if (File.new_for_path (check_file).query_exists ()) {
                             File file = File.new_for_path (check_file);
@@ -415,8 +415,8 @@ namespace Mindi {
                 int index_end               = str_return.index_of ("ETA");
                 string eta                  = str_return.substring ( index_end + 4, 5);
                 string speed                = str_return.substring ( index_speed + 2, index_end - (index_speed + 2));
-                status.label                = _("Run: ") + progress_badge.to_string () + " % " + _("Size: ") + size.strip () + " " + _("Rate: ") + speed.strip ();
-                progress_bar.tooltip_text   = (_("Run: ") + progress_badge.to_string () + " % " + _("Size: ") + size.strip () + " " + _("Transfer Rate: ") + speed.strip () + " " + _("ETA: ") + eta.strip ());
+                status.label                = Mindi.StringPot.Run + progress_badge.to_string () + " % " + Mindi.StringPot.Size + size.strip () + " " + Mindi.StringPot.Rate + speed.strip ();
+                progress_bar.tooltip_text   = Mindi.StringPot.Run + progress_badge.to_string () + " % " + Mindi.StringPot.Size + size.strip () + " " + Mindi.StringPot.TransferRate + speed.strip () + " " + _("ETA: ") + eta.strip ();
                 progress_bar.set_fraction (progress_value / 100);
                 mindi_desktop (progress_badge, progress_value / 100);
             }
@@ -440,8 +440,8 @@ namespace Mindi {
                 string bitrate              = str_return.substring ( index_bitrate + 8, 11);
                 int index_speed           = str_return.index_of ("speed=");
                 string speed              = str_return.substring ( index_speed + 6, 9);
-                status.label                = _("Run: ") + progress.to_string () + " % " + _("Size: ") + size.strip () + " " + _("Bitrate: ") + bitrate.strip ();
-                progress_bar.tooltip_text   = (_("Run: ") + progress.to_string () + " % " + _("Size: ") + size.strip () + " " + _("Time: ") + time.strip () + " " + _("Bitrate: ") + bitrate.strip () + " " + _("Speed: ") + speed.strip ());
+                status.label                = Mindi.StringPot.Run + progress.to_string () + " % " + Mindi.StringPot.Size + size.strip () + " " + Mindi.StringPot.Bitrate + bitrate.strip ();
+                progress_bar.tooltip_text   = Mindi.StringPot.Run + progress.to_string () + " % " + Mindi.StringPot.Size + size.strip () + " " + Mindi.StringPot.Time + time.strip () + " " + Mindi.StringPot.Bitrate + bitrate.strip () + " " + Mindi.StringPot.Speed + speed.strip ();
                 progress_bar.set_fraction (progress_value);
                 mindi_desktop (progress_badge, progress_value);
             }
