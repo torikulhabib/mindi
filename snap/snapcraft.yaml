@@ -1,0 +1,20 @@
+
+  name: mindi
+  version: '2.0.6'
+  summary: A simple Video to Audio converter 
+  description: |
+    Quickly convert video to audio
+    Get from web stream base.
+    Use from context menu: right click on video, and select "Convert to Audio".
+    Use from Applications select video.
+
+  grade: devel # must be 'stable' to release into candidate/stable channels
+  confinement: devmode # use 'strict' once you have the right plugs and slots
+
+  parts:
+    my-part:
+      # See 'snapcraft plugins'
+      plugin: nil
+  apps: mindi
+    get:
+        command: bin/com.github.torikulhabib.mindi
