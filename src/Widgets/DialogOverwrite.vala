@@ -39,7 +39,6 @@ namespace Mindi {
         }
 
         construct {
-            add_button (_("No"), Gtk.ButtonsType.CANCEL);
             add_button (Mindi.StringPot.No, Gtk.ButtonsType.CANCEL);
 
             var yes_button = new Gtk.Button.with_label (Mindi.StringPot.Yes);
