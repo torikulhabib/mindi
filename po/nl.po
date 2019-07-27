@@ -131,6 +131,7 @@ msgstr "Stoppen"
 
 #: src/Utils/StringPot.vala:52
 msgid "Close"
+msgstr "Closen"
 
 #: src/Utils/StringPot.vala:53
 msgid "Open"
