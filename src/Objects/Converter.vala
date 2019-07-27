@@ -100,7 +100,6 @@ namespace Mindi {
                 Timeout.add_seconds (1,() => {
                     is_converting = false;
                     is_downloading = false;
-                    Source.remove (timer);
                     return false;
 	            });
             });
@@ -138,7 +137,7 @@ namespace Mindi {
             string ignore_name = "" + name_file_stream;
             string up = ignore_name.up ();
             if (up.contains ("")) {
-               if (up.contains ("PART")) {
+               if (up.has_suffix (".PART") == true) {
                 get_video_stream (uri, stream, finish);
                 } else if (up.contains (".")) {
                     string check_file = Path.build_path (Path.DIR_SEPARATOR_S, cache_dir_path, ignore_name);
@@ -199,6 +198,10 @@ namespace Mindi {
                                 finished (false);
                                 progress_bar.set_fraction (0);
                                 mindi_desktop (0, 0);
+                                Timeout.add_seconds (1,() => {
+                                    Source.remove (timer);
+                                    return false;
+                                });
                         }
                     });
             } catch (Error e) {
@@ -213,7 +216,7 @@ namespace Mindi {
                 string ignore_name = "" + name_file_stream;
                 string up = ignore_name.up ();
                 if (up.contains ("")) {
-                   if (up.contains ("PART")) {
+                   if (up.has_suffix (".PART") == true) {
                         string check_file = Path.build_path (Path.DIR_SEPARATOR_S, cache_dir_path, ignore_name);
                         if (File.new_for_path (check_file).query_exists ()) {
                             File file = File.new_for_path (check_file);
@@ -395,45 +398,50 @@ namespace Mindi {
 
         private void process_line (string str_return, ref int total) {
             if (str_return.contains ("already exists. Overwrite ? [y/N]")) {
-                int index_first_name    = str_return.index_of ("File '");
-                int index_end_name      = str_return.index_of ("' already exists. Overwrite ? [y/N]");
-                notify_string           = str_return.substring ( index_first_name + 6, index_end_name - 6);
+                int index_first_name        = str_return.index_of ("File '");
+                int index_end_name          = str_return.index_of ("' already exists. Overwrite ? [y/N]");
+                notify_string               = str_return.substring ( index_first_name + 6, index_end_name - 6);
                 warning_notif (true);
                 Source.remove (timer);
             } else {
                 warning_notif (false);
             }
             if (str_return.contains ("[download]") && str_return.contains ("of ") && str_return.contains ("at") ) {
-                double progress_value   = double.parse(str_return.slice(str_return.index_of(" "), str_return.index_of("%")).strip());
-                int64 progress_badge    = int64.parse(str_return.slice(str_return.index_of(" "), str_return.index_of("%")).strip());
-                int index_size          = str_return.index_of ("of");
-                int index_speed         = str_return.index_of ("at");
-                string size             = str_return.substring ( index_size + 3, index_speed - (index_size + 3));
-                int index_end           = str_return.index_of ("ETA");
-                string speed            = str_return.substring ( index_speed + 2, index_end - (index_speed + 2));
-                status.label = _("Run: ") + progress_badge.to_string () + " % " + _("Size: ") + size.strip () + " " + _("Rate: ") + speed.strip ();
+                double progress_value       = double.parse(str_return.slice(str_return.index_of(" "), str_return.index_of("%")).strip());
+                int64 progress_badge        = int64.parse(str_return.slice(str_return.index_of(" "), str_return.index_of("%")).strip());
+                int index_size              = str_return.index_of ("of");
+                int index_speed             = str_return.index_of ("at");
+                string size                 = str_return.substring ( index_size + 3, index_speed - (index_size + 3));
+                int index_end               = str_return.index_of ("ETA");
+                string eta                  = str_return.substring ( index_end + 4, 5);
+                string speed                = str_return.substring ( index_speed + 2, index_end - (index_speed + 2));
+                status.label                = _("Run: ") + progress_badge.to_string () + " % " + _("Size: ") + size.strip () + " " + _("Rate: ") + speed.strip ();
+                progress_bar.tooltip_text   = (_("Run: ") + progress_badge.to_string () + " % " + _("Size: ") + size.strip () + " " + _("Transfer Rate: ") + speed.strip () + " " + _("ETA: ") + eta.strip ());
                 progress_bar.set_fraction (progress_value / 100);
                 mindi_desktop (progress_badge, progress_value / 100);
             }
 
             if (str_return.contains ("Duration:")) {
-                int index       = str_return.index_of ("Duration:");
-                string duration = str_return.substring (index + 10, 11);
+                int index                   = str_return.index_of ("Duration:");
+                string duration             = str_return.substring (index + 10, 11);
                 total = TimeUtil.duration_in_seconds (duration);
             }
 
             if (str_return.contains ("time=") && str_return.contains ("size=") && str_return.contains ("bitrate=") ) {
-                int index_time          = str_return.index_of ("time=");
-                string time             = str_return.substring ( index_time + 5, 11);
-                int loading             = TimeUtil.duration_in_seconds (time);
-                double progress         = (100 * loading) / total;
-                int64 progress_badge    = (100 * loading) / total;
-                double progress_value   = progress / 100;
-                int index_size          = str_return.index_of ("size=");
-                string size             = str_return.substring ( index_size + 5, 11);
-                int index_bitrate       = str_return.index_of ("bitrate=");
-                string bitrate          = str_return.substring ( index_bitrate + 8, 11);
-                status.label            = _("Run: ") + progress.to_string () + " % " + _("Size: ") + size.strip () + " " + _("Bitrate: ") + bitrate.strip ();
+                int index_time              = str_return.index_of ("time=");
+                string time                 = str_return.substring ( index_time + 5, 11);
+                int loading                 = TimeUtil.duration_in_seconds (time);
+                double progress             = (100 * loading) / total;
+                int64 progress_badge        = (100 * loading) / total;
+                double progress_value       = progress / 100;
+                int index_size              = str_return.index_of ("size=");
+                string size                 = str_return.substring ( index_size + 5, 11);
+                int index_bitrate           = str_return.index_of ("bitrate=");
+                string bitrate              = str_return.substring ( index_bitrate + 8, 11);
+                int index_speed           = str_return.index_of ("speed=");
+                string speed              = str_return.substring ( index_speed + 6, 9);
+                status.label                = _("Run: ") + progress.to_string () + " % " + _("Size: ") + size.strip () + " " + _("Bitrate: ") + bitrate.strip ();
+                progress_bar.tooltip_text   = (_("Run: ") + progress.to_string () + " % " + _("Size: ") + size.strip () + " " + _("Time: ") + time.strip () + " " + _("Bitrate: ") + bitrate.strip () + " " + _("Speed: ") + speed.strip ());
                 progress_bar.set_fraction (progress_value);
                 mindi_desktop (progress_badge, progress_value);
             }

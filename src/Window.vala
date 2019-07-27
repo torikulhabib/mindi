@@ -94,6 +94,7 @@ namespace Mindi {
                 if (selected_video != null) {
                     open_video.label = _("Change");
                     video_name.label = (selected_video.get_basename ());
+                    open_video.tooltip_text = (selected_video.get_basename ());
                     status_location ();
                     input_find_location ();
                     convert_label.label = _("Ready!");
@@ -884,6 +885,7 @@ namespace Mindi {
                         select_format.sensitive = true;
                         reload_stack.visible_child_name = "addurl";
                         change_and_format.visible_child_name = "format";
+                        open_stream.tooltip_text = (converter.name_file_stream);
                     } else {
                         app_notification.title = _("Download Error");
                         app_notification.send_notification ();
@@ -893,6 +895,7 @@ namespace Mindi {
                         select_format.sensitive = false;
                         reload_stack.visible_child_name = "reload";
                         change_and_format.visible_child_name = "change";
+                        open_stream.tooltip_text = ("");
                     }
                 } else {
                     if (success) {
