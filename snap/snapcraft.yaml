@@ -18,7 +18,7 @@ parts:
     source: https://github.com/torikulhabib/mindi.git
     override-build: |
       snapcraftctl build
-      sed -i 's|Icon=com.github.torikulhabib.mindi|Icon=${SNAP}/data/hicolor/icons/com.github.torikulhabib.mindi.png|' ${SNAPCRAFT_PART_INSTALL}/usr/share/applications/com.github.torikulhabib.mindi.desktop
+      sed -i 's|Icon=com.github.torikulhabib.mindi|Icon=${SNAP}/data/hicolor/icons/com.github.torikulhabib.mindi.svg|' ${SNAPCRAFT_PART_INSTALL}/usr/share/applications/com.github.torikulhabib.mindi.desktop
     build-packages:
       - libgtk-3-dev
       - valac
