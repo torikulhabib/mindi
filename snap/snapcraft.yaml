@@ -34,6 +34,7 @@ parts:
       - youtube-dl
 
   mindi:
+    after: [mindi]
     source: https://github.com/torikulhabib/mindi.git
     source-type: git
     plugin: dh-autoreconf
