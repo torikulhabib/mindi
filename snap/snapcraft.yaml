@@ -21,15 +21,57 @@ parts:
       snapcraftctl build
         sed -i -E 's|^(Icon[^=]*)=.*|\1=/usr/share/icons/hicolor/256x256/apps/com.github.torikulhabib.mindi.svg|' ${SNAPCRAFT_PART_INSTALL}/usr/share/applications/com.github.torikulhabib.mindi.desktop
     build-packages:
-      - libgtk-3-dev
-      - valac
-      - libgranite-dev
-      - libjson-glib-dev
-      - libgudev-1.0-dev
-      - libevdev-dev
-      - libgtksourceview-3.0-dev
-      - libxml2-dev
-      - libglib2.0-dev
+        - libx11-dev
+        - libxau-dev
+        - libxcomposite-dev
+        - libxcursor-dev
+        - libxdamage-dev
+        - libxdmcp-dev
+        - libxext-dev
+        - libxfixes-dev
+        - libxi-dev
+        - libxinerama-dev
+        - libxrandr-dev
+        - libxrender-dev
+        - libatk1.0-dev
+        - libatk-bridge2.0-dev
+        - libatspi2.0-dev
+        - libcairo2-dev
+        - libcairo2
+        - libdatrie-dev
+        - libepoxy-dev
+        - libfontconfig1-dev
+        - libfreetype6-dev
+        - libgtk-3-dev
+        - libgdk-pixbuf2.0-dev
+        - libgee-0.8-dev
+        - libgraphite2-dev
+        - libharfbuzz-dev
+        - libpango1.0-dev
+        - libpangocairo-1.0-0
+        - libpangoft2-1.0-0
+        - libpixman-1-dev
+        - libpng-dev
+        - libthai-dev
+        - libwayland-client0
+        - libwayland-cursor0
+        - libwayland-egl1
+        - libwayland-dev
+        - libxcb-render0-dev
+        - libxcb-shm0-dev
+        - libxcb1-dev
+        - libxkbcommon-dev
+        - libgirepository1.0-dev
+        - valac
+        - gobject-introspection
+        - gettext
+        - libgranite-dev
+        - libjson-glib-dev
+        - libgudev-1.0-dev
+        - libevdev-dev
+        - libgtksourceview-3.0-dev
+        - libxml2-dev
+        - libglib2.0-dev
   granite:
     plugin: meson
     meson-parameters:
@@ -38,43 +80,50 @@ parts:
     override-build: |
       snapcraftctl build
     build-packages:
-        - libgee-0.8-dev
-        - libgirepository1.0-dev
+        - libx11-dev
+        - libxau-dev
+        - libxcomposite-dev
+        - libxcursor-dev
+        - libxdamage-dev
+        - libxdmcp-dev
+        - libxext-dev
+        - libxfixes-dev
+        - libxi-dev
+        - libxinerama-dev
+        - libxrandr-dev
+        - libxrender-dev
+        - libatk1.0-dev
+        - libatk-bridge2.0-dev
+        - libatspi2.0-dev
+        - libcairo2-dev
+        - libcairo2
+        - libdatrie-dev
+        - libepoxy-dev
+        - libfontconfig1-dev
+        - libfreetype6-dev
         - libgtk-3-dev
+        - libgdk-pixbuf2.0-dev
+        - libgee-0.8-dev
+        - libgraphite2-dev
+        - libharfbuzz-dev
+        - libpango1.0-dev
+        - libpangocairo-1.0-0
+        - libpangoft2-1.0-0
+        - libpixman-1-dev
+        - libpng-dev
+        - libthai-dev
+        - libwayland-client0
+        - libwayland-cursor0
+        - libwayland-egl1
+        - libwayland-dev
+        - libxcb-render0-dev
+        - libxcb-shm0-dev
+        - libxcb1-dev
+        - libxkbcommon-dev
+        - libgirepository1.0-dev
         - valac
         - gobject-introspection
         - gettext
-        - libxkbcommon-dev
-        - libxcb1-dev
-        - libxcb-shm0-dev
-        - libxcb-render0-dev
-        - libwayland-dev
-        - libthai-dev
-        - libpng-dev
-        - libpixman-1-dev
-        - libpango1.0-dev
-        - libharfbuzz-dev
-        - libgee-0.8-dev
-        - libgraphite2-dev
-        - libgdk-pixbuf2.0-dev
-        - libfreetype6-dev
-        - libfontconfig1-dev
-        - libdatrie-dev
-        - libcairo2-dev
-        - libatspi2.0-dev
-        - libatk1.0-dev
-        - libatk-bridge2.0-dev
-        - libxrender-dev
-        - libxrandr-dev
-        - libxi-dev
-        - libxfixes-dev
-        - libxext-dev
-        - libxdmcp-dev
-        - libxdamage-dev
-        - libxcursor-dev
-        - libxcomposite-dev
-        - libxau-dev
-        - libx11-dev
   desktop-gnome-platform:
     source: https://github.com/ubuntu/snapcraft-desktop-helpers.git
     source-subdir: gtk
