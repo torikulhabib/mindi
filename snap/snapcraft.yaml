@@ -40,7 +40,7 @@ override_dh_auto_test:
 	cd build && ninja test
 
 override_dh_auto_install:
-	cd build && DESTDIR=${CURDIR}/debian/com.github.torikulhabib.mindi ninja install
+	cd build && DESTDIR=${SNAPCRAFT_PART_INSTALL}/debian/com.github.torikulhabib.mindi ninja install
     build-packages:
       - meson
       - debhelper
