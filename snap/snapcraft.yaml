@@ -43,6 +43,7 @@ parts:
         - libgtk-3-dev
         - valac
         - gobject-introspection
+        - gettext
   desktop-gnome-platform:
     source: https://github.com/ubuntu/snapcraft-desktop-helpers.git
     source-subdir: gtk
