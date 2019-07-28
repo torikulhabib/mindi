@@ -61,17 +61,7 @@ parts:
         - libxcb-shm0-dev
         - libxcb1-dev
         - libxkbcommon-dev
-        - libgirepository1.0-dev
-        - valac
-        - gobject-introspection
-        - gettext
         - libgranite-dev
-        - libjson-glib-dev
-        - libgudev-1.0-dev
-        - libevdev-dev
-        - libgtksourceview-3.0-dev
-        - libxml2-dev
-        - libglib2.0-dev
   granite:
     plugin: meson
     meson-parameters:
@@ -120,10 +110,6 @@ parts:
         - libxcb-shm0-dev
         - libxcb1-dev
         - libxkbcommon-dev
-        - libgirepository1.0-dev
-        - valac
-        - gobject-introspection
-        - gettext
   desktop-gnome-platform:
     source: https://github.com/ubuntu/snapcraft-desktop-helpers.git
     source-subdir: gtk
