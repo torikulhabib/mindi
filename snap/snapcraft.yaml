@@ -21,6 +21,12 @@ parts:
       snapcraftctl build
         sed -i -E 's|^(Icon[^=]*)=.*|\1=/usr/share/icons/hicolor/256x256/apps/com.github.torikulhabib.mindi.svg|' ${SNAPCRAFT_PART_INSTALL}/usr/share/applications/com.github.torikulhabib.mindi.desktop
     build-packages:
+        - libgirepository1.0-dev
+        - valac
+        - gobject-introspection
+        - gettext
+        - libgranite-dev
+    stage-packages:
         - libx11-dev
         - libxau-dev
         - libxcomposite-dev
@@ -61,7 +67,6 @@ parts:
         - libxcb-shm0-dev
         - libxcb1-dev
         - libxkbcommon-dev
-        - libgranite-dev
   granite:
     plugin: meson
     meson-parameters:
@@ -70,6 +75,11 @@ parts:
     override-build: |
       snapcraftctl build
     build-packages:
+        - libgirepository1.0-dev
+        - valac
+        - gobject-introspection
+        - gettext
+    stage-packages:
         - libx11-dev
         - libxau-dev
         - libxcomposite-dev
