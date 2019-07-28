@@ -18,3 +18,36 @@ apps:
       - ffmpeg
       - youtube-dl
     slots:
+  
+  mindi:
+    after:
+    source: ../../../
+    source-type: git
+    plugin: autotools
+    override-build: |
+    %:
+      	dh $@
+
+    override_dh_auto_clean:
+	      rm -rf build
+
+    override_dh_auto_configure:
+	      mkdir -p build
+	      meson build --prefix=/usr
+	      cd build
+
+    override_dh_auto_build:
+	      cd build && ninja -v
+
+    override_dh_auto_test:
+	      cd build && ninja test
+
+    override_dh_auto_install:
+	      cd build && DESTDIR=${CURDIR}/debian/com.github.torikulhabib.mindi ninja install
+
+    build-packages:
+      -meson
+      -debhelper
+      -libgtk-3-dev
+      -valac
+      -libgranite-dev
