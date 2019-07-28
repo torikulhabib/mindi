@@ -1,48 +1,89 @@
 name: mindi
 version: "2.0.6"
-grade: stable
-summary: converter
+summary: mindi
+adopt-info: mindi
+base: core18
 description: |
   Quickly convert video to audio
     Features:
     Get from web stream base.
     Use from context menu: right click on video, and select "Convert to Audio".
     Use from Applications select video.nfinement: strict
-
-apps:
+confinement: strict
+parts:
   mindi:
-    desktop: usr/share/applications/com.github.torikulhabib.mindi.desktop
-    command: desktop-launch $SNAP/bin/com.github.torikulhabib.mindi
-    plugs:
-    slots:
-
-  mindi:
+    after: [granite, desktop-gnome-platform]
+    plugin: meson
+    meson-parameters:
+      - --prefix=/usr
     source: https://github.com/torikulhabib/mindi.git
-    source-type: git
-    plugin: dh-autoreconf
     override-build: |
-%:
-dh $@
-
-override_dh_auto_clean:
-	rm -rf build
-
-override_dh_auto_configure:
-	mkdir -p build
-	meson build --prefix=/usr
-	cd build
-
-override_dh_auto_build:
-	cd build && ninja -v
-
-override_dh_auto_test:
-	cd build && ninja test
-
-override_dh_auto_install:
-	cd build && DESTDIR=${SNAPCRAFT_PART_INSTALL}/debian/com.github.torikulhabib.mindi ninja install
+      snapcraftctl build
+      sed -i 's|Icon=com.github.torikulhabib.mindi|Icon=${SNAP}/data/assets/icons/com.github.torikulhabib.mindi.png|' ${SNAPCRAFT_PART_INSTALL}/usr/share/applications/com.github.torikulhabib.mindi.desktop
     build-packages:
-      - meson
-      - debhelper
       - libgtk-3-dev
       - valac
       - libgranite-dev
+      - libjson-glib-dev
+      - libgudev-1.0-dev
+      - libevdev-dev
+      - libgtksourceview-3.0-dev
+      - libxml2-dev
+      - libglib2.0-dev
+  granite:
+    plugin: cmake
+    source: https://github.com/elementary/granite/archive/5.2.2.tar.gz
+    source-type: tar
+    configflags: [-DCMAKE_BUILD_TYPE=Release, -DCMAKE_INSTALL_PREFIX=/usr, -DCMAKE_INSTALL_LIBDIR=/usr/lib]
+    build-packages:
+        - build-essential
+        - libgee-0.8-dev
+        - libgirepository1.0-dev
+        - libgtk-3-dev
+        - cmake
+        - gobject-introspection
+  desktop-gnome-platform:
+    source: https://github.com/ubuntu/snapcraft-desktop-helpers.git
+    source-subdir: gtk
+    plugin: make
+    make-parameters: ["FLAVOR=gtk3"]
+    build-packages:
+      - build-essential
+      - libgtk-3-dev
+    override-build: |
+      snapcraftctl build
+      mkdir -pv $SNAPCRAFT_PART_INSTALL/gnome-platform
+apps:
+  mindi:
+    command: desktop-launch $SNAP/usr/bin/com.github.torikulhabib.mindi
+    plugs:
+      - desktop
+      - desktop-legacy
+      - opengl
+      - x11
+    desktop: usr/share/applications/com.github.torikulhabib.mindi.desktop
+    environment:
+      GSETTINGS_SCHEMA_DIR: $SNAP/share/glib-2.0/schemas
+    slots: [ dbus-mindi ]
+slots:
+  dbus-mindi:
+    interface: dbus
+    bus: session
+    name: com.github.torikulhabib.mindi
+plugs:
+  gnome-3-28-1804:
+    interface: content
+    target: $SNAP/gnome-platform
+    default-provider: gnome-3-28-1804
+  gtk-3-themes:
+    interface: content
+    target: $SNAP/data-dir/themes
+    default-provider: gtk-common-themes
+  icon-themes:
+    interface: content
+    target: $SNAP/data-dir/icons
+    default-provider: gtk-common-themes
+  sound-themes:
+    interface: content
+    target: $SNAP/data-dir/sounds
+    default-provider: gtk-common-themes
