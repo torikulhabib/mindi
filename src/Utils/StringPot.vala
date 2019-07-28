@@ -27,7 +27,7 @@ namespace Mindi {
         public abstract const string Offline                    = _("Offline");
         public abstract const string Light                      = _("Light");
         public abstract const string Dark                       = _("Dark");
-        public abstract const string Exist                      = _("Already exists. Overwrite");
+        public abstract const string Exist                      = _("Already exists. Overwrite?");
         public abstract const string No                         = _("No");
         public abstract const string Yes                        = _("Yes");
         public abstract const string WarningProses              = _("Are you sure you want to quit this process?");

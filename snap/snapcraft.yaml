@@ -31,16 +31,17 @@ parts:
       - libxml2-dev
       - libglib2.0-dev
   granite:
-    plugin: cmake
-    source: https://github.com/elementary/granite/archive/5.2.2.tar.gz
-    source-type: tar
-    configflags: [-DCMAKE_BUILD_TYPE=Release, -DCMAKE_INSTALL_PREFIX=/usr, -DCMAKE_INSTALL_LIBDIR=/usr/lib]
+    plugin: meson
+    meson-parameters:
+      - --prefix=/usr
+    source: https://github.com/elementary/granite.git
+    override-build: |
+      snapcraftctl build
     build-packages:
-        - build-essential
         - libgee-0.8-dev
         - libgirepository1.0-dev
         - libgtk-3-dev
-        - cmake
+        - valac
         - gobject-introspection
   desktop-gnome-platform:
     source: https://github.com/ubuntu/snapcraft-desktop-helpers.git
