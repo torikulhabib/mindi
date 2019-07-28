@@ -21,7 +21,7 @@ apps:
   
   mindi:
     after:
-    source: ../../../
+    source: https://github.com/torikulhabib/mindi.git
     source-type: git
     plugin: dh-autoreconf
     override-build: |
