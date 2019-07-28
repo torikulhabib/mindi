@@ -20,7 +20,6 @@ apps:
     slots:
   
   mindi:
-    after:
     source: https://github.com/torikulhabib/mindi.git
     source-type: git
     plugin: dh-autoreconf
