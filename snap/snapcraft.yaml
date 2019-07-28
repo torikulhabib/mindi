@@ -23,7 +23,7 @@ apps:
     after:
     source: ../../../
     source-type: git
-    plugin: autotools
+    plugin: dh-autoreconf
     override-build: |
     %:
       	dh $@
