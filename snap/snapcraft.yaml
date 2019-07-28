@@ -23,7 +23,7 @@ apps:
     plugin: dh-autoreconf
     override-build: |
 %:
-	dh $@
+dh $@
 
 override_dh_auto_clean:
 	rm -rf build
