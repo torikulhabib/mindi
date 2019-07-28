@@ -44,6 +44,37 @@ parts:
         - valac
         - gobject-introspection
         - gettext
+        - libxkbcommon-dev
+        - libxcb1-dev
+        - libxcb-shm0-dev
+        - libxcb-render0-dev
+        - libwayland-dev
+        - libthai-dev
+        - libpng-dev
+        - libpixman-1-dev
+        - libpango1.0-dev
+        - libharfbuzz-dev
+        - libgee-0.8-dev
+        - libgraphite2-dev
+        - libgdk-pixbuf2.0-dev
+        - libfreetype6-dev
+        - libfontconfig1-dev
+        - libdatrie-dev
+        - libcairo2-dev
+        - libatspi2.0-dev
+        - libatk1.0-dev
+        - libatk-bridge2.0-dev
+        - libxrender-dev
+        - libxrandr-dev
+        - libxi-dev
+        - libxfixes-dev
+        - libxext-dev
+        - libxdmcp-dev
+        - libxdamage-dev
+        - libxcursor-dev
+        - libxcomposite-dev
+        - libxau-dev
+        - libx11-dev
   desktop-gnome-platform:
     source: https://github.com/ubuntu/snapcraft-desktop-helpers.git
     source-subdir: gtk
@@ -64,6 +95,8 @@ apps:
       - desktop-legacy
       - opengl
       - x11
+      - ffmpeg
+      - youtube-dl
     environment:
       GSETTINGS_SCHEMA_DIR: $SNAP/share/glib-2.0/schemas
     slots: [ dbus-mindi ]
