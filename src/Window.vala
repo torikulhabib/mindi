@@ -58,7 +58,7 @@ namespace Mindi {
 
         private string message;
         private bool ask_active {get;set;}
-        private bool stream {get;set;}
+        private string linker;
         private bool other {get;set;}
         private bool warning_notify {get;set; default = false;}
 
@@ -399,6 +399,7 @@ namespace Mindi {
             reload_stream.valign = Gtk.Align.CENTER;
 
             reload_stack = new Stack ();
+            reload_stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
             reload_stack.add_named (open_stream, "addurl");
             reload_stack.add_named (reload_stream, "reload");
 
@@ -420,6 +421,7 @@ namespace Mindi {
 
         private void stack_video_stream () {
             stream_stack = new Stack ();
+            stream_stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
             stream_stack.add_named (video_container, "video");
             stream_stack.add_named (stream_container, "stream");
             content.attach (stream_stack, 0, 0, 1, 1);
@@ -431,11 +433,14 @@ namespace Mindi {
                 other = true;
                 if (url.contains ("&" + "list")) {
                     string [] link = url.split ("&");
-                    check_link (link [0], other);
+                    linker = link [0];
+                    check_link (linker, other);
                 } else if (url.contains ("?" + "list")) {
                     string [] link = url.split ("?list");
-                    check_link (link [0], other);
+                    linker = link [0];
+                    check_link (linker, other);
                 } else {
+                    linker = url;
                     check_link (url, other);
                 }
             } else {
@@ -464,15 +469,12 @@ namespace Mindi {
             spinner.active = true;
             spinner_revealer.set_reveal_child (true);
             cancel_checking_revealer.set_reveal_child (true);
-            Timeout.add (50,() => {
-                app_notification.title = Mindi.StringPot.Checking;
-                app_notification.send_notification ();
-                return false;
-            });
+            notification_toast (Mindi.StringPot.Checking);
         }
 
         private void send_notify () {
             stream_name.label = Mindi.StringPot.GetNow;
+            notification_toast (checklink.status);
             open_stream.sensitive = true;
             video_logo.sensitive = true;
             select_format.sensitive = true;
@@ -484,41 +486,26 @@ namespace Mindi {
             spinner.active = false;
             spinner_revealer.set_reveal_child (false);
             cancel_checking_revealer.set_reveal_child (false);
-            Timeout.add (50,() => {
-                app_notification.title = checklink.status;
-                app_notification.send_notification ();
-                return false;
-            });
         }
 
         private void checklink_finished (bool finish) {
-            add_url_clicked (stream, finish);
+            add_url_clicked (other, finish);
         }
 
-        private void add_url_clicked (bool stream, bool finish) {
-            string url = entry.get_text().strip ();
-            if (url.contains ("youtu")) {
-                stream = true;
-                if (url.contains ("&" + "list")) {
-                    string [] link = url.split ("&");
-                    add_download (link [0], stream, finish);
-                } else if (url.contains ("?" + "list")) {
-                    string [] link = url.split ("?list");
-                    add_download (link [0], stream, finish);
-                } else {
-                    add_download (url, stream, finish);
-                }
+        private void add_url_clicked (bool other, bool finish) {
+            if (other) {
+                add_download (linker, other, finish);
             } else {
-                stream = false;
-                add_download (url, stream, finish);
+                add_download (entry.get_text().strip (), other, finish);
             }
         }
 
-        private void add_download (string url, bool stream, bool finish) {
+        private void add_download (string url, bool other, bool finish) {
             if (!converter.is_running) {
                 converter.finished.connect (on_converter_finished);
                 converter.finished.connect (notify_signal);
-                converter.get_video.begin (url, stream, finish);
+                converter.get_video.begin (url, other, finish);
+                notification_toast (Mindi.StringPot.Starting);
             }
         }
 
@@ -567,62 +554,9 @@ namespace Mindi {
 
         private void input_type () {
 	        int i = selected_video.get_basename ().last_index_of (".");
-            string up = selected_video.get_basename ().substring (i + 1).up ();
-            if (up.contains ("MP4")) {
-                video_icon = new ThemedIcon ("com.github.torikulhabib.mindi.mp4");
-                title_video.label = ("Video");
-            } else if (up.contains ("FLV")) {
-                video_icon = new ThemedIcon ("com.github.torikulhabib.mindi.flv");
-                title_video.label = ("Video");
-            } else if (up.contains ("WEBM")) {
-                video_icon = new ThemedIcon ("com.github.torikulhabib.mindi.webm");
-                title_video.label = ("Video");
-            } else if (up.contains ("AVI")) {
-                video_icon = new ThemedIcon ("com.github.torikulhabib.mindi.avi");
-                title_video.label = ("Video");
-            } else if (up.contains ("MPG")) {
-                video_icon = new ThemedIcon ("com.github.torikulhabib.mindi.mpg");
-                title_video.label = ("Video");
-            } else if (up.contains ("MPEG")) {
-                video_icon = new ThemedIcon ("com.github.torikulhabib.mindi.mpeg");
-                title_video.label = ("Video");
-            } else if (up.contains ("MKV")) {
-                video_icon = new ThemedIcon ("com.github.torikulhabib.mindi.mkv");
-                title_video.label = ("Video");
-            } else if (up.contains ("AAC")) {
-                video_icon = new ThemedIcon ("com.github.torikulhabib.mindi.aac");
-                title_video.label = ("Audio");
-            } else if (up.contains ("AC3")) {
-                video_icon = new ThemedIcon ("com.github.torikulhabib.mindi.ac3");
-                title_video.label = ("Audio");
-            } else if (up.contains ("AIFF")) {
-                video_icon = new ThemedIcon ("com.github.torikulhabib.mindi.aiff");
-                title_video.label = ("Audio");
-            } else if (up.contains ("FLAC")) {
-                video_icon = new ThemedIcon ("com.github.torikulhabib.mindi.flac");
-                title_video.label = ("Audio");
-            } else if (up.contains ("MMF")) {
-                video_icon = new ThemedIcon ("com.github.torikulhabib.mindi.mmf");
-                title_video.label = ("Audio");
-            } else if (up.contains ("MP3")) {
-                video_icon = new ThemedIcon ("com.github.torikulhabib.mindi.mp3");
-                title_video.label = ("Audio");
-            } else if (up.contains ("M4A")) {
-                video_icon = new ThemedIcon ("com.github.torikulhabib.mindi.m4a");
-                title_video.label = ("Audio");
-            } else if (up.contains ("OGG")) {
-                video_icon = new ThemedIcon ("com.github.torikulhabib.mindi.ogg");
-                title_video.label = ("Audio");
-            } else if (up.contains ("WMA")) {
-                video_icon = new ThemedIcon ("com.github.torikulhabib.mindi.wma");
-                title_video.label = ("Audio");
-            } else if (up.contains ("WAV")) {
-                video_icon = new ThemedIcon ("com.github.torikulhabib.mindi.wav");
-                title_video.label = ("Audio");
-            } else {
-                video_icon = new ThemedIcon ("applications-multimedia");
-                title_video.label = ("A / V");
-            }
+            string end_name = selected_video.get_basename ().substring (i + 1).down ();
+            video_icon = new ThemedIcon ("com.github.torikulhabib.mindi." + end_name);
+            title_video.label = Mindi.Utils.audiovideo (end_name);
         }
 
         private void build_format_area () {
@@ -702,6 +636,7 @@ namespace Mindi {
 
         private void stack_change () {
             change_and_format = new Stack ();
+            change_and_format.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
             change_and_format.add_named (format_container, "format");
             change_and_format.add_named (changed_container, "change");
             content.attach (change_and_format, 1, 0, 1, 1);
@@ -751,6 +686,7 @@ namespace Mindi {
                     dialog.dialog_cancel_convert.connect ( () => {
                         warning_notify = false;
                         cancel_convert ();
+                        notification_toast (Mindi.StringPot.Cancel);
                         });
                     dialog.destroy.connect (() => {
                     dialog = null;
@@ -793,6 +729,7 @@ namespace Mindi {
             label_download.valign = Gtk.Align.CENTER;
 
             stack = new Stack ();
+            stack.transition_type = Gtk.StackTransitionType.SLIDE_RIGHT;
             stack.add_named (grid_location, "name");
             stack.add_named (grid_custom_location, "name_custom");
             stack.add_named (ask_location, "ask");
@@ -839,9 +776,10 @@ namespace Mindi {
                     });
                 } else {
                     stream_name.label = Mindi.StringPot.Converting;
-                }
+                    notification_toast (Mindi.StringPot.Starting);                }
             } else {
                 video_name.label = Mindi.StringPot.Converting;
+                notification_toast (Mindi.StringPot.Starting);
             }
         }
 
@@ -878,17 +816,15 @@ namespace Mindi {
                     if (success) {
                         stream_name.label = converter.name_file_stream;
                         entry.set_text ("");
-                        app_notification.title = Mindi.StringPot.DownloadSucces;
+                        notification_toast (Mindi.StringPot.DownloadSucces);
                         convert_label.label = Mindi.StringPot.ReadyConvert;
-                        app_notification.send_notification ();
                         convert_start.sensitive = true;
                         select_format.sensitive = true;
                         reload_stack.visible_child_name = "addurl";
                         change_and_format.visible_child_name = "format";
                         open_stream.tooltip_text = (converter.name_file_stream);
                     } else {
-                        app_notification.title = Mindi.StringPot.DownloadError;
-                        app_notification.send_notification ();
+                        notification_toast (Mindi.StringPot.DownloadError);
                         stream_name.label = Mindi.StringPot.FailedRetrieve;
                         convert_label.label = "<i>%s</i>".printf (Mindi.StringPot.NotYet);
                         convert_start.sensitive = false;
@@ -922,17 +858,15 @@ namespace Mindi {
                     if (is_active) {
                         if (success) {
                             if (notifysilent.notify_active) {
-                                create_dialog_finish ("%s".printf (message));
+                                create_dialog (Mindi.StringPot.Finished, message);
                             } else {
-                                app_notification.title = Mindi.StringPot.Finished;
-                                app_notification.send_notification ();
+                                notification_toast (Mindi.StringPot.Finished);
                             }
                         } else {
                             if (notifysilent.notify_active) {
-                                create_dialog_error ("%s".printf (message));
+                                create_dialog (Mindi.StringPot.Error, message);
                             } else {
-                                app_notification.title = Mindi.StringPot.Error;
-                                app_notification.send_notification ();
+                                notification_toast (Mindi.StringPot.Error);
                             }
                             fail_convert ();
                         }
@@ -953,25 +887,8 @@ namespace Mindi {
             }
         }
 
-        private void create_dialog_finish (string text) {
-            var message_dialog = new Mindi.MessageDialog.with_image_from_icon_name (this, Mindi.StringPot.Finished, text, "com.github.torikulhabib.mindi",
- Gtk.ButtonsType.CLOSE);
-            var auto_close = new Gtk.CheckButton.with_label (Mindi.StringPot.AutomaticClose);
-            auto_close.show ();
-            auto_close.toggled.connect (() => {
-                Timeout.add_seconds (1, () => {
-                    message_dialog.destroy ();
-                    return false;
-                });
-            });
-            message_dialog.custom_bin.add (auto_close);
-            MindiApp.settings.bind ("auto-close", auto_close, "active", GLib.SettingsBindFlags.DEFAULT);
-            message_dialog.run ();
-            message_dialog.destroy ();
-        }
-
-        private void create_dialog_error (string text) {
-            var message_dialog = new Mindi.MessageDialog.with_image_from_icon_name (this, Mindi.StringPot.Error, text, "com.github.torikulhabib.mindi",
+        private void create_dialog (string primary, string secondary) {
+            var message_dialog = new Mindi.MessageDialog.with_image_from_icon_name (this, primary, secondary, "com.github.torikulhabib.mindi",
  Gtk.ButtonsType.CLOSE);
             var auto_close = new Gtk.CheckButton.with_label (Mindi.StringPot.AutomaticClose);
             auto_close.show ();
@@ -1026,6 +943,7 @@ namespace Mindi {
         private void warning_notif (bool notif) {
             if (notif) {
                 warning_notify = true;
+                notification_toast (Mindi.StringPot.Stop);
                 if (dialogoverwrite == null) {
                     dialogoverwrite = new DialogOverwrite (this, converter.notify_string);
                     dialogoverwrite.show_all ();
@@ -1038,6 +956,7 @@ namespace Mindi {
                                     converter.finished.connect (notify_signal);
                                     converter.set_folder.begin (selected_video, streampc.stream_active);
                                     converter.converter_now.begin (selected_formataudio.formataudio);
+                                    notification_toast (Mindi.StringPot.Starting);
                                 }
                                 return false;
                             });
@@ -1066,38 +985,7 @@ namespace Mindi {
         }
 
         private void update_formataudio_label () {
-            switch (selected_formataudio.formataudio) {
-                case Mindi.Formataudios.AC3:
-                    format_icon = new ThemedIcon ("com.github.torikulhabib.mindi.ac3");
-                    break;
-                case Mindi.Formataudios.AIFF:
-                    format_icon = new ThemedIcon ("com.github.torikulhabib.mindi.aiff");
-                    break;
-                case Mindi.Formataudios.FLAC:
-                    format_icon = new ThemedIcon ("com.github.torikulhabib.mindi.flac");
-                    break;
-                case Mindi.Formataudios.MMF:
-                    format_icon = new ThemedIcon ("com.github.torikulhabib.mindi.mmf");
-                    break;
-                case Mindi.Formataudios.MP3:
-                    format_icon = new ThemedIcon ("com.github.torikulhabib.mindi.mp3");
-                    break;
-                case Mindi.Formataudios.M4A:
-                    format_icon = new ThemedIcon ("com.github.torikulhabib.mindi.m4a");
-                    break;
-                case Mindi.Formataudios.OGG:
-                    format_icon = new ThemedIcon ("com.github.torikulhabib.mindi.ogg");
-                    break;
-                case Mindi.Formataudios.WMA:
-                    format_icon = new ThemedIcon ("com.github.torikulhabib.mindi.wma");
-                    break;
-                case Mindi.Formataudios.WAV:
-                    format_icon = new ThemedIcon ("com.github.torikulhabib.mindi.wav");
-                    break;
-                default:
-                    format_icon = new ThemedIcon ("com.github.torikulhabib.mindi.aac");
-                    break;
-            }
+            format_icon = new ThemedIcon ("com.github.torikulhabib.mindi." + selected_formataudio.formataudio.get_name ().down ());
         }
 
         private void button_stream () {
@@ -1106,6 +994,14 @@ namespace Mindi {
             } else {
                 stream_stack.visible_child_name = "stream";
             }
+        }
+
+        private void notification_toast (string notification ) {
+            Timeout.add (50,() => {
+                app_notification.title = notification;
+                app_notification.send_notification ();
+                return false;
+            });
         }
 
         private bool listen_to_window_events (Gdk.Event event) {

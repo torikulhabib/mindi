@@ -62,7 +62,6 @@ namespace Mindi {
         private string foldersave;
         private string ask_location;
         public string name_file_stream;
-        private string cache_dir_path;
         private Subprocess? subprocess;
         public ObjectConverter () {}
 
@@ -83,7 +82,6 @@ namespace Mindi {
             column_homogeneous = true;
             add(container);
             show_all ();
-
             converting.connect (() => {
                 is_converting = true;
                 begin (true);
@@ -126,21 +124,19 @@ namespace Mindi {
         }
 
         public async void read_name () {
-            cache_dir_path = Path.build_path (Path.DIR_SEPARATOR_S, Environment.get_user_cache_dir (), Environment.get_application_name());
-            get_folder_data (cache_dir_path, File.new_for_path (cache_dir_path), " ");
+            get_folder_data (Mindi.Utils.cache_folder (), File.new_for_path (Mindi.Utils.cache_folder ()), " ");
         }
 
         public async void get_video (string uri, bool stream, bool finish) {
             downloading ();
             mindi_desktop_visible ();
-            cache_dir_path = Path.build_path (Path.DIR_SEPARATOR_S, Environment.get_user_cache_dir (), Environment.get_application_name());
             string ignore_name = "" + name_file_stream;
             string up = ignore_name.up ();
             if (up.contains ("")) {
                if (up.has_suffix (".PART")) {
                 get_video_stream (uri, stream, finish);
                 } else if (up.contains (".")) {
-                    string check_file = Path.build_path (Path.DIR_SEPARATOR_S, cache_dir_path, ignore_name);
+                    string check_file = Path.build_path (Path.DIR_SEPARATOR_S, Mindi.Utils.cache_folder (), ignore_name);
                     if (File.new_for_path (check_file).query_exists ()) {
                         File file = File.new_for_path (check_file);
 	                    try {
@@ -160,8 +156,7 @@ namespace Mindi {
 	    	string [] spawn_args;
             string [] spawn_env = Environ.get ();
 
-            cache_dir_path = Path.build_path (Path.DIR_SEPARATOR_S, Environment.get_user_cache_dir (), Environment.get_application_name());
-            var cache_dir = File.new_for_path (cache_dir_path);
+            var cache_dir = File.new_for_path (Mindi.Utils.cache_folder ());
             if (!cache_dir.query_exists ()) {
                 try {
                     cache_dir.make_directory_with_parents ();
@@ -179,7 +174,7 @@ namespace Mindi {
 		    }
             try {
                     SubprocessLauncher launcher = new SubprocessLauncher (SubprocessFlags.STDOUT_PIPE);
-                    launcher.set_cwd (cache_dir_path);
+                    launcher.set_cwd (Mindi.Utils.cache_folder ());
                     launcher.set_environ (spawn_env);
                     subprocess = launcher.spawnv (spawn_args);
                     InputStream input_stream    = subprocess.get_stdout_pipe ();
@@ -212,12 +207,11 @@ namespace Mindi {
         private async void remove_part () {
             while (true) {
                 read_name.begin ();
-                cache_dir_path = Path.build_path (Path.DIR_SEPARATOR_S, Environment.get_user_cache_dir (), Environment.get_application_name());
                 string ignore_name = "" + name_file_stream;
                 string up = ignore_name.up ();
                 if (up.contains ("")) {
                    if (up.has_suffix (".PART")) {
-                        string check_file = Path.build_path (Path.DIR_SEPARATOR_S, cache_dir_path, ignore_name);
+                        string check_file = Path.build_path (Path.DIR_SEPARATOR_S, Mindi.Utils.cache_folder (), ignore_name);
                         if (File.new_for_path (check_file).query_exists ()) {
                             File file = File.new_for_path (check_file);
 	                        try {
@@ -245,9 +239,8 @@ namespace Mindi {
         }
 
         public async void set_folder (File video, bool stream_active) {
-            cache_dir_path = Path.build_path (Path.DIR_SEPARATOR_S, Environment.get_user_cache_dir (), Environment.get_application_name());
                 if (stream_active) {
-                    inputvideo = cache_dir_path + "/" + name_file_stream;
+                    inputvideo = Mindi.Utils.cache_folder () + "/" + name_file_stream;
 	                int i = name_file_stream.last_index_of (".");
 	                string [] inputbase = name_file_stream.split ("." + name_file_stream.substring (i + 1));
                     outputname = inputbase [0];
@@ -465,7 +458,7 @@ namespace Mindi {
         }
 
         public void is_active_signal (bool is_actived) {
-            is_active = is_running == true ?  is_actived : true;
+            is_active = is_running ?  is_actived : true;
         }
 
         public void mindi_desktop_visible () {

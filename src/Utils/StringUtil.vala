@@ -20,11 +20,26 @@
 */
 
 namespace Mindi {
-
     public class Utils  : GLib.Object {
-        public Utils () {
-        }
+        public Utils () {}
         construct { }
+
+        public static string cache_folder () {
+            string output = "%s".printf (Path.build_path (Path.DIR_SEPARATOR_S, Environment.get_user_cache_dir (), Environment.get_application_name()));
+            return output;
+        }
+
+        public static string audiovideo (string input) {
+            string output;
+            if ("aacac3aiffflacmmfmp3m4awmaoggwav".contains (input)) {
+                output = "%s".printf ("Audio");
+            } else if ("mp4flvwebmavimpgmpegmkv".contains (input)) {
+                output = "%s".printf ("Video");
+            } else {
+                output = "%s".printf ("A / V");
+                }
+            return output;
+        }
 
         public static string limitstring (string input) {
             string output;
