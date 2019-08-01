@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist>
-	<enum id="com.github.torikulhabib.nino.format-audios">
+	<enum id="com.github.torikulhabib.mindi.format-audios">
 		<value nick="AAC" value="0" />
 		<value nick="AC3" value="1" />
 		<value nick="AIFF" value="2" />
@@ -12,7 +12,7 @@
 		<value nick="WMA" value="8" />
 		<value nick="WAV" value="9" />
 	</enum>
-	<enum id="com.github.torikulhabib.nino.folder-mode">
+	<enum id="com.github.torikulhabib.mindi.folder-mode">
 		<value nick="place" value="0" />
 		<value nick="custom" value="1" />
 		<value nick="ask" value="2" />
@@ -23,7 +23,7 @@
 			<summary>If the dark Gtk stylesheet should be used</summary>
 			<description>If the dark Gtk stylesheet should be used</description>
 		</key>
-		<key name="format-audios" enum="com.github.torikulhabib.nino.format-audios">
+		<key name="format-audios" enum="com.github.torikulhabib.mindi.format-audios">
 			<default>"AAC"</default>
 			<summary>Format audio.</summary>
 			<description>Format audio.</description>
@@ -33,7 +33,7 @@
 			<summary>Automatic close should be used</summary>
 			<description>Automatic close should be used</description>
 		</key>
-		<key name="folder-mode" enum="com.github.torikulhabib.nino.folder-mode">
+		<key name="folder-mode" enum="com.github.torikulhabib.mindi.folder-mode">
 			<default>"place"</default>
 			<summary>folder mode.</summary>
 			<description>folder mode.</description>

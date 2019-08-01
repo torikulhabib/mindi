@@ -4,11 +4,11 @@ grade: stable
 base: core18
 summary: mindi
 description: |
-  Quickly convert video to audio
+    Quickly convert video to audio
     Features:
-    Get from web stream base.
+    Get from web stream.
     Use from context menu: right click on video, and select "Convert to Audio".
-    Use from Applications select video.nfinement: strict
+    Use from Applications select video.
 confinement: strict
 parts:
   mindi:
@@ -18,7 +18,7 @@ parts:
       - --prefix=/usr
     source: https://github.com/torikulhabib/mindi.git
     override-build: |
-      snapcraftctl build
+        snapcraftctl build
         sed -i -E 's|^(Icon[^=]*)=.*|\1=/usr/share/icons/hicolor/256x256/apps/com.github.torikulhabib.mindi.svg|' ${SNAPCRAFT_PART_INSTALL}/usr/share/applications/com.github.torikulhabib.mindi.desktop
     build-packages:
         - libgirepository1.0-dev
@@ -26,6 +26,8 @@ parts:
         - gobject-introspection
         - gettext
         - libgranite-dev
+        - ffmpeg
+        - youtube-dl
     stage-packages:
         - libx11-dev
         - libxau-dev
@@ -140,8 +142,6 @@ apps:
       - desktop-legacy
       - opengl
       - x11
-      - ffmpeg
-      - youtube-dl
     environment:
       GSETTINGS_SCHEMA_DIR: $SNAP/share/glib-2.0/schemas
     slots: [ dbus-mindi ]
