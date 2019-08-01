@@ -31,9 +31,9 @@ namespace Mindi {
 
         public static string audiovideo (string input) {
             string output;
-            if ("aacac3aiffflacmmfmp3m4awmaoggwav".contains (input)) {
+            if ("aac ac3 aiff flac mmf mp3 m4a wma ogg wav".contains (input)) {
                 output = "%s".printf ("Audio");
-            } else if ("mp4flvwebmavimpgmpegmkv".contains (input)) {
+            } else if ("mp4 flv webm avi mpg mpeg mkv".contains (input)) {
                 output = "%s".printf ("Video");
             } else {
                 output = "%s".printf ("A / V");
