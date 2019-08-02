@@ -20,7 +20,7 @@
 */
 
 namespace Mindi {
-    public class Dialog : Granite.MessageDialog {
+    public class Dialog : Mindi.MessageDialog {
         public signal void dialog_cancel_convert ();
 
         public Dialog (Gtk.Window? parent) {

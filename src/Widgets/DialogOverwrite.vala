@@ -20,7 +20,7 @@
 */
 
 namespace Mindi {
-    public class DialogOverwrite : Granite.MessageDialog {
+    public class DialogOverwrite : Mindi.MessageDialog {
         public signal void dialog_overwrite_convert ();
 
         public DialogOverwrite (Gtk.Window? parent, string secondary) {

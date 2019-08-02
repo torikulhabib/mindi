@@ -93,11 +93,12 @@ public class Mindi.MessageDialog : Gtk.Dialog {
 
         primary_label = new Gtk.Label (null);
         primary_label.get_style_context ().add_class (Granite.STYLE_CLASS_PRIMARY_LABEL);
-        primary_label.max_width_chars = 33;
+        primary_label.max_width_chars = 50;
         primary_label.wrap = true;
         primary_label.xalign = 0;
 
         secondary_label = new Gtk.Label (null);
+        secondary_label.set_selectable  (true);
         secondary_label.max_width_chars = 50;
         secondary_label.wrap = true;
         secondary_label.xalign = 0;
@@ -107,7 +108,7 @@ public class Mindi.MessageDialog : Gtk.Dialog {
         custom_bin.remove.connect (() => secondary_label.margin_bottom = 0);
 
         var message_grid = new Gtk.Grid ();
-        message_grid.column_spacing = 0;
+        message_grid.column_spacing = 5;
         message_grid.row_spacing = 0;
         message_grid.margin_start = message_grid.margin_end = 6;
         message_grid.attach (image, 0, 0, 1, 2);

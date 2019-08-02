@@ -94,6 +94,7 @@ namespace Mindi {
                 if (selected_video != null) {
                     open_video.label = Mindi.StringPot.Change;
                     video_name.label = (selected_video.get_basename ());
+                    video_name.use_markup = false;
                     video_name.tooltip_text = (selected_video.get_basename ());
                     status_location ();
                     input_find_location ();
@@ -354,8 +355,9 @@ namespace Mindi {
             stream_logo = new Image.from_icon_name ("internet-web-browser", Gtk.IconSize.DIALOG);
             stream_container.attach (stream_logo, 0, 1, 1, 1);
 
-            stream_name = new Gtk.Label (Mindi.StringPot.GetNow);
+            stream_name = new Gtk.Label ("<i>%s</i>".printf (Mindi.StringPot.GetNow));
             stream_name.max_width_chars = 15;
+            stream_name.use_markup = true;
             stream_name.ellipsize = Pango.EllipsizeMode.END;
             stream_name.halign = Gtk.Align.CENTER;
             stream_name.wrap = true;
@@ -473,7 +475,7 @@ namespace Mindi {
         }
 
         private void send_notify () {
-            stream_name.label = Mindi.StringPot.GetNow;
+            stream_name.label = ("<i>%s</i>".printf (Mindi.StringPot.GetNow));
             notification_toast (checklink.status);
             open_stream.sensitive = true;
             video_logo.sensitive = true;
@@ -824,6 +826,7 @@ namespace Mindi {
                         reload_stack.visible_child_name = "addurl";
                         change_and_format.visible_child_name = "format";
                         stream_name.tooltip_text = (converter.name_file_stream);
+                        stream_name.use_markup = false;
                     } else {
                         notification_toast (Mindi.StringPot.DownloadError);
                         stream_name.label = Mindi.StringPot.FailedRetrieve;
@@ -833,6 +836,7 @@ namespace Mindi {
                         reload_stack.visible_child_name = "reload";
                         change_and_format.visible_child_name = "change";
                         stream_name.tooltip_text = ("");
+                        stream_name.use_markup = true;
                     }
                 } else {
                     if (success) {
