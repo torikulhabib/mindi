@@ -409,6 +409,7 @@ namespace Mindi {
                 string eta                  = str_return.substring ( index_end + 4, 5);
                 string speed                = str_return.substring ( index_speed + 2, index_end - (index_speed + 2));
                 status.label                = Mindi.StringPot.Run + progress_badge.to_string () + " % " + Mindi.StringPot.Size + size.strip () + " " + Mindi.StringPot.Rate + speed.strip ();
+                status.tooltip_text         = Mindi.StringPot.Run + progress_badge.to_string () + " % " + Mindi.StringPot.Size + size.strip () + " " + Mindi.StringPot.TransferRate + speed.strip () + " " + _("ETA: ") + eta.strip ();
                 progress_bar.tooltip_text   = Mindi.StringPot.Run + progress_badge.to_string () + " % " + Mindi.StringPot.Size + size.strip () + " " + Mindi.StringPot.TransferRate + speed.strip () + " " + _("ETA: ") + eta.strip ();
                 progress_bar.set_fraction (progress_value / 100);
                 mindi_desktop (progress_badge, progress_value / 100);
@@ -431,9 +432,10 @@ namespace Mindi {
                 string size                 = str_return.substring ( index_size + 5, 11);
                 int index_bitrate           = str_return.index_of ("bitrate=");
                 string bitrate              = str_return.substring ( index_bitrate + 8, 11);
-                int index_speed           = str_return.index_of ("speed=");
-                string speed              = str_return.substring ( index_speed + 6, 9);
+                int index_speed             = str_return.index_of ("speed=");
+                string speed                = str_return.substring ( index_speed + 6, 9);
                 status.label                = Mindi.StringPot.Run + progress.to_string () + " % " + Mindi.StringPot.Size + size.strip () + " " + Mindi.StringPot.Bitrate + bitrate.strip ();
+                status.tooltip_text         = Mindi.StringPot.Run + progress.to_string () + " % " + Mindi.StringPot.Size + size.strip () + " " + Mindi.StringPot.Time + time.strip () + " " + Mindi.StringPot.Bitrate + bitrate.strip () + " " + Mindi.StringPot.Speed + speed.strip ();
                 progress_bar.tooltip_text   = Mindi.StringPot.Run + progress.to_string () + " % " + Mindi.StringPot.Size + size.strip () + " " + Mindi.StringPot.Time + time.strip () + " " + Mindi.StringPot.Bitrate + bitrate.strip () + " " + Mindi.StringPot.Speed + speed.strip ();
                 progress_bar.set_fraction (progress_value);
                 mindi_desktop (progress_badge, progress_value);

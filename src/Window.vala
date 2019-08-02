@@ -94,7 +94,7 @@ namespace Mindi {
                 if (selected_video != null) {
                     open_video.label = Mindi.StringPot.Change;
                     video_name.label = (selected_video.get_basename ());
-                    open_video.tooltip_text = (selected_video.get_basename ());
+                    video_name.tooltip_text = (selected_video.get_basename ());
                     status_location ();
                     input_find_location ();
                     convert_label.label = Mindi.StringPot.Ready;
@@ -776,7 +776,8 @@ namespace Mindi {
                     });
                 } else {
                     stream_name.label = Mindi.StringPot.Converting;
-                    notification_toast (Mindi.StringPot.Starting);                }
+                    notification_toast (Mindi.StringPot.Starting);
+                }
             } else {
                 video_name.label = Mindi.StringPot.Converting;
                 notification_toast (Mindi.StringPot.Starting);
@@ -822,7 +823,7 @@ namespace Mindi {
                         select_format.sensitive = true;
                         reload_stack.visible_child_name = "addurl";
                         change_and_format.visible_child_name = "format";
-                        open_stream.tooltip_text = (converter.name_file_stream);
+                        stream_name.tooltip_text = (converter.name_file_stream);
                     } else {
                         notification_toast (Mindi.StringPot.DownloadError);
                         stream_name.label = Mindi.StringPot.FailedRetrieve;
@@ -831,7 +832,7 @@ namespace Mindi {
                         select_format.sensitive = false;
                         reload_stack.visible_child_name = "reload";
                         change_and_format.visible_child_name = "change";
-                        open_stream.tooltip_text = ("");
+                        stream_name.tooltip_text = ("");
                     }
                 } else {
                     if (success) {
