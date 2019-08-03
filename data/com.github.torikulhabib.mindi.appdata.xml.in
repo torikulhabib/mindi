@@ -23,7 +23,7 @@
     <binary>com.github.torikulhabib.mindi</binary>
   </provides>
 ​  <releases>
-    <release version="2.1.0" date="2019-07-27">
+    <release version="2.1.1" date="2019-08-04">
       <description>
         <p>Fix and add feature</p>
         <ul>
@@ -32,6 +32,7 @@
           <li>Progress in aplication.</li>
           <li>Check link.</li>
           <li>Fix.</li>
+          <li>New icon by fatih20.</li>
           <li>Updated Dutch translation bt Heimen Stoffels.</li>
         </ul>
       </description>
