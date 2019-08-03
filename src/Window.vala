@@ -522,16 +522,26 @@ namespace Mindi {
             all_files_filter.add_pattern ("*");
             var video_filter = new Gtk.FileFilter ();
             video_filter.set_filter_name (Mindi.StringPot.VideoFiles);
-            video_filter.add_mime_type ("video/mpeg;");
+            video_filter.add_mime_type ("video/mpeg");
+            video_filter.add_mime_type ("video/mpg");
             video_filter.add_mime_type ("video/mp4");
+            video_filter.add_mime_type ("video/avi");
             video_filter.add_mime_type ("video/webm");
             video_filter.add_mime_type ("video/flv");
+            video_filter.add_mime_type ("video/x-matroska");
             var audio_filter = new Gtk.FileFilter ();
             audio_filter.set_filter_name (Mindi.StringPot.AudioFiles);
             audio_filter.add_mime_type ("audio/mp3");
             audio_filter.add_mime_type ("audio/wav");
+            audio_filter.add_mime_type ("audio/aac");
+            audio_filter.add_mime_type ("audio/ac3");
             audio_filter.add_mime_type ("audio/m4a");
-
+            audio_filter.add_mime_type ("audio/aiff");
+            audio_filter.add_mime_type ("audio/flac");
+            audio_filter.add_mime_type ("audio/wma");
+            audio_filter.add_mime_type ("audio/ogg");
+            audio_filter.add_mime_type ("audio/wav");
+            audio_filter.add_mime_type ("application/vnd.smaf");
             file.add_filter (video_filter);
             file.add_filter (audio_filter);
             file.add_filter (all_files_filter);
