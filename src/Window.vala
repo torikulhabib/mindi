@@ -125,17 +125,6 @@ namespace Mindi {
         }
 
         construct {
-		    Mindi.Configs.Settings.get_settings ().notify["folder-mode"].connect (() => {
-                folder_symbol ();
-		    });
-
-            location_button = new Gtk.Button ();
-            location_button.clicked.connect (() => {
-                if (!converter.is_running) {
-                    Mindi.Configs.Settings.get_settings ().folder_switch ();
-                }
-            });
-
             var open_button =  new Button.from_icon_name ("folder-open-symbolic", IconSize.SMALL_TOOLBAR);
             open_button.tooltip_text = Mindi.StringPot.SetLocation;
             open_button.clicked.connect (() => {
@@ -191,20 +180,14 @@ namespace Mindi {
             headerbar.pack_end (cancel_checking_revealer);
             headerbar.pack_start (close_button);
             headerbar.pack_start (streampc.stream_button);
-            headerbar.pack_start (location_button);
+            headerbar.pack_start (location_button_wodget ());
             headerbar.pack_start (choose_revealer);
             set_titlebar (headerbar);
 
             var header_context = headerbar.get_style_context ();
             header_context.add_class ("default-decoration");
             header_context.add_class (Gtk.STYLE_CLASS_FLAT);
-
-            var style_context = get_style_context ();
-            style_context.add_class ("rounded");
-            style_context.add_class ("widget_background");
-            style_context.add_class ("flat");
-
-            build_ui();
+            get_style_context ().add_class ("rounded");
 
             converter = ObjectConverter.instance;
             checklink = CheckLink.instance;
@@ -212,12 +195,8 @@ namespace Mindi {
             checklink.begin.connect (begin_check);
             streampc.signal_stream.connect (button_stream);
             remover = Remover.instance;
-
-            show_all ();
             event.connect (listen_to_window_events);
-        }
 
-        void build_ui () {
             content = new Gtk.Grid ();
             content.margin = 20;
             content.column_spacing = 25;
@@ -243,14 +222,6 @@ namespace Mindi {
             add (overlay);
             show_all ();
 
-            button_press_event.connect ((e) => {
-                if (e.button == Gdk.BUTTON_PRIMARY) {
-                    begin_move_drag ((int) e.button, (int) e.x_root, (int) e.y_root, e.time);
-                    return true;
-                }
-                return false;
-            });
-
             Timeout.add_seconds (1, () => {
                 converter.read_name.begin ();
                 return false;
@@ -260,6 +231,14 @@ namespace Mindi {
                 int default_audio = MindiApp.settings.get_enum ("format-audios");
                 selected_formataudio = format_list.get_child_at_index(default_audio) as Mindi.Formataudio;
             }
+
+            button_press_event.connect ((e) => {
+                if (e.button == Gdk.BUTTON_PRIMARY) {
+                    begin_move_drag ((int) e.button, (int) e.x_root, (int) e.y_root, e.time);
+                    return true;
+                }
+                return false;
+            });
         }
 
         public void signal_close () {
@@ -361,7 +340,6 @@ namespace Mindi {
             stream_name.ellipsize = Pango.EllipsizeMode.END;
             stream_name.halign = Gtk.Align.CENTER;
             stream_name.wrap = true;
-            stream_name.show ();
             stream_container.attach (stream_name, 0, 2, 1, 1);
 
             var button = new Button.from_icon_name ("list-add-symbolic", IconSize.SMALL_TOOLBAR);
@@ -1024,6 +1002,17 @@ namespace Mindi {
             return false;
         }
 
+        private Gtk.Widget location_button_wodget () {
+            location_button = new Gtk.Button ();
+            location_button.clicked.connect (() => {
+                if (!converter.is_running) {
+                    Mindi.Configs.Settings.get_settings ().folder_switch ();
+                }
+                folder_symbol ();
+            });
+            return location_button;
+        }
+
         private void folder_symbol () {
             switch (Mindi.Configs.Settings.get_settings ().folder_mode) {
                 case FolderMode.PLACE :
@@ -1048,7 +1037,6 @@ namespace Mindi {
                     stack.visible_child_name = "ask";
                     break;
             }
-            location_button.show_all ();
         }
     }
 }
