@@ -14,6 +14,11 @@ Features:
 ![screenshot 3](Screenshot3.png)
 ![screenshot 4](Screenshot4.png)
 
+## Now Mindi on Snap
+Get now
+
+sudo snap install --edge mindi
+
 ## Building, Testing, and Installation
 
 You'll need the following dependencies:
