@@ -49,9 +49,9 @@ namespace Mindi {
 
             string cache_dir_path = Path.build_path (Path.DIR_SEPARATOR_S, Environment.get_user_cache_dir (), Environment.get_application_name());
                 if (!other) {
-		        spawn_args = {"youtube-dl", "--skip-download", "-o", "%(title)s.%(ext)s", uri};
+		        spawn_args = {"youtube-dl", "--socket-timeout", "2", "--skip-download", "-o", "%(title)s.%(ext)s", uri};
 		        } else {
-		        spawn_args = {"youtube-dl", "-f", "251", "--skip-download", "-o", "%(title)s.%(ext)s", uri};
+		        spawn_args = {"youtube-dl", "--socket-timeout", "2", "-f", "251", "--skip-download", "-o", "%(title)s.%(ext)s", uri};
 		        }
             try {
                     SubprocessLauncher launcher = new SubprocessLauncher (SubprocessFlags.STDERR_PIPE);

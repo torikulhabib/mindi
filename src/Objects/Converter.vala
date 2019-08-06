@@ -166,11 +166,11 @@ namespace Mindi {
             }
 
             if (stream && finish) {
-		        spawn_args = {"youtube-dl", "-f", "251", "-o", "%(title)s.%(ext)s" , uri};
+		        spawn_args = {"youtube-dl", "--socket-timeout", "30", "-f", "251", "-o", "%(title)s.%(ext)s" , uri};
 		    } else if (stream && !finish) {
-		        spawn_args = {"youtube-dl", "-f", "140", "-o", "%(title)s.%(ext)s" , uri};
+		        spawn_args = {"youtube-dl", "--socket-timeout", "30", "-f", "140", "-o", "%(title)s.%(ext)s" , uri};
 		    } else {
-		        spawn_args = {"youtube-dl", "-o", "%(title)s.%(ext)s" , uri};
+		        spawn_args = {"youtube-dl", "--socket-timeout", "30", "-o", "%(title)s.%(ext)s" , uri};
 		    }
             try {
                     SubprocessLauncher launcher = new SubprocessLauncher (SubprocessFlags.STDOUT_PIPE);
