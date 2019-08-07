@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: extra\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-07 11:57+0200\n"
+"POT-Creation-Date: 2019-08-07 12:36+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,22 +17,14 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: data/com.github.torikulhabib.mindi.desktop.in:4
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:7
+#: data/com.github.torikulhabib.mindi.desktop.in:4
 msgid "Mindi"
 msgstr ""
 
-#: data/com.github.torikulhabib.mindi.desktop.in:5
-msgid "Converter to audio"
-msgstr ""
-
-#: data/com.github.torikulhabib.mindi.desktop.in:6
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:8
+#: data/com.github.torikulhabib.mindi.desktop.in:6
 msgid "A simple Video to Audio converter"
-msgstr ""
-
-#: data/com.github.torikulhabib.mindi.desktop.in:8
-msgid "com.github.torikulhabib.mindi"
 msgstr ""
 
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:10
@@ -102,7 +94,7 @@ msgid "New icon by fatih20."
 msgstr ""
 
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:36
-msgid "Updated Dutch translation bt Heimen Stoffels."
+msgid "Updated Dutch translation by Heimen Stoffels."
 msgstr ""
 
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:44
@@ -180,5 +172,13 @@ msgid "Hello Juno!"
 msgstr ""
 
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:139
-msgid "torikul habib"
+msgid "Torikul Habib"
+msgstr ""
+
+#: data/com.github.torikulhabib.mindi.desktop.in:5
+msgid "Converter to audio"
+msgstr ""
+
+#: data/com.github.torikulhabib.mindi.desktop.in:8
+msgid "com.github.torikulhabib.mindi"
 msgstr ""

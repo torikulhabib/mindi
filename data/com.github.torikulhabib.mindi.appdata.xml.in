@@ -33,7 +33,7 @@
           <li>Check link.</li>
           <li>Fix.</li>
           <li>New icon by fatih20.</li>
-          <li>Updated Dutch translation bt Heimen Stoffels.</li>
+          <li>Updated Dutch translation by Heimen Stoffels.</li>
         </ul>
       </description>
     </release>
@@ -136,7 +136,7 @@
     <content_attribute id="money-purchasing">none</content_attribute>
     <content_attribute id="money-gambling">none</content_attribute>
   </content_rating>
-  <developer_name>torikul habib</developer_name>
+  <developer_name>Torikul Habib</developer_name>
   <url type="homepage">https://github.com/torikulhabib/mindi</url>
   <url type="bugtracker">https://github.com/torikulhabib/mindi/issues</url>
   <url type="translate">https://github.com/torikulhabib/mindi/tree/master/po</url>

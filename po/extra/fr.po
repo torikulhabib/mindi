@@ -1,15 +1,15 @@
 # French translations for extra package.
 # Copyright (C) 2019 THE extra'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the extra package.
-# Automatically generated, 2019.
+# NathanBnm, 2019.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: extra\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-07 11:57+0200\n"
+"POT-Creation-Date: 2019-08-07 12:36+0200\n"
 "PO-Revision-Date: 2019-08-07 11:57+0200\n"
-"Last-Translator: Automatically generated\n"
+"Last-Translator: NathanBnm\n"
 "Language-Team: none\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -17,57 +17,51 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: data/com.github.torikulhabib.mindi.desktop.in:4
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:7
+#: data/com.github.torikulhabib.mindi.desktop.in:4
 msgid "Mindi"
-msgstr ""
+msgstr "Mindi"
 
-#: data/com.github.torikulhabib.mindi.desktop.in:5
-msgid "Converter to audio"
-msgstr ""
-
-#: data/com.github.torikulhabib.mindi.desktop.in:6
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:8
+#: data/com.github.torikulhabib.mindi.desktop.in:6
 msgid "A simple Video to Audio converter"
-msgstr ""
-
-#: data/com.github.torikulhabib.mindi.desktop.in:8
-msgid "com.github.torikulhabib.mindi"
-msgstr ""
+msgstr "Un simple convertisseur vidéo vers audio"
 
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:10
 msgid "Option to quickly convert to audio."
-msgstr ""
+msgstr "Une application pour convertir vers de l'audio."
 
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:11
 msgid "Features:"
-msgstr ""
+msgstr "Fonctionnalités :"
 
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:13
 msgid "Get from web streaming base."
-msgstr ""
+msgstr "Convertissez à partir de liens Web."
 
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:14
 msgid ""
 "Use from context menu: right click on video or audio file, and select "
 "Convert to Audio."
 msgstr ""
+"Utilisation à partir du menu contextuel : clic droit sur un fichier vidéo ou "
+"audio, et sélectionnez Convertir en audio."
 
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:15
 msgid "Use from Applications select video."
-msgstr ""
+msgstr "Utilisation depuis le menu des applications."
 
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:16
 msgid "Dark and light."
-msgstr ""
+msgstr "Thème sombre et clair."
 
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:17
 msgid "New style."
-msgstr ""
+msgstr "Nouveau style."
 
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:18
 msgid "Convert to MP3, M4A, OGG, WAV, WMA, FLAC, Etc."
-msgstr ""
+msgstr "Conversion en MP3, M4A, OGG, WAV, WMA, FLAC, Etc."
 
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:28
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:42
@@ -75,110 +69,119 @@ msgstr ""
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:69
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:78
 msgid "Fix and add feature"
-msgstr ""
+msgstr "Correction et ajout de fonctionnalité"
 
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:30
 msgid "Warning exist notify."
-msgstr ""
+msgstr "Notifications d'avertissement."
 
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:31
 msgid "Reload."
-msgstr ""
+msgstr "Rechargement."
 
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:32
 msgid "Progress in aplication."
-msgstr ""
+msgstr "Barre de progression dans l'application."
 
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:33
 msgid "Check link."
-msgstr ""
+msgstr "Vérification du lien."
 
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:34
 msgid "Fix."
-msgstr ""
+msgstr "Correction."
 
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:35
 msgid "New icon by fatih20."
-msgstr ""
+msgstr "nouvelle icône pat fatih20."
 
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:36
-msgid "Updated Dutch translation bt Heimen Stoffels."
-msgstr ""
+msgid "Updated Dutch translation by Heimen Stoffels."
+msgstr "Mise à jour des traduction néerlandaises par Heimein Stoffels"
 
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:44
 msgid "Download from web stream base."
-msgstr ""
+msgstr "Téléchargement à partir d'un lien Web."
 
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:45
 msgid "Change find folder from icon location."
-msgstr ""
+msgstr "Modification du dossier d'emplacement des icônes."
 
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:46
 msgid "Change switch to button."
-msgstr ""
+msgstr "Modification du bouton."
 
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:47
 msgid "Status download and converting."
-msgstr ""
+msgstr "Statut du téléchargement et de la conversion."
 
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:48
 msgid "Icon input."
-msgstr ""
+msgstr "Icône d'entrée."
 
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:56
 msgid "Info Location converted."
-msgstr ""
+msgstr "Emplacement du fichier convertir."
 
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:57
 msgid "Fix close warning."
-msgstr ""
+msgstr "Correction de l'avertissement de fermeture."
 
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:58
 msgid "Fix stop warning."
-msgstr ""
+msgstr "Correction de l'avertissement d'arrêt."
 
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:59
 msgid "Add silent notify."
-msgstr ""
+msgstr "Ajout du mode silencieux des notifications."
 
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:60
 msgid "Find location converted."
-msgstr ""
+msgstr "Emplacement du fichier converti."
 
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:61
 msgid "Ask converter location."
-msgstr ""
+msgstr "Demande l'emplacement de conversion."
 
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:62
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:71
 msgid "Fix input name as output name."
-msgstr ""
+msgstr "Correction du nom d'entrée comme nom de sortie."
 
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:63
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:72
 msgid "Change spiner to Progress."
-msgstr ""
+msgstr "Modification de l'icône de chargement en barre de progression."
 
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:80
 msgid "Save last audio selected."
-msgstr ""
+msgstr "Enregistrement du dernier audio sélectionné."
 
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:81
 msgid "Remove unfinished file."
-msgstr ""
+msgstr "Suppression des fichiers non terminés."
 
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:82
 msgid "Cancel option."
-msgstr ""
+msgstr "Option Annuler."
 
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:83
 msgid "Add file audio."
-msgstr ""
+msgstr "Ajout de fichiers audio."
 
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:89
 msgid "Hello Juno!"
-msgstr ""
+msgstr "Salut Juno !"
 
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:139
-msgid "torikul habib"
-msgstr ""
+#, fuzzy
+msgid "Torikul Habib"
+msgstr "Torikul Habib"
+
+#: data/com.github.torikulhabib.mindi.desktop.in:5
+msgid "Converter to audio"
+msgstr "Convertisseur vers audio"
+
+#: data/com.github.torikulhabib.mindi.desktop.in:8
+msgid "com.github.torikulhabib.mindi"
+msgstr "com.github.torikulhabib.mindi"
