@@ -1,60 +1,46 @@
-icon_sizes = ['16', '24', '32', '48', '64', '128', '256']
+icon_sizes = ['16', '24', '32', '48', '64', '128']
 
 foreach i : icon_sizes
     install_data(
-        join_paths('icons', i + '.svg'),
+        join_paths('icons', i, meson.project_name() + '.svg'),
         install_dir: join_paths(get_option('datadir'), 'icons', 'hicolor', i + 'x' + i, 'apps'),
         rename: meson.project_name() + '.svg'
     )
     install_data(
-        join_paths('icons', i + '.svg'),
+        join_paths('icons', i, meson.project_name() + '.svg'),
         install_dir: join_paths(get_option('datadir'), 'icons', 'hicolor', i + 'x' + i + '@2', 'apps'),
         rename: meson.project_name() + '.svg'
     )
 endforeach
 
-icon_sizes = ['48']
+mimetypes = [
+    '.mp4.svg',
+    '.flv.svg',
+    '.webm.svg',
+    '.avi.svg',
+    '.mpg.svg',
+    '.mpeg.svg',
+    '.mkv.svg',
+    '.aiff.svg',
+    '.mmf.svg',
+    '.aac.svg',
+    '.ac3.svg',
+    '.flac.svg',
+    '.m4a.svg',
+    '.mp3.svg',
+    '.wav.svg',
+    '.wma.svg',
+    '.ogg.svg'
+]
 
-foreach i : icon_sizes
+foreach m : mimetypes
     install_data(
-        join_paths('icons', i, meson.project_name() + '.mp4.svg'),
-        join_paths('icons', i, meson.project_name() + '.flv.svg'),
-        join_paths('icons', i, meson.project_name() + '.webm.svg'),
-        join_paths('icons', i, meson.project_name() + '.avi.svg'),
-        join_paths('icons', i, meson.project_name() + '.mpg.svg'),
-        join_paths('icons', i, meson.project_name() + '.mpeg.svg'),
-        join_paths('icons', i, meson.project_name() + '.mkv.svg'),
-        join_paths('icons', i, meson.project_name() + '.aiff.svg'),
-        join_paths('icons', i, meson.project_name() + '.mmf.svg'),
-        join_paths('icons', i, meson.project_name() + '.aac.svg'),
-        join_paths('icons', i, meson.project_name() + '.ac3.svg'),
-        join_paths('icons', i, meson.project_name() + '.flac.svg'),
-        join_paths('icons', i, meson.project_name() + '.m4a.svg'),
-        join_paths('icons', i, meson.project_name() + '.mp3.svg'),
-        join_paths('icons', i, meson.project_name() + '.wav.svg'),
-        join_paths('icons', i, meson.project_name() + '.wma.svg'),
-        join_paths('icons', i, meson.project_name() + '.ogg.svg'),
-        install_dir: join_paths(get_option('datadir'), 'icons', 'hicolor', i + 'x' + i, 'mimetypes')
+        join_paths('icons', 'mimetypes', meson.project_name() + m),
+        install_dir: join_paths(get_option('datadir'), 'icons', 'hicolor', '48' + 'x' + '48', 'mimetypes')
     )
     install_data(
-        join_paths('icons', i, meson.project_name() + '.mp4.svg'),
-        join_paths('icons', i, meson.project_name() + '.flv.svg'),
-        join_paths('icons', i, meson.project_name() + '.webm.svg'),
-        join_paths('icons', i, meson.project_name() + '.avi.svg'),
-        join_paths('icons', i, meson.project_name() + '.mpg.svg'),
-        join_paths('icons', i, meson.project_name() + '.mpeg.svg'),
-        join_paths('icons', i, meson.project_name() + '.mkv.svg'),
-        join_paths('icons', i, meson.project_name() + '.aiff.svg'),
-        join_paths('icons', i, meson.project_name() + '.mmf.svg'),
-        join_paths('icons', i, meson.project_name() + '.aac.svg'),
-        join_paths('icons', i, meson.project_name() + '.ac3.svg'),
-        join_paths('icons', i, meson.project_name() + '.flac.svg'),
-        join_paths('icons', i, meson.project_name() + '.m4a.svg'),
-        join_paths('icons', i, meson.project_name() + '.mp3.svg'),
-        join_paths('icons', i, meson.project_name() + '.wav.svg'),
-        join_paths('icons', i, meson.project_name() + '.wma.svg'),
-        join_paths('icons', i, meson.project_name() + '.ogg.svg'),
-        install_dir: join_paths(get_option('datadir'), 'icons', 'hicolor', i + 'x' + i + '@2', 'mimetypes')
+        join_paths('icons', 'mimetypes', meson.project_name() + m),
+        install_dir: join_paths(get_option('datadir'), 'icons', 'hicolor', '48' + 'x' + '48' + '@2', 'mimetypes')
     )
 endforeach
 
@@ -62,6 +48,7 @@ install_data(
     meson.project_name() + '.gschema.xml',
     install_dir: join_paths(get_option('datadir'), 'glib-2.0', 'schemas')
 )
+
 install_data(
     meson.project_name() + '.contract',
     install_dir: join_paths(get_option('datadir'), 'contractor')

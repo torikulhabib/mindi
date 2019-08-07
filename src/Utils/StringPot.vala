@@ -34,7 +34,7 @@ namespace Mindi {
         public abstract const string Cancel                     = _("Cancel");
         public abstract const string Quit                       = _("Quit");
         public abstract const string Starting                   = _("Starting…");
-        public abstract const string CancelUser                 = _("Cancel by User");
+        public abstract const string CancelUser                 = _("Cancelled by User");
         public abstract const string Unsupported                = _("Unsupported website");
         public abstract const string DownloadSecond             = _("Download second format");
         public abstract const string NotValid                   = _("Not a valid URL");
