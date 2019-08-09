@@ -38,8 +38,14 @@ namespace Mindi {
             add_action (quit_action);
             set_accels_for_action ("app.quit", {"<Ctrl>Q", "Escape"});
         }
+        private static MindiApp mindiapp = null;
+        public static MindiApp get_instance () {
+            if (mindiapp == null)
+                mindiapp = new MindiApp ();
+            return mindiapp;
+        }
 
-        static construct {
+        construct {
             settings = new Settings ("com.github.torikulhabib.mindi");
         }
 
@@ -55,7 +61,7 @@ namespace Mindi {
             }
         }
 
-        protected override void activate () {
+        public override void activate () {
             if (get_windows ().length () > 0) {
                 get_windows ().data.present ();
                 return;
@@ -65,9 +71,9 @@ namespace Mindi {
             window.show_all ();
         }
 
-        public static int main (string[] args) {
+        public static void main (string[] args) {
             var app = new MindiApp ();
-            return app.run (args);
+            app.run (args);
         }
     }
 }
