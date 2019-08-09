@@ -25,8 +25,7 @@ namespace Mindi {
         construct { }
 
         public static string cache_folder () {
-            string output = "%s".printf (Path.build_path (Path.DIR_SEPARATOR_S, Environment.get_user_cache_dir (), Environment.get_application_name()));
-            return output;
+            return GLib.Path.build_path (GLib.Path.DIR_SEPARATOR_S, Environment.get_user_cache_dir (), Environment.get_application_name());
         }
 
         public static string audiovideo (string input) {
