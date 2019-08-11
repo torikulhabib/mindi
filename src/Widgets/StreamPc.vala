@@ -61,8 +61,10 @@ namespace Mindi {
 
         public void stream_button_click () {
             var converter = new ObjectConverter ();
+            var checklink = new CheckLink ();
             converter = ObjectConverter.instance;
-                if (!converter.is_running) {
+            checklink = CheckLink.instance;
+                if (!converter.is_running && !checklink.is_running) {
                     signal_stream ();
                     if (stream_active) {
                         stream_button.tooltip_text = Mindi.StringPot.Offline;

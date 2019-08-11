@@ -33,6 +33,7 @@ namespace Mindi {
         }
 
         public string status;
+        public bool is_running {get;set;default = false;}
         public signal void notif ();
         public signal void finished (bool finish);
         public signal void begin ();
@@ -40,6 +41,12 @@ namespace Mindi {
         public CheckLink () {}
 
         construct {
+            begin.connect (() => {
+                is_running = true;
+            });
+            notif.connect (() => {
+                is_running = false;
+            });
         }
 
 	    public async void check_link (string uri, bool other) {
@@ -69,7 +76,8 @@ namespace Mindi {
                                 notif ();
                             }
                         } catch (Error e) {
-                                GLib.warning (e.message);
+                            GLib.warning (e.message);
+                            notif ();
                         }
                     });
             } catch (Error e) {

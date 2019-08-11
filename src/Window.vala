@@ -61,6 +61,7 @@ namespace Mindi {
         private string linker;
         private bool other {get;set;}
         private bool warning_notify {get;set; default = false;}
+        private bool download_succes {get;set; default = false;}
 
         Notification desktop_notification;
         Mindi.Widgets.Toast app_notification;
@@ -128,7 +129,7 @@ namespace Mindi {
             var open_button =  new Button.from_icon_name ("folder-open-symbolic", IconSize.SMALL_TOOLBAR);
             open_button.tooltip_text = Mindi.StringPot.SetLocation;
             open_button.clicked.connect (() => {
-                if (!converter.is_running) {
+                if (!converter.is_running && !checklink.is_running) {
                     costum_location ();
                 }
             });
@@ -437,6 +438,7 @@ namespace Mindi {
 
         private void begin_check () {
             stream_name.label = Mindi.StringPot.CheckLink;
+            stream_name.use_markup = false;
             open_stream.sensitive = false;
             video_logo.sensitive = false;
             select_format.sensitive = false;
@@ -447,6 +449,7 @@ namespace Mindi {
             reload_stream.sensitive = false;
             changed_container.sensitive = false;
             spinner.active = true;
+            download_succes = false;
             spinner_revealer.set_reveal_child (true);
             cancel_checking_revealer.set_reveal_child (true);
             notification_toast (Mindi.StringPot.Checking);
@@ -454,6 +457,7 @@ namespace Mindi {
 
         private void send_notify () {
             stream_name.label = ("<i>%s</i>".printf (Mindi.StringPot.GetNow));
+            stream_name.use_markup = true;
             notification_toast (checklink.status);
             open_stream.sensitive = true;
             video_logo.sensitive = true;
@@ -464,6 +468,7 @@ namespace Mindi {
             reload_stream.sensitive = true;
             changed_container.sensitive = true;
             spinner.active = false;
+            download_succes = false;
             spinner_revealer.set_reveal_child (false);
             cancel_checking_revealer.set_reveal_child (false);
         }
@@ -527,6 +532,9 @@ namespace Mindi {
             if (file.run () == Gtk.ResponseType.ACCEPT) {
                 selected_video = file.get_file ();
                 input_find_location ();
+                if (selected_video != null) {
+                    convert_start.sensitive = true;
+                }
             }
             file.destroy ();
         }
@@ -815,6 +823,7 @@ namespace Mindi {
                         change_and_format.visible_child_name = "format";
                         stream_name.tooltip_text = (converter.name_file_stream);
                         stream_name.use_markup = false;
+                        download_succes = true;
                     } else {
                         notification_toast (Mindi.StringPot.DownloadError);
                         stream_name.label = Mindi.StringPot.FailedRetrieve;
@@ -825,6 +834,7 @@ namespace Mindi {
                         change_and_format.visible_child_name = "change";
                         stream_name.tooltip_text = ("");
                         stream_name.use_markup = true;
+                        download_succes = false;
                     }
                 } else {
                     if (success) {
@@ -984,7 +994,13 @@ namespace Mindi {
         private void button_stream () {
             if (streampc.stream_active) {
                 stream_stack.visible_child_name = "video";
+                if (selected_video != null) {
+                    convert_start.sensitive = true;
+                }
             } else {
+                if (!download_succes){
+                    convert_start.sensitive = false;
+                }
                 stream_stack.visible_child_name = "stream";
             }
         }
@@ -1005,7 +1021,7 @@ namespace Mindi {
         private Gtk.Widget location_button_wodget () {
             location_button = new Gtk.Button ();
             location_button.clicked.connect (() => {
-                if (!converter.is_running) {
+                if (!converter.is_running && !checklink.is_running) {
                     Mindi.Configs.Settings.get_settings ().folder_switch ();
                 }
                 folder_symbol ();

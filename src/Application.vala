@@ -70,10 +70,10 @@ namespace Mindi {
             window.set_application(this);
             window.show_all ();
         }
-
+}
         public static void main (string[] args) {
             var app = new MindiApp ();
             app.run (args);
         }
-    }
+
 }
