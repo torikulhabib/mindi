@@ -437,40 +437,30 @@ namespace Mindi {
         }
 
         private void begin_check () {
-            stream_name.label = Mindi.StringPot.CheckLink;
-            stream_name.use_markup = false;
-            open_stream.sensitive = false;
-            video_logo.sensitive = false;
-            select_format.sensitive = false;
-            format_logo.sensitive = false;
-            format_name.sensitive = false;
             convert_start.sensitive = false;
-            stream_logo.sensitive = false;
-            reload_stream.sensitive = false;
-            changed_container.sensitive = false;
-            spinner.active = true;
-            download_succes = false;
-            spinner_revealer.set_reveal_child (true);
-            cancel_checking_revealer.set_reveal_child (true);
-            notification_toast (Mindi.StringPot.Checking);
+            checkingruning ();
         }
 
         private void send_notify () {
-            stream_name.label = ("<i>%s</i>".printf (Mindi.StringPot.GetNow));
-            stream_name.use_markup = true;
-            notification_toast (checklink.status);
-            open_stream.sensitive = true;
-            video_logo.sensitive = true;
-            select_format.sensitive = true;
-            format_logo.sensitive = true;
-            format_name.sensitive = true;
-            stream_logo.sensitive = true;
-            reload_stream.sensitive = true;
-            changed_container.sensitive = true;
-            spinner.active = false;
+            checkingruning ();
+        }
+
+        private void checkingruning () {
+            stream_name.label = checklink.is_running? Mindi.StringPot.CheckLink : ("<i>%s</i>".printf (Mindi.StringPot.GetNow));
+            stream_name.use_markup = checklink.is_running? false : true;
+            open_stream.sensitive = checklink.is_running? false : true;
+            video_logo.sensitive = checklink.is_running? false : true;
+            select_format.sensitive = checklink.is_running? false : true;
+            format_logo.sensitive = checklink.is_running? false : true;
+            format_name.sensitive = checklink.is_running? false : true;
+            stream_logo.sensitive = checklink.is_running? false : true;
+            reload_stream.sensitive = checklink.is_running? false : true;
+            changed_container.sensitive = checklink.is_running? false : true;
+            spinner.active = checklink.is_running? true : false;
             download_succes = false;
-            spinner_revealer.set_reveal_child (false);
-            cancel_checking_revealer.set_reveal_child (false);
+            spinner_revealer.set_reveal_child (checklink.is_running? true : false);
+            cancel_checking_revealer.set_reveal_child (checklink.is_running? true : false);
+            notification_toast (checklink.is_running? Mindi.StringPot.Checking : checklink.status);
         }
 
         private void checklink_finished (bool finish) {
@@ -534,6 +524,7 @@ namespace Mindi {
                 input_find_location ();
                 if (selected_video != null) {
                     convert_start.sensitive = true;
+                    select_format.sensitive = true;
                 }
             }
             file.destroy ();
@@ -738,16 +729,7 @@ namespace Mindi {
         }
 
         private void on_converter_started (bool now_converting) {
-            ask_location.label = (Mindi.StringPot.Location + MindiApp.settings.get_string ("ask-location"));
-
-            open_video.sensitive = false;
-            open_stream.sensitive = false;
-            video_logo.sensitive = false;
-            select_format.sensitive = false;
-            format_logo.sensitive = false;
-            format_name.sensitive = false;
-            convert_start.sensitive = false;
-            stream_logo.sensitive = false;
+            convert_and_download ();
 
             convert_revealer.visible = false;
             convert_revealer.set_reveal_child (false);
@@ -783,11 +765,11 @@ namespace Mindi {
         }
 
         private void on_converter_finished (bool success) {
+            convert_and_download ();
             converter.finished.disconnect (on_converter_finished);
             converter.finished.disconnect (notify_signal);
             progressbar_revealer.remove (converter);
             folder_symbol ();
-            ask_location.label = "<i>%s</i>".printf (Mindi.StringPot.AskWhereSave);
 
             Timeout.add_seconds (1, () => {
                 convert_revealer.set_reveal_child (true);
@@ -797,44 +779,24 @@ namespace Mindi {
                 convert_label.visible = true;
                 return false;
             });
-
-            open_video.sensitive = true;
-            open_stream.sensitive = true;
-            video_logo.sensitive = true;
-            select_format.sensitive = true;
-            format_logo.sensitive = true;
-            format_name.sensitive = true;
-            convert_start.sensitive = true;
-            stream_logo.sensitive = true;
             reload_stream.sensitive = true;
             changed_container.sensitive = true;
             if (streampc.stream_active) {
                 stream_name.label = converter.name_file_stream;
                 if (converter.is_downloading){
                     status_location ();
+                    convert_start.sensitive = success? true : false;
+                    select_format.sensitive = success? true : false;
+                    stream_name.use_markup = success? false : true;
+                    download_succes = success? true : false;
+                    stream_name.label = success? converter.name_file_stream : Mindi.StringPot.FailedRetrieve; 
+                    stream_name.tooltip_text = success? converter.name_file_stream : null;
+                    notification_toast (success? Mindi.StringPot.DownloadSucces : Mindi.StringPot.DownloadError);
+                    convert_label.label = success? Mindi.StringPot.ReadyConvert : "<i>%s</i>".printf (Mindi.StringPot.NotYet);
+                    reload_stack.visible_child_name = success? "addurl" : "reload";
+                    change_and_format.visible_child_name = success? "format" : "change";
                     if (success) {
-                        stream_name.label = converter.name_file_stream;
                         entry.set_text ("");
-                        notification_toast (Mindi.StringPot.DownloadSucces);
-                        convert_label.label = Mindi.StringPot.ReadyConvert;
-                        convert_start.sensitive = true;
-                        select_format.sensitive = true;
-                        reload_stack.visible_child_name = "addurl";
-                        change_and_format.visible_child_name = "format";
-                        stream_name.tooltip_text = (converter.name_file_stream);
-                        stream_name.use_markup = false;
-                        download_succes = true;
-                    } else {
-                        notification_toast (Mindi.StringPot.DownloadError);
-                        stream_name.label = Mindi.StringPot.FailedRetrieve;
-                        convert_label.label = "<i>%s</i>".printf (Mindi.StringPot.NotYet);
-                        convert_start.sensitive = false;
-                        select_format.sensitive = false;
-                        reload_stack.visible_child_name = "reload";
-                        change_and_format.visible_child_name = "change";
-                        stream_name.tooltip_text = ("");
-                        stream_name.use_markup = true;
-                        download_succes = false;
                     }
                 } else {
                     if (success) {
@@ -853,6 +815,17 @@ namespace Mindi {
                     }
                 notify_signal (success);
                 }
+        }
+
+        private void convert_and_download () {
+            ask_location.label = converter.is_running? (Mindi.StringPot.Location + MindiApp.settings.get_string ("ask-location")) : "<i>%s</i>".printf (Mindi.StringPot.AskWhereSave);
+            open_video.sensitive = converter.is_running? false : true;
+            open_stream.sensitive = converter.is_running? false : true;
+            video_logo.sensitive = converter.is_running? false : true;
+            select_format.sensitive = converter.is_running? false : true;
+            format_logo.sensitive = converter.is_running? false : true;
+            format_name.sensitive = converter.is_running? false : true;
+            convert_start.sensitive = converter.is_running? false : true;
         }
 
         private void notify_signal (bool success) {
@@ -994,14 +967,14 @@ namespace Mindi {
         private void button_stream () {
             if (streampc.stream_active) {
                 stream_stack.visible_child_name = "video";
-                if (selected_video != null) {
-                    convert_start.sensitive = true;
-                }
+                convert_start.sensitive = selected_video != null? true : false;
+                select_format.sensitive = selected_video != null? true : false;
+                change_and_format.visible_child_name = "format";
             } else {
-                if (!download_succes){
-                    convert_start.sensitive = false;
-                }
                 stream_stack.visible_child_name = "stream";
+                convert_start.sensitive = !download_succes? false : true;
+                select_format.sensitive = !download_succes? false : true;
+                change_and_format.visible_child_name = reload_stack.visible_child == reload_stream? "change" : "format";
             }
         }
 

@@ -1,5 +1,5 @@
 name: mindi
-version: "2.1.0"
+version: "2.1.2"
 grade: stable
 base: core18
 summary: mindi

@@ -87,7 +87,6 @@ namespace Mindi.Widgets {
         }
 
         public void send_notification () {
-            if (!child_revealed) {
                 reveal_child = true;
 
                 uint duration;
@@ -103,7 +102,6 @@ namespace Mindi.Widgets {
                     timeout_id = 0;
                     return false;
                 });
-            }
         }
     }
 }
