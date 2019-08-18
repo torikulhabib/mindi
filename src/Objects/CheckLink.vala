@@ -55,6 +55,10 @@ namespace Mindi {
             string [] spawn_env = Environ.get ();
 
             string cache_dir_path = Path.build_path (Path.DIR_SEPARATOR_S, Environment.get_user_cache_dir (), Environment.get_application_name());
+            if (cache_dir_path != null) {
+                DirUtils.create_with_parents (cache_dir_path, 0775);
+            }
+
                 if (!other) {
 		        spawn_args = {"youtube-dl", "--socket-timeout", "2", "--skip-download", "-o", "%(title)s.%(ext)s", uri};
 		        } else {
