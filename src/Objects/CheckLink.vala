@@ -54,9 +54,8 @@ namespace Mindi {
 	    	string [] spawn_args;
             string [] spawn_env = Environ.get ();
 
-            string cache_dir_path = Path.build_path (Path.DIR_SEPARATOR_S, Environment.get_user_cache_dir (), Environment.get_application_name());
-            if (cache_dir_path != null) {
-                DirUtils.create_with_parents (cache_dir_path, 0775);
+            if (Mindi.Utils.cache_folder () != null) {
+                DirUtils.create_with_parents (Mindi.Utils.cache_folder (), 0775);
             }
 
                 if (!other) {
@@ -66,7 +65,7 @@ namespace Mindi {
 		        }
             try {
                     SubprocessLauncher launcher = new SubprocessLauncher (SubprocessFlags.STDERR_PIPE);
-                    launcher.set_cwd (cache_dir_path);
+                    launcher.set_cwd (Mindi.Utils.cache_folder ());
                     launcher.set_environ (spawn_env);
                     subprocess = launcher.spawnv (spawn_args);
                     InputStream input_stream    = subprocess.get_stderr_pipe ();
