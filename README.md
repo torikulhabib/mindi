@@ -17,7 +17,7 @@ Features:
 ## Now Mindi on Snap
 Get now
 
-sudo snap install --edge mindi
+sudo snap install mindi
 
 ## Building, Testing, and Installation
 
