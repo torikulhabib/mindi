@@ -1,0 +1,304 @@
+# French translations for com.github.torikulhabib.mindi package.
+# Copyright (C) 2019 THE com.github.torikulhabib.mindi'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the com.github.torikulhabib.mindi package.
+# NathanBnm, 2019.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: com.github.torikulhabib.mindi\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-08-07 12:36+0200\n"
+"PO-Revision-Date: 2019-09-02 11:21+0200\n"
+"Last-Translator: Mirko Brombin <send@mirko.pm>\n"
+"Language-Team: none\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: src/Utils/StringPot.vala:24
+msgid "Silent"
+msgstr "Silenzioso"
+
+#: src/Utils/StringPot.vala:25
+msgid "Notify"
+msgstr "Notifica"
+
+#: src/Utils/StringPot.vala:26
+msgid "Online"
+msgstr "Online"
+
+#: src/Utils/StringPot.vala:27
+msgid "Offline"
+msgstr "Offline"
+
+#: src/Utils/StringPot.vala:28
+msgid "Light"
+msgstr "Tema chiaro"
+
+#: src/Utils/StringPot.vala:29
+msgid "Dark"
+msgstr "Tema scuro"
+
+#: src/Utils/StringPot.vala:30
+msgid "Already exists. Overwrite?"
+msgstr "Già esiste. Riscrivere?"
+
+#: src/Utils/StringPot.vala:31
+msgid "No"
+msgstr "No"
+
+#: src/Utils/StringPot.vala:32
+msgid "Yes"
+msgstr "Si"
+
+#: src/Utils/StringPot.vala:33
+msgid "Are you sure you want to quit this process?"
+msgstr "Sei sicuro di voler terminare il processo?"
+
+#: src/Utils/StringPot.vala:34
+msgid "Cancel"
+msgstr "Annulla"
+
+#: src/Utils/StringPot.vala:35
+msgid "Quit"
+msgstr "Chiudi"
+
+#: src/Utils/StringPot.vala:36
+msgid "Starting…"
+msgstr "vviando…"
+
+#: src/Utils/StringPot.vala:37
+msgid "Cancelled by User"
+msgstr "Annullato dall'utente"
+
+#: src/Utils/StringPot.vala:38
+msgid "Unsupported website"
+msgstr "Sito non supportato"
+
+#: src/Utils/StringPot.vala:39
+msgid "Download second format"
+msgstr "Scarica secondo formato"
+
+#: src/Utils/StringPot.vala:40
+msgid "Not a valid URL"
+msgstr "URL non valido"
+
+#: src/Utils/StringPot.vala:41
+msgid "Run: "
+msgstr "Esegui: "
+
+#: src/Utils/StringPot.vala:42
+msgid "Size: "
+msgstr "Dimensione: "
+
+#: src/Utils/StringPot.vala:43
+msgid "Transfer Rate: "
+msgstr "Trasferimento: "
+
+#: src/Utils/StringPot.vala:44
+msgid "Rate: "
+msgstr "Soglia: "
+
+#: src/Utils/StringPot.vala:45
+msgid "Bitrate: "
+msgstr "Bitrate: "
+
+#: src/Utils/StringPot.vala:46
+msgid "Time: "
+msgstr "Tempo: "
+
+#: src/Utils/StringPot.vala:47
+msgid "Speed: "
+msgstr "Velocità: "
+
+#: src/Utils/StringPot.vala:48
+msgid "Change"
+msgstr "Modifica"
+
+#: src/Utils/StringPot.vala:49
+msgid "Ready!"
+msgstr "Pronto!"
+
+#: src/Utils/StringPot.vala:50
+msgid "Set location"
+msgstr "Imposta posizione"
+
+#: src/Utils/StringPot.vala:51
+msgid "Stop"
+msgstr "Stop"
+
+#: src/Utils/StringPot.vala:52
+msgid "Close"
+msgstr "Chiudi"
+
+#: src/Utils/StringPot.vala:53
+msgid "Open"
+msgstr "Apri"
+
+#: src/Utils/StringPot.vala:54
+msgid "Where you want to save the audio file"
+msgstr "Dove vuoi salvare il file audio"
+
+#: src/Utils/StringPot.vala:55
+msgid "Video file…"
+msgstr "File video…"
+
+#: src/Utils/StringPot.vala:56
+msgid "Select Video"
+msgstr "Seleziona un Video"
+
+#: src/Utils/StringPot.vala:57
+msgid "Get now…"
+msgstr "Download…"
+
+#: src/Utils/StringPot.vala:58
+msgid "Add"
+msgstr "Aggiungi"
+
+#: src/Utils/StringPot.vala:59
+msgid "Paste"
+msgstr "Incolla"
+
+#: src/Utils/StringPot.vala:60
+msgid "Paste URL here…"
+msgstr "Incolla URL qui…"
+
+#: src/Utils/StringPot.vala:61
+msgid "Add URL"
+msgstr "Aggiungi URL"
+
+#: src/Utils/StringPot.vala:62
+msgid "Reload"
+msgstr "Ricarica"
+
+#: src/Utils/StringPot.vala:63
+msgid "Check Link…"
+msgstr "Controlla Link…"
+
+#: src/Utils/StringPot.vala:64
+msgid "Checking…"
+msgstr "Verificando…"
+
+#: src/Utils/StringPot.vala:65
+msgid "All files"
+msgstr "Tutti i file"
+
+#: src/Utils/StringPot.vala:66
+msgid "Video files"
+msgstr "File video"
+
+#: src/Utils/StringPot.vala:67
+msgid "Audio files"
+msgstr "File Audio"
+
+#: src/Utils/StringPot.vala:68
+msgid "Audio"
+msgstr "Audio"
+
+#: src/Utils/StringPot.vala:69
+msgid "Select"
+msgstr "Seleziona"
+
+#: src/Utils/StringPot.vala:70
+msgid "Link"
+msgstr "Link"
+
+#: src/Utils/StringPot.vala:71
+msgid "Change Link"
+msgstr "Modifica link"
+
+#: src/Utils/StringPot.vala:72
+msgid "No Video file choosen…"
+msgstr "Nessun file video selezionato…"
+
+#: src/Utils/StringPot.vala:73
+msgid "Convert"
+msgstr "Converti"
+
+#: src/Utils/StringPot.vala:74
+msgid "Location: "
+msgstr "Posizione: "
+
+#: src/Utils/StringPot.vala:75
+msgid "Input"
+msgstr "Input"
+
+#: src/Utils/StringPot.vala:76
+msgid "Selected audio location"
+msgstr "Seleziona posizione audio"
+
+#: src/Utils/StringPot.vala:77
+msgid "Downloading…"
+msgstr "Scaricando…"
+
+#: src/Utils/StringPot.vala:78
+msgid "Please wait…"
+msgstr "Attendi…"
+
+#: src/Utils/StringPot.vala:79
+msgid "Converting…"
+msgstr "Convertendo…"
+
+#: src/Utils/StringPot.vala:80
+msgid "Download succes"
+msgstr "Scaricato con successo"
+
+#: src/Utils/StringPot.vala:81
+msgid "Ready to convert!"
+msgstr "Pronto a convertire!"
+
+#: src/Utils/StringPot.vala:82
+msgid "Download Error"
+msgstr "Errore nel download"
+
+#: src/Utils/StringPot.vala:83
+msgid "Failed retrieve…"
+msgstr "Non riesco a trovarlo…"
+
+#: src/Utils/StringPot.vala:84
+msgid "Not ready yet!"
+msgstr "Non ancora pronto!"
+
+#: src/Utils/StringPot.vala:85
+#, c-format
+msgid "%s was converted into %s"
+msgstr "%s è stato convertito in %s"
+
+#: src/Utils/StringPot.vala:86
+#, c-format
+msgid "%s Error while convert into %s"
+msgstr "Errore %s durante la conversione di %s"
+
+#: src/Utils/StringPot.vala:87
+msgid "Automatic close"
+msgstr "Chiusura automatica"
+
+#: src/Utils/StringPot.vala:88
+msgid "Finished"
+msgstr "Finito"
+
+#: src/Utils/StringPot.vala:89
+msgid "Error"
+msgstr "Errore"
+
+#: src/Utils/StringPot.vala:90
+msgid "OK"
+msgstr "Ok"
+
+#: src/Utils/StringPot.vala:91
+msgid "Location input"
+msgstr "Input posizione"
+
+#: src/Utils/StringPot.vala:92
+msgid "Custom"
+msgstr "Personalizzato"
+
+#: src/Utils/StringPot.vala:93
+msgid "Ask"
+msgstr "Domanda"
+
+#: src/Utils/StringPot.vala:94
+msgid "Warning"
+msgstr "Avviso"
