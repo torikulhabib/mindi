@@ -2,6 +2,8 @@
 
 [![Get it on AppCenter](https://appcenter.elementary.io/badge.svg)](https://appcenter.elementary.io/com.github.torikulhabib.mindi)
 
+[![mindi](https://snapcraft.io/mindi/badge.svg)](https://snapcraft.io/mindi)
+
 Quickly convert video to audio  
 Features:
 - Get from web stream base.
