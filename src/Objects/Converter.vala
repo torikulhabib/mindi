@@ -373,16 +373,10 @@ namespace Mindi {
                 var costream            = new ConverterInputStream (input_stream, charset_converter);
                 var data_input_stream   = new DataInputStream (costream);
                 data_input_stream.set_newline_type (DataStreamNewlineType.ANY);
-
                 int total = 0;
-
-                while (true) {
-                    string str_return = yield data_input_stream.read_line_utf8_async ();
-                    if (str_return == null) {
-                        break;
-                    } else {
-                        process_line (str_return, ref total);
-                    }
+                string str_return;
+                while ((str_return = yield data_input_stream.read_line_utf8_async ()) != null) {
+                    process_line (str_return, ref total);
                 }
             } catch (Error e) {
                 GLib.critical (e.message);
