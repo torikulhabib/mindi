@@ -1,0 +1,308 @@
+# Turkish translation for Mindi.
+# Copyright (C) 2019 Mindi'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the Mindi package.
+# Mindi: com.github.torikulhabib.mindi
+#
+# Sabri Ünal <libreajans@gmail.com>, 2019.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Mindi master\n"
+"Report-Msgid-Bugs-To: https://github.com/torikulhabib/mindi/issues\n"
+"POT-Creation-Date: 2019-08-07 12:36+0200\n"
+"PO-Revision-Date: 2019-10-02 19:30+0300\n"
+"Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
+"Language-Team: Türkçe <gnome-turk@gnome.org>\n"
+"Language: tr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 2.0.6\n"
+
+#: src/Utils/StringPot.vala:24
+msgid "Silent"
+msgstr "Sessiz"
+
+#: src/Utils/StringPot.vala:25
+msgid "Notify"
+msgstr "Bildir"
+
+#: src/Utils/StringPot.vala:26
+msgid "Online"
+msgstr "Çevrimiçi"
+
+#: src/Utils/StringPot.vala:27
+msgid "Offline"
+msgstr "Çevrimdışı"
+
+#: src/Utils/StringPot.vala:28
+msgid "Light"
+msgstr "Açık"
+
+#: src/Utils/StringPot.vala:29
+msgid "Dark"
+msgstr "Koyu"
+
+#: src/Utils/StringPot.vala:30
+msgid "Already exists. Overwrite?"
+msgstr "Bu dosya zaten var. Üzerine yazılsın mı?"
+
+#: src/Utils/StringPot.vala:31
+msgid "No"
+msgstr "Hayır"
+
+#: src/Utils/StringPot.vala:32
+msgid "Yes"
+msgstr "Evet"
+
+#: src/Utils/StringPot.vala:33
+msgid "Are you sure you want to quit this process?"
+msgstr "Bu işlemden çıkmak istediğinize emin misiniz?"
+
+#: src/Utils/StringPot.vala:34
+msgid "Cancel"
+msgstr "İptal Et"
+
+#: src/Utils/StringPot.vala:35
+msgid "Quit"
+msgstr "Çık"
+
+#: src/Utils/StringPot.vala:36
+msgid "Starting…"
+msgstr "Başlatılıyor…"
+
+#: src/Utils/StringPot.vala:37
+msgid "Cancelled by User"
+msgstr "Kullanıcı tarafından iptal edildi"
+
+#: src/Utils/StringPot.vala:38
+msgid "Unsupported website"
+msgstr "Desteklenmeyen web sitesi"
+
+#: src/Utils/StringPot.vala:39
+msgid "Download second format"
+msgstr "İndirme saniye biçimi"
+
+#: src/Utils/StringPot.vala:40
+msgid "Not a valid URL"
+msgstr "Geçerli bir URL değil"
+
+#: src/Utils/StringPot.vala:41
+msgid "Run: "
+msgstr "Çalıştır: "
+
+#: src/Utils/StringPot.vala:42
+msgid "Size: "
+msgstr "Boyut: "
+
+#: src/Utils/StringPot.vala:43
+msgid "Transfer Rate: "
+msgstr "Aktarım Oranı: "
+
+#: src/Utils/StringPot.vala:44
+msgid "Rate: "
+msgstr "Oran: "
+
+#: src/Utils/StringPot.vala:45
+msgid "Bitrate: "
+msgstr "Bit hızı: "
+
+#: src/Utils/StringPot.vala:46
+msgid "Time: "
+msgstr "Zaman: "
+
+#: src/Utils/StringPot.vala:47
+msgid "Speed: "
+msgstr "Hız: "
+
+#: src/Utils/StringPot.vala:48
+msgid "Change"
+msgstr "Değiştir"
+
+#: src/Utils/StringPot.vala:49
+msgid "Ready!"
+msgstr "Hazır!"
+
+#: src/Utils/StringPot.vala:50
+msgid "Set location"
+msgstr "Konum ayarla"
+
+#: src/Utils/StringPot.vala:51
+msgid "Stop"
+msgstr "Dur"
+
+#: src/Utils/StringPot.vala:52
+msgid "Close"
+msgstr "Kapat"
+
+#: src/Utils/StringPot.vala:53
+msgid "Open"
+msgstr "Aç"
+
+#: src/Utils/StringPot.vala:54
+msgid "Where you want to save the audio file"
+msgstr "Ses dosyası nereye kaydedilsin?"
+
+#: src/Utils/StringPot.vala:55
+msgid "Video file…"
+msgstr "Video dosyası…"
+
+#: src/Utils/StringPot.vala:56
+msgid "Select Video"
+msgstr "Video Seç"
+
+#: src/Utils/StringPot.vala:57
+msgid "Get now…"
+msgstr "Getir…"
+
+#: src/Utils/StringPot.vala:58
+msgid "Add"
+msgstr "Ekle"
+
+#: src/Utils/StringPot.vala:59
+msgid "Paste"
+msgstr "Yapıştır"
+
+#: src/Utils/StringPot.vala:60
+msgid "Paste URL here…"
+msgstr "URL adresini buraya yapıştır…"
+
+#: src/Utils/StringPot.vala:61
+msgid "Add URL"
+msgstr "URL Ekle"
+
+#: src/Utils/StringPot.vala:62
+msgid "Reload"
+msgstr "Yeniden Yükle"
+
+#: src/Utils/StringPot.vala:63
+msgid "Check Link…"
+msgstr "Bağlantıyı Kontrol Et…"
+
+#: src/Utils/StringPot.vala:64
+msgid "Checking…"
+msgstr "Kontrol ediliyor…"
+
+#: src/Utils/StringPot.vala:65
+msgid "All files"
+msgstr "Tüm dosyalar"
+
+#: src/Utils/StringPot.vala:66
+msgid "Video files"
+msgstr "Video dosyaları"
+
+#: src/Utils/StringPot.vala:67
+msgid "Audio files"
+msgstr "Ses dosyaları"
+
+#: src/Utils/StringPot.vala:68
+msgid "Audio"
+msgstr "Ses"
+
+#: src/Utils/StringPot.vala:69
+msgid "Select"
+msgstr "Seç"
+
+#: src/Utils/StringPot.vala:70
+msgid "Link"
+msgstr "Bağlantı"
+
+#: src/Utils/StringPot.vala:71
+msgid "Change Link"
+msgstr "Bağlantıyı değiştir"
+
+#: src/Utils/StringPot.vala:72
+msgid "No Video file choosen…"
+msgstr "Video dosyası seçilmedi…"
+
+#: src/Utils/StringPot.vala:73
+msgid "Convert"
+msgstr "Dönüştür"
+
+#: src/Utils/StringPot.vala:74
+msgid "Location: "
+msgstr "Konum: "
+
+#: src/Utils/StringPot.vala:75
+msgid "Input"
+msgstr "Girdi"
+
+#: src/Utils/StringPot.vala:76
+msgid "Selected audio location"
+msgstr "Ses konumu seç"
+
+#: src/Utils/StringPot.vala:77
+msgid "Downloading…"
+msgstr "İndiriliyor…"
+
+#: src/Utils/StringPot.vala:78
+msgid "Please wait…"
+msgstr "Lütfen bekleyin…"
+
+#: src/Utils/StringPot.vala:79
+msgid "Converting…"
+msgstr "Dönüştürülüyor…"
+
+#: src/Utils/StringPot.vala:80
+msgid "Download succes"
+msgstr "İndirme başarılı"
+
+#: src/Utils/StringPot.vala:81
+msgid "Ready to convert!"
+msgstr "Dönüştürmeye hazır!"
+
+#: src/Utils/StringPot.vala:82
+msgid "Download Error"
+msgstr "İndirme Hatası"
+
+#: src/Utils/StringPot.vala:83
+msgid "Failed retrieve…"
+msgstr "Alınamadı…"
+
+#: src/Utils/StringPot.vala:84
+msgid "Not ready yet!"
+msgstr "Henüz hazır değil!"
+
+#: src/Utils/StringPot.vala:85
+#, c-format
+msgid "%s was converted into %s"
+msgstr "%s dosyası %s biçimine dönüştürüldü"
+
+# Cümle sıralaması değiştirilemediği için serbest çeviri yapıldı.
+#: src/Utils/StringPot.vala:86
+#, c-format
+msgid "%s Error while convert into %s"
+msgstr "%s hatası, %s biçimine dönüştürülürken oluştu"
+
+#: src/Utils/StringPot.vala:87
+msgid "Automatic close"
+msgstr "Kendiliğinden kapat"
+
+#: src/Utils/StringPot.vala:88
+msgid "Finished"
+msgstr "Tamamlandı"
+
+#: src/Utils/StringPot.vala:89
+msgid "Error"
+msgstr "Hata"
+
+#: src/Utils/StringPot.vala:90
+msgid "OK"
+msgstr "Tamam"
+
+#: src/Utils/StringPot.vala:91
+msgid "Location input"
+msgstr "Konum girdisi"
+
+#: src/Utils/StringPot.vala:92
+msgid "Custom"
+msgstr "Özel"
+
+#: src/Utils/StringPot.vala:93
+msgid "Ask"
+msgstr "Sor"
+
+#: src/Utils/StringPot.vala:94
+msgid "Warning"
+msgstr "Uyarı"
