@@ -20,7 +20,7 @@
 */
 
 namespace Mindi {
-    public class MindiApp : Granite.Application {
+    public class MindiApp : Gtk.Application {
         public static GLib.Settings settings;
         private Window window = null;
         public MindiApp () {
