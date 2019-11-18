@@ -16,6 +16,7 @@
  *
  * Authored by: Artem Anufrij <artem.anufrij@live.de>
  *              Daniel Foré <daniel@elementary.io>
+ *              Daniel Foré <torik.habib@gmail.com>
  *
  */
 
@@ -23,9 +24,9 @@ namespace Mindi.Widgets {
     public class Toast : Gtk.Revealer {
         public signal void default_action ();
         private Gtk.Label notification_label;
-        private Gtk.Button default_action_button;
+        private uint hiding_timer = 0;
+
         private string _title;
-        private uint timeout_id;
         public string title {
             get {
                 return _title;
@@ -46,19 +47,6 @@ namespace Mindi.Widgets {
             margin = 3;
             halign = Gtk.Align.CENTER;
             valign = Gtk.Align.START;
-
-            default_action_button = new Gtk.Button ();
-            default_action_button.visible = false;
-            default_action_button.no_show_all = true;
-            default_action_button.clicked.connect (() => {
-                reveal_child = false;
-                if (timeout_id != 0) {
-                    Source.remove (timeout_id);
-                    timeout_id = 0;
-                }
-                default_action ();
-            });
-
             notification_label = new Gtk.Label (title);
             notification_label.ellipsize = Pango.EllipsizeMode.END;
             notification_label.max_width_chars = 42;
@@ -66,42 +54,23 @@ namespace Mindi.Widgets {
             var notification_box = new Gtk.Grid ();
             notification_box.column_spacing = 12;
             notification_box.add (notification_label);
-            notification_box.add (default_action_button);
 
             var notification_frame = new Gtk.Frame (null);
             notification_frame.get_style_context ().add_class ("app-notification");
             notification_frame.add (notification_box);
-
             add (notification_frame);
         }
 
-        public void set_default_action (string? label) {
-            if (label == "" || label == null) {
-                default_action_button.no_show_all = true;
-                default_action_button.visible = false;
-            } else {
-                default_action_button.no_show_all = false;
-                default_action_button.visible = true;
-            }
-            default_action_button.label = label;
-        }
-
         public void send_notification () {
-                reveal_child = true;
-
-                uint duration;
-
-                if (default_action_button.visible) {
-                    duration = 10;
-                } else {
-                    duration = 4500;
-                }
-
-                timeout_id = GLib.Timeout.add (duration, () => {
-                    reveal_child = false;
-                    timeout_id = 0;
-                    return false;
-                });
+            reveal_child = true;
+            if (hiding_timer != 0) {
+                Source.remove (hiding_timer);
+            }
+            hiding_timer = GLib.Timeout.add (4500, () => {
+                reveal_child = false;
+                hiding_timer = 0;
+                return false;
+            });
         }
     }
 }
