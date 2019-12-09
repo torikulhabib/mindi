@@ -22,7 +22,6 @@
 
 namespace Mindi.Widgets {
     public class Toast : Gtk.Revealer {
-        public signal void default_action ();
         private Gtk.Label notification_label;
         private uint hiding_timer = 0;
 
