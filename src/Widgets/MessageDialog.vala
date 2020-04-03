@@ -123,10 +123,23 @@ public class Mindi.MessageDialog : Gtk.Dialog {
         action_area.margin = 3;
         action_area.margin_top = 3;
 
-        button_press_event.connect ((e) => {
-            if (e.button == Gdk.BUTTON_PRIMARY) {
-                begin_move_drag ((int) e.button, (int) e.x_root, (int) e.y_root, e.time);
-                return true;
+        bool mouse_primary_down = false;
+        motion_notify_event.connect ((event) => {
+            if (mouse_primary_down) {
+                mouse_primary_down = false;
+                begin_move_drag (Gdk.BUTTON_PRIMARY, (int)event.x_root, (int)event.y_root, event.time);
+            }
+            return false;
+        });
+        button_press_event.connect ((event) => {
+            if (event.button == Gdk.BUTTON_PRIMARY) {
+                mouse_primary_down = true;
+            }
+            return Gdk.EVENT_PROPAGATE;
+        });
+        button_release_event.connect ((event) => {
+            if (event.button == Gdk.BUTTON_PRIMARY) {
+                mouse_primary_down = false;
             }
             return false;
         });
