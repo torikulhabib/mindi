@@ -140,7 +140,7 @@ msgstr "Abrir"
 
 #: src/Utils/StringPot.vala:54
 msgid "Where you want to save the audio file"
-msgstr "Onde quer gravar o ficheiro de áudio"
+msgstr "Onde quer guardar o ficheiro de áudio"
 
 #: src/Utils/StringPot.vala:55
 msgid "Video file…"
