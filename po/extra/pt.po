@@ -156,7 +156,7 @@ msgstr "Alteração do símbolo da progresso da execução."
 
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:80
 msgid "Save last audio selected."
-msgstr "Gravar o último ficheiro de áudio selecionado."
+msgstr "Guardar o último ficheiro de áudio selecionado."
 
 #: data/com.github.torikulhabib.mindi.appdata.xml.in:81
 msgid "Remove unfinished file."
