@@ -159,15 +159,6 @@ namespace Mindi {
             close_button.clicked.connect (() => {
                 signal_close ();
             });
-
-            Timeout.add (50,() => {
-                folder_symbol ();
-                if (MindiApp.settings.get_boolean ("stream-mode")) {
-                    stream_stack.visible_child_name = "stream";
-                }
-                return false;
-            });
-
             light_dark = LightDark.instance;
             notifysilent = NotifySilent.instance;
             streampc = StreamPc.instance;
@@ -253,6 +244,10 @@ namespace Mindi {
                 }
                 return false;
             });
+            folder_symbol ();
+            if (MindiApp.settings.get_boolean ("stream-mode")) {
+                stream_stack.visible_child_name = "stream";
+            }
         }
 
         public void signal_close () {
