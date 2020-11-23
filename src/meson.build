@@ -2,6 +2,7 @@ sources = files(
     'Application.vala',
     'Window.vala',
     'Settings.vala',
+    'SettingsDconf.vala',
     'Utils/TimeUtil.vala',
     'Utils/StringUtil.vala',
     'Utils/StringPot.vala',

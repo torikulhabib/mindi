@@ -22,7 +22,6 @@ executable(
     sources,
     dependencies: [
         dependency('gio-unix-2.0', version: '>=2.20'),
-        dependency('granite'),
         dependency('gtk+-3.0'),
     ],
     install: true

@@ -26,7 +26,7 @@ namespace Mindi.Configs {
         CUSTOM = 1,
         ASK = 2
     }
-    public class Settings : Granite.Services.Settings {
+    public class Settings : Services.Settings {
         private static Settings? settings;
         public FolderMode folder_mode  { get; set; }
         private Settings () {

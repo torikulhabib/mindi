@@ -308,7 +308,7 @@ namespace Mindi {
             video_container.column_homogeneous = true;
 
             title_video = new Gtk.Label (Mindi.StringPot.Offline);
-            title_video.get_style_context ().add_class (Granite.STYLE_CLASS_H2_LABEL);
+            title_video.get_style_context ().add_class ("h2");
             title_video.hexpand = true;
             video_container.attach (title_video, 0, 0, 1, 1);
 
@@ -336,7 +336,7 @@ namespace Mindi {
             stream_container.column_homogeneous = true;
 
             var title_stream = new Gtk.Label (Mindi.StringPot.Online);
-            title_stream.get_style_context ().add_class (Granite.STYLE_CLASS_H2_LABEL);
+            title_stream.get_style_context ().add_class ("h2");
             title_stream.hexpand = true;
             stream_container.attach (title_stream, 0, 0, 1, 1);
 
@@ -564,7 +564,7 @@ namespace Mindi {
             format_container.sensitive = false;
 
             var title = new Gtk.Label (Mindi.StringPot.Audio);
-            title.get_style_context ().add_class (Granite.STYLE_CLASS_H2_LABEL);
+            title.get_style_context ().add_class ("h2");
             title.hexpand = true;
             format_container.attach (title, 0, 0, 1, 1);
 
@@ -610,7 +610,7 @@ namespace Mindi {
             changed_container.column_homogeneous = true;
 
             var title = new Gtk.Label (Mindi.StringPot.Link);
-            title.get_style_context ().add_class (Granite.STYLE_CLASS_H2_LABEL);
+            title.get_style_context ().add_class ("h2");
             title.hexpand = true;
             changed_container.attach (title, 0, 0, 1, 1);
 
