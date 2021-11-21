@@ -173,13 +173,34 @@ namespace Mindi {
 		        spawn_args = {"youtube-dl", "--socket-timeout", "30", "-o", "%(title)s.%(ext)s" , uri};
 		    }
             try {
-                    SubprocessLauncher launcher = new SubprocessLauncher (SubprocessFlags.STDOUT_PIPE);
+                    SubprocessLauncher launcher = new SubprocessLauncher (SubprocessFlags.STDERR_PIPE | SubprocessFlags.STDOUT_PIPE);
                     launcher.set_cwd (Mindi.Utils.cache_folder ());
                     launcher.set_environ (spawn_env);
                     subprocess = launcher.spawnv (spawn_args);
-                    InputStream input_stream    = subprocess.get_stdout_pipe ();
+                    InputStream input_streamerr = subprocess.get_stderr_pipe ();
+                    InputStream input_streamout = subprocess.get_stdout_pipe ();
 
-                    convert_async.begin (input_stream, (obj, async_res) => {
+                    convert_async.begin (input_streamerr, (obj, async_res) => {
+                        try {
+                            if (subprocess.wait_check ()) {
+                                subprocess.get_successful ();
+                                Timeout.add_seconds (1,() => {
+                                    remove_part.begin ();
+                                    return false;
+                                });
+                            }
+                        } catch (Error e) {
+                                GLib.warning (e.message);
+                                finished (false);
+                                progress_bar.set_fraction (0);
+                                mindi_desktop (0, 0);
+                                Timeout.add_seconds (1,() => {
+                                    Source.remove (timer);
+                                    return false;
+                                });
+                        }
+                    });
+                    convert_async.begin (input_streamout, (obj, async_res) => {
                         try {
                             if (subprocess.wait_check ()) {
                                 subprocess.get_successful ();

@@ -64,13 +64,27 @@ namespace Mindi {
 		        spawn_args = {"youtube-dl", "--socket-timeout", "2", "-f", "251", "--skip-download", "-o", "%(title)s.%(ext)s", uri};
 		        }
             try {
-                    SubprocessLauncher launcher = new SubprocessLauncher (SubprocessFlags.STDERR_PIPE);
+                    SubprocessLauncher launcher = new SubprocessLauncher (SubprocessFlags.STDERR_PIPE | SubprocessFlags.STDOUT_PIPE);
                     launcher.set_cwd (Mindi.Utils.cache_folder ());
                     launcher.set_environ (spawn_env);
                     subprocess = launcher.spawnv (spawn_args);
-                    InputStream input_stream    = subprocess.get_stderr_pipe ();
+                    InputStream input_streamerr = subprocess.get_stderr_pipe ();
+                    InputStream input_streamout = subprocess.get_stdout_pipe ();
 
-                    convert_async.begin (input_stream, (obj, async_res) => {
+                    convert_async.begin (input_streamerr, (obj, async_res) => {
+                        try {
+                            if (subprocess.wait_check ()) {
+                                subprocess.get_successful ();
+                                finished (true);
+                                status = Mindi.StringPot.Starting;
+                                notif ();
+                            }
+                        } catch (Error e) {
+                            GLib.warning (e.message);
+                            notif ();
+                        }
+                    });
+                    convert_async.begin (input_streamout, (obj, async_res) => {
                         try {
                             if (subprocess.wait_check ()) {
                                 subprocess.get_successful ();
