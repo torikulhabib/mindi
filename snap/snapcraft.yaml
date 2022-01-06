@@ -84,6 +84,7 @@ apps:
   mindi:
     command: desktop-launch $SNAP/usr/bin/com.github.torikulhabib.mindi
     desktop: usr/share/applications/com.github.torikulhabib.mindi.desktop
+    extensions: [gnome-3-28]
     plugs:
       - desktop
       - desktop-legacy
