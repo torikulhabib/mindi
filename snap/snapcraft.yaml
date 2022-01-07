@@ -91,6 +91,7 @@ apps:
       - opengl
       - x11
       - network
+      - unity7
       - home
     environment:
       GSETTINGS_SCHEMA_DIR: $SNAP/share/glib-2.0/schemas
